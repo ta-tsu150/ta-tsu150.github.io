@@ -37,12 +37,15 @@ layout: default
 
 <section class="section">
   <h2 class="section-title">Recent Posts</h2>
-  <ul class="post-list">
+  <div class="git-log">
+    <div class="git-log-cmd">$ git log --oneline --graph</div>
     {% for post in site.posts limit:5 %}
-    <a href="{{ post.url | relative_url }}" class="post-item">
-      <div class="post-item-date">{{ post.date | date: "%Y-%m-%d" }}</div>
-      <div class="post-item-title">{{ post.title }}</div>
+    <a href="{{ post.url | relative_url }}" class="git-log-entry">
+      <span class="git-graph">{% if forloop.last %}└{% else %}├{% endif %}─</span>
+      <span class="git-hash">{{ post.date | date: "%y%m%d" }}</span>
+      <span class="git-date">{{ post.date | date: "%Y-%m-%d" }}</span>
+      <span class="git-msg">{{ post.title }}</span>
     </a>
     {% endfor %}
-  </ul>
+  </div>
 </section>

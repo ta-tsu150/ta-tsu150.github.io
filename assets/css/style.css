@@ -332,6 +332,63 @@ body {
   color: var(--accent);
 }
 
+/* --- Git Log Style Posts --- */
+.git-log {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  box-shadow: var(--glow);
+}
+
+.git-log-cmd {
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  font-size: 0.85rem;
+}
+
+.git-log-entry {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 6px 8px;
+  margin: 0 -8px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background var(--transition);
+  line-height: 1.8;
+}
+.git-log-entry:hover {
+  background: var(--bg-hover);
+}
+
+.git-graph {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.git-hash {
+  color: var(--accent-purple);
+  flex-shrink: 0;
+  font-size: 0.85rem;
+}
+
+.git-date {
+  color: var(--text-muted);
+  flex-shrink: 0;
+  font-size: 0.8rem;
+}
+
+.git-msg {
+  color: var(--text-primary);
+  transition: color var(--transition);
+}
+.git-log-entry:hover .git-msg {
+  color: var(--accent);
+}
+
 /* ========================================
    BLOG POST (single)
    ======================================== */
