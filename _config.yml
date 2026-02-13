@@ -1,5 +1,4 @@
-title: "サイト名"
-description: "一言自己紹介"
-theme: jekyll-theme-cayman
+title: "ta-tsu150"
+description: "Cloud Infra / DevOps / LLM"
 plugins:
   - jekyll-feed

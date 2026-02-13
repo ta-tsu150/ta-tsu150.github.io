@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "はじめての投稿てすと"
 ---
 
