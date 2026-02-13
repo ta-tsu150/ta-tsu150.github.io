@@ -1,0 +1,5 @@
+title: "サイト名"
+description: "一言自己紹介"
+theme: jekyll-theme-cayman
+plugins:
+  - jekyll-feed
