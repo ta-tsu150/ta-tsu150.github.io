@@ -10,7 +10,7 @@ layout: default
   <div class="hero-terminal">
     <span class="line"><span class="key">role</span>: <span class="value">Full-Stack Engineer (Frontend / Backend / Infra)</span></span>
     <span class="line"><span class="key">stack</span>: <span class="value">AWS, React, Expo, Node.js, Docker</span></span>
-    <span class="line"><span class="key">interests</span>: <span class="value">LLM活用, Security, DX改善</span></span>
+    <span class="line"><span class="key">interests</span>: <span class="value">AI活用</span></span>
     <span class="line"><span class="cursor"></span></span>
   </div>
 </section>
