@@ -365,18 +365,19 @@ body {
 }
 
 .git-graph {
-  color: var(--accent);
+  color: #f85149;
   flex-shrink: 0;
 }
 
 .git-hash {
-  color: var(--accent-purple);
+  color: #f0c000;
   flex-shrink: 0;
   font-size: 0.85rem;
+  font-weight: 700;
 }
 
 .git-date {
-  color: var(--text-muted);
+  color: var(--accent);
   flex-shrink: 0;
   font-size: 0.8rem;
 }
@@ -386,7 +387,7 @@ body {
   transition: color var(--transition);
 }
 .git-log-entry:hover .git-msg {
-  color: var(--accent);
+  color: var(--accent-blue);
 }
 
 /* ========================================
