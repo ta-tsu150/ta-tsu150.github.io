@@ -2,43 +2,41 @@
 layout: default
 ---
 
-# てすと
+<section class="hero">
+  <p class="hero-greeting">$ whoami</p>
+  <h1 class="hero-name">ta-tsu150</h1>
+  <p class="hero-tagline">Cloud Infrastructure / DevOps / Platform Engineering</p>
 
-てすと
+  <div class="hero-terminal">
+    <span class="line"><span class="key">role</span>: <span class="value">クラウド基盤 / 開発基盤</span></span>
+    <span class="line"><span class="key">stack</span>: <span class="value">AWS, Kubernetes, Terraform</span></span>
+    <span class="line"><span class="key">interests</span>: <span class="value">LLM活用, Observability, Security</span></span>
+    <span class="line"><span class="cursor"></span></span>
+  </div>
+</section>
 
-ふぁーすとてすとぷっしゅ
+<section class="section">
+  <h2 class="section-title">Skills</h2>
+  <div class="skill-grid">
+    <span class="skill-tag">AWS</span>
+    <span class="skill-tag">Kubernetes</span>
+    <span class="skill-tag">Terraform</span>
+    <span class="skill-tag">Docker</span>
+    <span class="skill-tag">CI/CD</span>
+    <span class="skill-tag">Observability</span>
+    <span class="skill-tag">LLM</span>
+    <span class="skill-tag">Security</span>
+  </div>
+</section>
 
----
-
-## Navigation
-- 🏠 Home: /
-- 📝 Blog一覧: /blog.html
-- 📬 GitHub: https://github.com/ta-tsu150
-
----
-
-## Links
-- GitHub: https://github.com/ta-tsu150
-
----
-
-## About
-- 仕事: クラウド基盤 / 開発基盤
-- 技術: AWS / Kubernetes / Terraform
-- 興味: LLM活用 / Observability / Security
-
----
-
-## Blog
-ブログ一覧 → /blog.html
-
----
-
-## 最近の投稿
-
-{% for post in site.posts limit:3 %}
-- {{ post.date | date: "%Y-%m-%d" }}  
-  [{{ post.title }}]({{ post.url }})
-{% endfor %}
-
-→ すべて見る: /blog.html
+<section class="section">
+  <h2 class="section-title">Recent Posts</h2>
+  <ul class="post-list">
+    {% for post in site.posts limit:5 %}
+    <a href="{{ post.url | relative_url }}" class="post-item">
+      <div class="post-item-date">{{ post.date | date: "%Y-%m-%d" }}</div>
+      <div class="post-item-title">{{ post.title }}</div>
+    </a>
+    {% endfor %}
+  </ul>
+</section>
