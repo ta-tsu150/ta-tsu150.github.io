@@ -10,6 +10,13 @@ layout: default
 
 ---
 
+## Navigation
+- 🏠 Home: /
+- 📝 Blog一覧: /blog.html
+- 📬 GitHub: https://github.com/ta-tsu150
+
+---
+
 ## Links
 - GitHub: https://github.com/ta-tsu150
 
@@ -24,3 +31,14 @@ layout: default
 
 ## Blog
 ブログ一覧 → /blog.html
+
+---
+
+## 最近の投稿
+
+{% for post in site.posts limit:3 %}
+- {{ post.date | date: "%Y-%m-%d" }}  
+  [{{ post.title }}]({{ post.url }})
+{% endfor %}
+
+→ すべて見る: /blog.html
