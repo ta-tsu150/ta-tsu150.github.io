@@ -1,0 +1,9 @@
+.env
+.env.*
+!.env.example
+
+/tools/
+.claude
+/claude/
+/.github/
+/Docs/
