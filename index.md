@@ -36,7 +36,7 @@ layout: default
 </section>
 
 <section class="section">
-  <h2 class="section-title">Recent Posts</h2>
+  <h2 class="section-title">Trajectory</h2>
   <div class="git-log">
     <div class="git-log-cmd">$ git log --oneline --graph</div>
     {% for post in site.posts limit:5 %}
