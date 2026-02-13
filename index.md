@@ -4,7 +4,7 @@ layout: default
 
 <section class="hero">
   <p class="hero-greeting">$ whoami</p>
-  <h1 class="hero-name">ta-tsu150</h1>
+  <h1 class="hero-name">Tatsuya Ichino</h1>
   <p class="hero-tagline">Cloud Infrastructure / DevOps / Platform Engineering</p>
 
   <div class="hero-terminal">
