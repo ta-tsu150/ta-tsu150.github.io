@@ -50,21 +50,9 @@
         }, 1000);
       }
 
-      function showImmediate() {
-        document.getElementById('bootOverlay').style.display = 'none';
-        document.querySelector('.hero-greeting').style.width = '8ch';
-        document.querySelector('.hero-greeting').style.borderRight = 'none';
-        ['.hero-name','.hero-tagline','.hero-terminal','.section:nth-child(2)','.section:nth-child(3)'].forEach(function(sel) {
-          var el = document.querySelector(sel);
-          if (el) el.classList.add('show');
-        });
-        var hero = document.querySelector('.hero');
-        if (hero) hero.classList.add('show-border');
-      }
-
       if (booted) {
         document.getElementById('bootOverlay').style.display = 'none';
-        document.addEventListener('DOMContentLoaded', showImmediate);
+        document.addEventListener('DOMContentLoaded', revealContent);
       } else {
         var CHAR_MS = 20;
         var GAP_MS = 80;
