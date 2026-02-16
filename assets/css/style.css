@@ -171,7 +171,8 @@ body {
 .hero-greeting.animate {
   animation:
     typing 0.6s steps(8) forwards,
-    blink-caret 0.5s step-end 2;
+    blink-caret 0.5s step-end 2,
+    hide-caret 0.1s forwards 0.7s;
 }
 
 .hero-name {
@@ -561,7 +562,8 @@ body {
 .about-greeting.animate {
   animation:
     about-typing 1s steps(14) forwards,
-    blink-caret 0.5s step-end 2;
+    blink-caret 0.5s step-end 2,
+    hide-caret 0.1s forwards 1.2s;
 }
 @keyframes about-typing {
   from { width: 0; }
@@ -717,6 +719,9 @@ body {
 
 @keyframes blink-caret {
   50% { border-color: transparent; }
+}
+@keyframes hide-caret {
+  to { border-right-color: transparent; }
 }
 
 @keyframes terminalPrint {
