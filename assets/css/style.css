@@ -567,8 +567,8 @@ body {
   z-index: 9999;
   background: var(--bg-primary);
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .boot-screen {
@@ -576,6 +576,7 @@ body {
   font-size: 0.9rem;
   color: var(--text-secondary);
   line-height: 2.2;
+  padding: 2rem;
 }
 
 .boot-line {
