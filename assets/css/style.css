@@ -163,9 +163,11 @@ body {
   white-space: nowrap;
   width: 0;
   border-right: 2px solid var(--accent);
+}
+.hero-greeting.animate {
   animation:
-    typing 0.6s steps(8) 4.6s forwards,
-    blink-caret 0.5s step-end 4.6s 2;
+    typing 0.6s steps(8) forwards,
+    blink-caret 0.5s step-end 2;
 }
 
 .hero-name {
@@ -174,7 +176,6 @@ body {
   color: var(--text-primary);
   margin-bottom: 12px;
   opacity: 0;
-  animation: terminalPrint 0.05s ease 5.4s forwards;
 }
 
 .hero-tagline {
@@ -182,7 +183,6 @@ body {
   color: var(--text-secondary);
   margin-bottom: 24px;
   opacity: 0;
-  animation: terminalPrint 0.05s ease 5.45s forwards;
 }
 
 .hero-terminal {
@@ -194,9 +194,10 @@ body {
   font-size: 0.9rem;
   line-height: 2;
   opacity: 0;
-  animation: terminalPrint 0.05s ease 5.55s forwards;
   box-shadow: var(--glow);
 }
+
+.show { opacity: 1 !important; }
 
 .hero-terminal .line {
   display: block;
@@ -223,13 +224,6 @@ body {
 .section {
   margin-bottom: 50px;
   opacity: 0;
-  animation: terminalPrint 0.05s ease forwards;
-}
-.section:nth-child(2) {
-  animation-delay: 5.8s;
-}
-.section:nth-child(3) {
-  animation-delay: 6.1s;
 }
 
 .section-title {
@@ -575,7 +569,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: bootFadeOut 0.4s ease 4.2s forwards;
+  transition: opacity 0.4s ease;
+}
+.boot-overlay.boot-fade {
+  opacity: 0;
 }
 
 .boot-screen {
@@ -586,19 +583,13 @@ body {
 }
 
 .boot-line {
-  opacity: 0;
   white-space: nowrap;
 }
-
-.boot-1 { animation: terminalPrint 0.01s ease 0.2s forwards; }
-.boot-2 { animation: terminalPrint 0.01s ease 0.6s forwards; }
-.boot-3 { animation: terminalPrint 0.01s ease 1.0s forwards; }
-.boot-4 { animation: terminalPrint 0.01s ease 1.2s forwards; }
-.boot-5 { animation: terminalPrint 0.01s ease 3.8s forwards; }
 
 .boot-ok {
   color: var(--accent);
   font-weight: 700;
+  transition: opacity 0.05s;
 }
 
 .boot-cursor {
@@ -607,9 +598,10 @@ body {
 
 /* --- Progress Bar --- */
 .boot-progress-line {
-  display: flex;
   align-items: center;
   gap: 0;
+  line-height: 2.2;
+  white-space: nowrap;
 }
 
 .boot-progress-track {
@@ -619,6 +611,7 @@ body {
   background: var(--bg-hover);
   border-radius: 2px;
   overflow: hidden;
+  vertical-align: middle;
 }
 
 .boot-progress-bar {
@@ -627,28 +620,11 @@ body {
   width: 0%;
   background: var(--accent);
   border-radius: 2px;
-  animation: progressFill 2.5s ease-in-out 1.2s forwards;
 }
 
 .boot-progress-pct {
   color: var(--accent);
   font-weight: 700;
-}
-
-@keyframes progressFill {
-  0%   { width: 0%;   }
-  15%  { width: 20%;  }
-  40%  { width: 45%;  }
-  60%  { width: 70%;  }
-  80%  { width: 88%;  }
-  100% { width: 100%; }
-}
-
-@keyframes bootFadeOut {
-  to {
-    opacity: 0;
-    visibility: hidden;
-  }
 }
 
 /* ========================================
