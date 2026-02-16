@@ -26,93 +26,7 @@
   </div>
   <script>
     (function() {
-      var CHAR_MS = 20;
-      var GAP_MS = 80;
-      var BAR_MS = 2500;
-      var seq = [
-        { text: '> initializing system...' },
-        { text: '> loading modules... ', ok: true },
-        { text: '> establishing connection... ', ok: true }
-      ];
-      var container = document.getElementById('bootLines');
-      var lineIdx = 0, charIdx = 0, curEl = null, okEl = null;
-
-      function createLine() {
-        var p = document.createElement('p');
-        p.className = 'boot-line';
-        curEl = document.createElement('span');
-        p.appendChild(curEl);
-        if (seq[lineIdx].ok) {
-          okEl = document.createElement('span');
-          okEl.className = 'boot-ok';
-          okEl.textContent = '[OK]';
-          okEl.style.opacity = '0';
-          p.appendChild(okEl);
-        } else { okEl = null; }
-        container.appendChild(p);
-        charIdx = 0;
-      }
-
-      function typeChar() {
-        var line = seq[lineIdx];
-        if (charIdx < line.text.length) {
-          curEl.textContent = line.text.substring(0, charIdx + 1);
-          charIdx++;
-          setTimeout(typeChar, CHAR_MS);
-        } else {
-          if (okEl) okEl.style.opacity = '1';
-          lineIdx++;
-          if (lineIdx < seq.length) {
-            setTimeout(function() { createLine(); typeChar(); }, GAP_MS);
-          } else {
-            setTimeout(startBar, GAP_MS);
-          }
-        }
-      }
-
-      function startBar() {
-        var progLine = document.getElementById('bootProgressLine');
-        var bar = document.getElementById('bootBar');
-        var pct = document.getElementById('bootPct');
-        progLine.style.display = 'flex';
-        var start = null;
-        function step(ts) {
-          if (!start) start = ts;
-          var p = Math.min((ts - start) / BAR_MS, 1);
-          var e = p < 0.5 ? 2*p*p : 1 - Math.pow(-2*p+2, 2)/2;
-          bar.style.width = (e * 100) + '%';
-          pct.textContent = Math.floor(e * 100);
-          if (p < 1) { requestAnimationFrame(step); }
-          else { setTimeout(showReady, 100); }
-        }
-        requestAnimationFrame(step);
-      }
-
-      function showReady() {
-        document.getElementById('bootReady').style.display = 'block';
-        setTimeout(typeClear, 400);
-      }
-
-      function typeClear() {
-        var clearLine = document.getElementById('bootClear');
-        var clearText = document.getElementById('bootClearText');
-        var cmd = 'clear';
-        var i = 0;
-        clearLine.style.display = 'block';
-        function tick() {
-          if (i < cmd.length) {
-            clearText.textContent = cmd.substring(0, i + 1);
-            i++;
-            setTimeout(tick, CHAR_MS);
-          } else {
-            setTimeout(function() {
-              document.getElementById('bootOverlay').style.display = 'none';
-              revealContent();
-            }, 200);
-          }
-        }
-        tick();
-      }
+      var booted = sessionStorage.getItem('booted');
 
       function revealContent() {
         var g = document.querySelector('.hero-greeting');
@@ -136,7 +50,112 @@
         }, 1000);
       }
 
-      setTimeout(function() { createLine(); typeChar(); }, 200);
+      function showImmediate() {
+        document.getElementById('bootOverlay').style.display = 'none';
+        document.querySelector('.hero-greeting').style.width = '8ch';
+        document.querySelector('.hero-greeting').style.borderRight = 'none';
+        ['.hero-name','.hero-tagline','.hero-terminal','.section:nth-child(2)','.section:nth-child(3)'].forEach(function(sel) {
+          var el = document.querySelector(sel);
+          if (el) el.classList.add('show');
+        });
+        var hero = document.querySelector('.hero');
+        if (hero) hero.classList.add('show-border');
+      }
+
+      if (booted) {
+        showImmediate();
+      } else {
+        var CHAR_MS = 20;
+        var GAP_MS = 80;
+        var BAR_MS = 2500;
+        var seq = [
+          { text: '> initializing system...' },
+          { text: '> loading modules... ', ok: true },
+          { text: '> establishing connection... ', ok: true }
+        ];
+        var container = document.getElementById('bootLines');
+        var lineIdx = 0, charIdx = 0, curEl = null, okEl = null;
+
+        function createLine() {
+          var p = document.createElement('p');
+          p.className = 'boot-line';
+          curEl = document.createElement('span');
+          p.appendChild(curEl);
+          if (seq[lineIdx].ok) {
+            okEl = document.createElement('span');
+            okEl.className = 'boot-ok';
+            okEl.textContent = '[OK]';
+            okEl.style.opacity = '0';
+            p.appendChild(okEl);
+          } else { okEl = null; }
+          container.appendChild(p);
+          charIdx = 0;
+        }
+
+        function typeChar() {
+          var line = seq[lineIdx];
+          if (charIdx < line.text.length) {
+            curEl.textContent = line.text.substring(0, charIdx + 1);
+            charIdx++;
+            setTimeout(typeChar, CHAR_MS);
+          } else {
+            if (okEl) okEl.style.opacity = '1';
+            lineIdx++;
+            if (lineIdx < seq.length) {
+              setTimeout(function() { createLine(); typeChar(); }, GAP_MS);
+            } else {
+              setTimeout(startBar, GAP_MS);
+            }
+          }
+        }
+
+        function startBar() {
+          var progLine = document.getElementById('bootProgressLine');
+          var bar = document.getElementById('bootBar');
+          var pct = document.getElementById('bootPct');
+          progLine.style.display = 'flex';
+          var start = null;
+          function step(ts) {
+            if (!start) start = ts;
+            var p = Math.min((ts - start) / BAR_MS, 1);
+            var e = p < 0.5 ? 2*p*p : 1 - Math.pow(-2*p+2, 2)/2;
+            bar.style.width = (e * 100) + '%';
+            pct.textContent = Math.floor(e * 100);
+            if (p < 1) { requestAnimationFrame(step); }
+            else { setTimeout(showReady, 100); }
+          }
+          requestAnimationFrame(step);
+        }
+
+        function showReady() {
+          document.getElementById('bootReady').style.display = 'block';
+          setTimeout(typeClear, 400);
+        }
+
+        function typeClear() {
+          var clearLine = document.getElementById('bootClear');
+          var clearText = document.getElementById('bootClearText');
+          var cmd = 'clear';
+          var i = 0;
+          clearLine.style.display = 'block';
+          function tick() {
+            if (i < cmd.length) {
+              clearText.textContent = cmd.substring(0, i + 1);
+              i++;
+              setTimeout(tick, CHAR_MS);
+            } else {
+              setTimeout(function() {
+                document.getElementById('bootOverlay').style.display = 'none';
+                sessionStorage.setItem('booted', '1');
+                revealContent();
+              }, 200);
+            }
+          }
+          tick();
+        }
+
+        setTimeout(function() { createLine(); typeChar(); }, 200);
+      }
     })();
   </script>
   {% endif %}
