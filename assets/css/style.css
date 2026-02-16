@@ -548,17 +548,30 @@ body {
 }
 
 /* --- About Page Typing Animation --- */
+.about-greeting {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+  border-right: 2px solid var(--accent);
+}
+.about-greeting.animate {
+  animation:
+    about-typing 1s steps(14) forwards,
+    blink-caret 0.5s step-end 2;
+}
+@keyframes about-typing {
+  from { width: 0; }
+  to { width: 14ch; }
+}
 .about-hidden {
   opacity: 0;
   transition: opacity 0.4s ease;
 }
 .about-hidden.show {
   opacity: 1;
-}
-.typing-cursor {
-  color: var(--accent);
-  font-weight: 700;
-  animation: blink 0.6s step-end infinite;
 }
 
 .back-link {
