@@ -550,8 +550,8 @@ body {
 /* --- About Page Typing Animation --- */
 .about-greeting {
   font-family: var(--font-mono);
-  font-size: 0.85rem;
-  color: var(--text-muted);
+  font-size: 1rem;
+  color: var(--accent);
   overflow: hidden;
   white-space: nowrap;
   width: 0;
@@ -568,10 +568,6 @@ body {
 }
 .about-hidden {
   opacity: 0;
-  transition: opacity 0.4s ease;
-}
-.about-hidden.show {
-  opacity: 1;
 }
 
 .back-link {
