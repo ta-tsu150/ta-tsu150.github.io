@@ -19,14 +19,17 @@
       <p class="boot-line boot-1">> initializing system...</p>
       <p class="boot-line boot-2">> loading modules... <span class="boot-ok">[OK]</span></p>
       <p class="boot-line boot-3">> establishing connection... <span class="boot-ok">[OK]</span></p>
-      <p class="boot-line boot-4">> ready.<span class="boot-cursor">_</span></p>
+      <div class="boot-line boot-4 boot-progress-line">
+        <span>> loading profile [</span><span class="boot-progress-track"><span class="boot-progress-bar"></span></span><span>] <span class="boot-progress-pct">100</span>%</span>
+      </div>
+      <p class="boot-line boot-5">> <span class="boot-ok">ready.</span><span class="boot-cursor">_</span></p>
     </div>
   </div>
   <script>
     setTimeout(function() {
       var el = document.getElementById('bootOverlay');
       if (el) el.style.display = 'none';
-    }, 2800);
+    }, 3400);
   </script>
   {% endif %}
 
