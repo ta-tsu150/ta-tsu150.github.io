@@ -4,14 +4,14 @@ title: About
 ---
 
 <article class="post">
-  <header class="post-header">
-    <h1 class="post-title">About</h1>
-    <div class="post-meta">
-      <span class="prompt">$</span> cat about.md
-    </div>
-  </header>
+<header class="post-header">
+<h1 class="post-title">About</h1>
+<div class="post-meta">
+<span class="prompt">$</span> cat about.md
+</div>
+</header>
 
-  <div class="post-content" markdown="1">
+<div class="post-content" markdown="1">
 
 ## Profile
 
@@ -31,11 +31,11 @@ title: About
 
 - [GitHub](https://github.com/ta-tsu150)
 
-  </div>
+</div>
 
-  <footer class="post-footer">
-    <a href="{{ '/' | relative_url }}" class="back-link">
-      <span class="prompt">$</span> cd ../ && clear<span class="cursor"></span>
-    </a>
-  </footer>
+<footer class="post-footer">
+<a href="{{ '/' | relative_url }}" class="back-link">
+<span class="prompt">$</span> cd ../ && clear<span class="cursor"></span>
+</a>
+</footer>
 </article>
