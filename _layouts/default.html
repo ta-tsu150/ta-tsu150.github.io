@@ -90,12 +90,9 @@
       function showReady() {
         document.getElementById('bootReady').style.display = 'block';
         setTimeout(function() {
-          document.getElementById('bootOverlay').classList.add('boot-fade');
-        }, 400);
-        setTimeout(function() {
           document.getElementById('bootOverlay').style.display = 'none';
           revealContent();
-        }, 900);
+        }, 500);
       }
 
       function revealContent() {
