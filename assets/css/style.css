@@ -432,6 +432,7 @@ body {
    ======================================== */
 .post {
   max-width: 760px;
+  padding-top: 40px;
 }
 
 .post-header {
