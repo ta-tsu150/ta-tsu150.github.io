@@ -11,7 +11,7 @@ layout: default
     <span class="line"><span class="key">role</span>: <span class="value">Full-Stack Engineer (Frontend / Backend / Infra)</span></span>
     <span class="line"><span class="key">stack</span>: <span class="value">TypeScript, AWS, Azure, Vue.js / Nuxt, React Native, NestJS, C# / .NET, Docker</span></span>
     <span class="line"><span class="key">interests</span>: <span class="value">AI活用</span></span>
-    <span class="line"><span class="cursor"></span></span>
+    <a href="{{ '/about' | relative_url }}" class="terminal-cmd"><span class="prompt">$</span> cat about.md<span class="cursor"></span></a>
   </div>
 </section>
 

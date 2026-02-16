@@ -158,6 +158,9 @@
         <a href="{{ '/' | relative_url }}" class="nav-link {% if page.url == '/' %}active{% endif %}">
           <span class="prompt">~</span> Home
         </a>
+        <a href="{{ '/about' | relative_url }}" class="nav-link {% if page.url == '/about' or page.url == '/about.html' %}active{% endif %}">
+          <span class="prompt">~</span> About
+        </a>
         <a href="https://github.com/ta-tsu150" class="nav-link" target="_blank" rel="noopener">
           <span class="prompt">~</span> GitHub
         </a>

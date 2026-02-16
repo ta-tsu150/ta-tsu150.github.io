@@ -224,6 +224,32 @@ body {
   animation: blink 1s step-end infinite;
 }
 
+.terminal-cmd {
+  display: block;
+  text-decoration: none;
+  color: var(--text-secondary);
+  transition: color var(--transition);
+  margin-top: 4px;
+}
+.terminal-cmd:hover {
+  color: var(--accent);
+}
+.terminal-cmd .prompt {
+  font-size: 0.9rem;
+}
+.terminal-cmd .cursor {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  margin-left: 4px;
+  background: var(--text-secondary);
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+}
+.terminal-cmd:hover .cursor {
+  background: var(--accent);
+}
+
 /* --- Section --- */
 .section {
   margin-bottom: 50px;
