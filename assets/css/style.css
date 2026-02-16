@@ -588,6 +588,11 @@ body {
   transition: opacity 0.05s;
 }
 
+.boot-prompt {
+  color: var(--accent);
+  font-weight: 700;
+}
+
 .boot-cursor {
   animation: blink 0.6s step-end infinite;
 }

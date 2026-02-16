@@ -20,7 +20,8 @@
       <div class="boot-progress-line" id="bootProgressLine" style="display:none">
         <span>> loading profile [</span><span class="boot-progress-track"><span class="boot-progress-bar" id="bootBar"></span></span><span>] <span id="bootPct">0</span>%</span>
       </div>
-      <p id="bootReady" style="display:none">> <span class="boot-ok">ready.</span><span class="boot-cursor">_</span></p>
+      <p id="bootReady" style="display:none">> <span class="boot-ok">ready.</span></p>
+      <p id="bootClear" style="display:none"><span class="boot-prompt">$</span> <span id="bootClearText"></span><span class="boot-cursor">_</span></p>
     </div>
   </div>
   <script>
@@ -89,10 +90,28 @@
 
       function showReady() {
         document.getElementById('bootReady').style.display = 'block';
-        setTimeout(function() {
-          document.getElementById('bootOverlay').style.display = 'none';
-          revealContent();
-        }, 500);
+        setTimeout(typeClear, 400);
+      }
+
+      function typeClear() {
+        var clearLine = document.getElementById('bootClear');
+        var clearText = document.getElementById('bootClearText');
+        var cmd = 'clear';
+        var i = 0;
+        clearLine.style.display = 'block';
+        function tick() {
+          if (i < cmd.length) {
+            clearText.textContent = cmd.substring(0, i + 1);
+            i++;
+            setTimeout(tick, CHAR_MS);
+          } else {
+            setTimeout(function() {
+              document.getElementById('bootOverlay').style.display = 'none';
+              revealContent();
+            }, 200);
+          }
+        }
+        tick();
       }
 
       function revealContent() {
