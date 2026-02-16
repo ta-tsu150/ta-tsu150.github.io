@@ -26,6 +26,9 @@ title: About
 #### name
 市野 達也 / Tatsuya Ichino
 
+#### birthplace
+三重県 川越町
+
 #### birthday
 2004/11/10
 
@@ -34,11 +37,8 @@ title: About
 #### weight
 75.2kg
 
-#### birthplace
-三重県 川越町
-
 #### favorite
-猫
+猫, 惰眠を貪ること
 
 #### hobby
 ウィスキー, タバコ, 麻雀, サバゲー, ゲーム(FPS全般, アークナイツ, ZZZ, etc...)
