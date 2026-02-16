@@ -5,7 +5,7 @@ title: "Mobile App Development with Expo / React Native"
 
 ## What I Did
 
-Expo / React Nativeを使用した新規モバイルアプリケーションプロジェクトを立ち上げ。HTMLで画面フローとワイヤーフレームを設計し、Figmaに移行してステークホルダーレビューを実施。その後、Web管理画面はNuxt/Vueコンポーネント、モバイルアプリはExpo/React Nativeに変換。Android Studioエミュレータとnpmツールチェーンを含む開発環境を構築した。
+Expo / React Nativeを使用した新規モバイルアプリケーションプロジェクトに参加。HTMLで画面フローとワイヤーフレームを設計し、Figmaに移行してステークホルダーレビューを実施。その後、Web管理画面はNuxt/Vueコンポーネント、モバイルアプリはExpo/React Nativeに変換。Android Studioエミュレータとnpmツールチェーンを含む開発環境を構築した。
 
 ## Architecture
 

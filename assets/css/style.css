@@ -150,8 +150,12 @@ body {
 /* --- Hero Section --- */
 .hero {
   padding: 40px 0 50px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid transparent;
   margin-bottom: 50px;
+  transition: border-color var(--transition);
+}
+.hero.show-border {
+  border-bottom-color: var(--border);
 }
 
 .hero-greeting {

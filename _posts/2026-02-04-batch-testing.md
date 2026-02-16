@@ -5,7 +5,7 @@ title: "Import Batch QA with AWS Step Functions"
 
 ## What I Did
 
-AWS Step Functionsで構築された患者データインポートバッチシステムの品質保証テストを実施。テスト仕様書を作成し、テスト実行環境を構築、単体・結合・シナリオテストを実行。重大なバリデーション欠陥を発見：Step FunctionsワークフローのPartitionerとFinalizerステップの間でLambda関数が呼び出されていなかったため、データフィールドの無効値やnull値がエラーなく受け入れられていた。
+AWS Step Functionsで構築されたデータインポートバッチシステムの品質保証テストを実施。テスト仕様書を作成し、テスト実行環境を構築、単体・結合・シナリオテストを実行。重大なバリデーション欠陥を発見：Step FunctionsワークフローのPartitionerとFinalizerステップの間でLambda関数が呼び出されていなかったため、データフィールドの無効値やnull値がエラーなく受け入れられていた。
 
 ## Issues Found
 

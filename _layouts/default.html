@@ -130,6 +130,10 @@
             if (el) el.classList.add('show');
           }, s.delay);
         });
+        setTimeout(function() {
+          var hero = document.querySelector('.hero');
+          if (hero) hero.classList.add('show-border');
+        }, 1000);
       }
 
       setTimeout(function() { createLine(); typeChar(); }, 200);

@@ -9,7 +9,7 @@ AWS CognitoのHosted UIとOAuth 2.0 Authorization Code Grantを使用した認�
 
 ## Problem
 
-Lambda-RDS間の接続が約2週間失敗し続けた。原因：PythonのPostgreSQLライブラリがLambdaランタイムで互換性の問題を抱えていた。Node.jsへの切り替えで解決。
+Lambda-RDS間の接続が長期間失敗し続けた。原因：PythonのPostgreSQLライブラリがLambdaランタイムで互換性の問題を抱えていた。Node.jsへの切り替えで解決。
 
 ## Architecture
 

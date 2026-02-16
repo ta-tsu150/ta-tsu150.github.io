@@ -5,7 +5,7 @@ title: "Full-Stack Household Budget Web App"
 
 ## What I Did
 
-フルスタックの家計簿Webアプリケーションを開発。C#バックエンドでREST APIを実装し、JavaScriptフロントエンドではChart.jsによるデータ可視化を構築。カレンダーコンポーネント、ソート・フィルタリング機能、収支のCRUD操作を実装した。
+研修の一環として、フルスタックの家計簿Webアプリケーションを開発。C#バックエンドでREST APIを実装し、JavaScriptフロントエンドではChart.jsによるデータ可視化を構築。カレンダーコンポーネント、ソート・フィルタリング機能、収支のCRUD操作を実装した。
 
 ## Architecture
 
