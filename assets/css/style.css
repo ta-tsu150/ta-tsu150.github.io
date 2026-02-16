@@ -569,6 +569,35 @@ body {
   from { width: 0; }
   to { width: 14ch; }
 }
+.about-terminal {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  margin-bottom: 40px;
+  box-shadow: var(--glow);
+  opacity: 0;
+}
+.slideshow {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: calc(var(--radius) - 4px);
+}
+.slideshow .slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+.slideshow .slide.active {
+  opacity: 1;
+}
 .about-hidden {
   opacity: 0;
 }

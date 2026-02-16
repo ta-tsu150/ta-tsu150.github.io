@@ -12,6 +12,14 @@ title: About
 <h1 class="post-title">About</h1>
 </header>
 
+<div class="about-terminal about-hidden" id="aboutSlideshow">
+<div class="slideshow">
+<img src="{{ '/assets/images/slide1.png' | relative_url }}" class="slide active" alt="slide 1">
+<img src="{{ '/assets/images/slide2.png' | relative_url }}" class="slide" alt="slide 2">
+<img src="{{ '/assets/images/slide3.png' | relative_url }}" class="slide" alt="slide 3">
+</div>
+</div>
+
 <div class="post-content about-hidden" id="aboutContent" markdown="1">
 
 ## Profile
@@ -89,10 +97,23 @@ IPAの基本/応用情報技術者をはじめとする複数の資格も取得
     document.getElementById('aboutHeader').classList.add('show');
   }, 1200);
   setTimeout(function() {
+    document.getElementById('aboutSlideshow').classList.add('show');
+  }, 1350);
+  setTimeout(function() {
     document.getElementById('aboutContent').classList.add('show');
-  }, 1300);
+  }, 1500);
   setTimeout(function() {
     document.getElementById('aboutFooter').classList.add('show');
-  }, 1600);
+  }, 1800);
+
+  var slides = document.querySelectorAll('.slideshow .slide');
+  if (slides.length > 1) {
+    var current = 0;
+    setInterval(function() {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }, 4000);
+  }
 })();
 </script>
