@@ -13,6 +13,23 @@
 </head>
 <body>
 
+  {% if page.url == '/' %}
+  <div class="boot-overlay" id="bootOverlay">
+    <div class="boot-screen">
+      <p class="boot-line boot-1">> initializing system...</p>
+      <p class="boot-line boot-2">> loading modules... <span class="boot-ok">[OK]</span></p>
+      <p class="boot-line boot-3">> establishing connection... <span class="boot-ok">[OK]</span></p>
+      <p class="boot-line boot-4">> ready.<span class="boot-cursor">_</span></p>
+    </div>
+  </div>
+  <script>
+    setTimeout(function() {
+      var el = document.getElementById('bootOverlay');
+      if (el) el.style.display = 'none';
+    }, 2800);
+  </script>
+  {% endif %}
+
   <nav class="navbar">
     <div class="nav-inner">
       <a href="{{ '/' | relative_url }}" class="nav-logo">
