@@ -9,16 +9,15 @@ title: About
 </div>
 
 <header class="post-header about-hidden" id="aboutHeader">
-<h1 class="post-title">About</h1>
+  <h1 class="post-title">About</h1>
+  <div class="about-terminal about-hidden" id="aboutSlideshow">
+      <div class="slideshow">
+      <img src="{{ '/assets/images/slide1.png' | relative_url }}" class="slide active" alt="slide 1">
+      <img src="{{ '/assets/images/slide2.png' | relative_url }}" class="slide" alt="slide 2">
+      <img src="{{ '/assets/images/slide3.png' | relative_url }}" class="slide" alt="slide 3">
+    </div>
+  </div>
 </header>
-
-<div class="about-terminal about-hidden" id="aboutSlideshow">
-<div class="slideshow">
-<img src="{{ '/assets/images/slide1.png' | relative_url }}" class="slide active" alt="slide 1">
-<img src="{{ '/assets/images/slide2.png' | relative_url }}" class="slide" alt="slide 2">
-<img src="{{ '/assets/images/slide3.png' | relative_url }}" class="slide" alt="slide 3">
-</div>
-</div>
 
 <div class="post-content about-hidden" id="aboutContent" markdown="1">
 
@@ -36,7 +35,7 @@ title: About
 75.2kg
 
 #### birthplace
-三重県
+三重県 川越町
 
 #### favorite
 猫
