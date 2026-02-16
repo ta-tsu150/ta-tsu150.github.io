@@ -20,16 +20,34 @@
       <p class="boot-line boot-2">> loading modules... <span class="boot-ok">[OK]</span></p>
       <p class="boot-line boot-3">> establishing connection... <span class="boot-ok">[OK]</span></p>
       <div class="boot-line boot-4 boot-progress-line">
-        <span>> loading profile [</span><span class="boot-progress-track"><span class="boot-progress-bar"></span></span><span>] <span class="boot-progress-pct">100</span>%</span>
+        <span>> loading profile [</span><span class="boot-progress-track"><span class="boot-progress-bar"></span></span><span>] <span class="boot-progress-pct" id="bootPct">0</span>%</span>
       </div>
       <p class="boot-line boot-5">> <span class="boot-ok">ready.</span><span class="boot-cursor">_</span></p>
     </div>
   </div>
   <script>
-    setTimeout(function() {
-      var el = document.getElementById('bootOverlay');
-      if (el) el.style.display = 'none';
-    }, 3400);
+    (function() {
+      var start = null;
+      var duration = 2500;
+      var delay = 1200;
+      var pctEl = document.getElementById('bootPct');
+      function step(ts) {
+        if (!start) start = ts;
+        var elapsed = ts - start - delay;
+        if (elapsed < 0) { requestAnimationFrame(step); return; }
+        var progress = Math.min(elapsed / duration, 1);
+        var eased = progress < 0.5
+          ? 2 * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+        pctEl.textContent = Math.floor(eased * 100);
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+      setTimeout(function() {
+        var el = document.getElementById('bootOverlay');
+        if (el) el.style.display = 'none';
+      }, 4600);
+    })();
   </script>
   {% endif %}
 
