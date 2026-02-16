@@ -5,13 +5,13 @@ title: About
 
 <article class="post">
 <header class="post-header">
-<h1 class="post-title">About</h1>
+<h1 class="post-title about-hidden">About</h1>
 <div class="post-meta">
-<span class="prompt">$</span> cat about.md
+<span class="prompt">$</span> <span id="aboutCmd"></span><span class="typing-cursor">_</span>
 </div>
 </header>
 
-<div class="post-content" markdown="1">
+<div class="post-content about-hidden" id="aboutContent" markdown="1">
 
 ## Profile
 
@@ -33,9 +33,39 @@ title: About
 
 </div>
 
-<footer class="post-footer">
+<footer class="post-footer about-hidden" id="aboutFooter">
 <a href="{{ '/' | relative_url }}" class="back-link">
 <span class="prompt">$</span> cd ../ && clear<span class="cursor"></span>
 </a>
 </footer>
 </article>
+
+<script>
+(function() {
+  var cmd = 'cat about.md';
+  var el = document.getElementById('aboutCmd');
+  var typingCursor = document.querySelector('.typing-cursor');
+  var i = 0;
+
+  function typeCmd() {
+    if (i < cmd.length) {
+      el.textContent = cmd.substring(0, i + 1);
+      i++;
+      setTimeout(typeCmd, 20);
+    } else {
+      typingCursor.style.display = 'none';
+      setTimeout(function() {
+        document.querySelector('.post-title').classList.add('show');
+      }, 200);
+      setTimeout(function() {
+        document.getElementById('aboutContent').classList.add('show');
+      }, 500);
+      setTimeout(function() {
+        document.getElementById('aboutFooter').classList.add('show');
+      }, 800);
+    }
+  }
+
+  setTimeout(typeCmd, 300);
+})();
+</script>

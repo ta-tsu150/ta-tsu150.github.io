@@ -547,6 +547,20 @@ body {
   border-top: 1px solid var(--border);
 }
 
+/* --- About Page Typing Animation --- */
+.about-hidden {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.about-hidden.show {
+  opacity: 1;
+}
+.typing-cursor {
+  color: var(--accent);
+  font-weight: 700;
+  animation: blink 0.6s step-end infinite;
+}
+
 .back-link {
   font-family: var(--font-mono);
   font-size: 0.9rem;
