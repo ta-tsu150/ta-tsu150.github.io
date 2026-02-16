@@ -528,6 +528,18 @@ body {
   text-decoration: none;
   transition: color var(--transition);
 }
+.back-link .cursor {
+  display: inline-block;
+  width: 8px;
+  height: 14px;
+  margin-left: 4px;
+  background: var(--text-secondary);
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+}
+.back-link:hover .cursor {
+  background: var(--accent);
+}
 .back-link:hover {
   color: var(--accent);
 }
