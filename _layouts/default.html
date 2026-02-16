@@ -63,7 +63,8 @@
       }
 
       if (booted) {
-        showImmediate();
+        document.getElementById('bootOverlay').style.display = 'none';
+        document.addEventListener('DOMContentLoaded', showImmediate);
       } else {
         var CHAR_MS = 20;
         var GAP_MS = 80;
