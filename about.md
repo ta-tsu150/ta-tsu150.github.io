@@ -28,7 +28,7 @@ title: About
 市野 達也 / Tatsuya Ichino
 
 #### birthplace
-三重県 川越町
+三重県
 
 #### birthday
 2004/11/10
