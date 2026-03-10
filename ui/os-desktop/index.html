@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ta-tsu150 | OS Desktop</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Desktop -->
+  <div class="desktop" id="desktop">
+
+    <!-- Desktop Icons -->
+    <div class="desktop-icons">
+      <button class="desktop-icon" data-window="about">
+        <div class="icon-img icon-user">U</div>
+        <span>About.exe</span>
+      </button>
+      <button class="desktop-icon" data-window="skills">
+        <div class="icon-img icon-folder">S</div>
+        <span>Skills</span>
+      </button>
+      <button class="desktop-icon" data-window="timeline">
+        <div class="icon-img icon-doc">T</div>
+        <span>Timeline.log</span>
+      </button>
+      <button class="desktop-icon" data-window="github">
+        <div class="icon-img icon-link">G</div>
+        <span>GitHub</span>
+      </button>
+    </div>
+
+    <!-- Window: About -->
+    <div class="window" id="win-about" style="top:60px;left:80px;width:520px;">
+      <div class="win-titlebar" data-drag="about">
+        <div class="win-dots"><span class="wd wd-close" data-close="about"></span><span class="wd wd-min"></span><span class="wd wd-max"></span></div>
+        <span class="win-title">About.exe</span>
+        <div class="win-dots-spacer"></div>
+      </div>
+      <div class="win-body">
+        <div class="about-header">
+          <div class="about-avatar">T</div>
+          <div>
+            <h2>市野 達也 / Tatsuya Ichino</h2>
+            <p class="about-role">Full-Stack Engineer (Frontend / Backend / Infra)</p>
+          </div>
+        </div>
+        <p class="about-bio">2025年4月に新卒入社し、フルスタックエンジニアとしてWebアプリケーション・モバイルアプリ・クラウドインフラの設計・開発に従事。</p>
+        <div class="about-details">
+          <div class="ad-row"><span class="ad-k">Birthplace</span><span>三重県 川越町</span></div>
+          <div class="ad-row"><span class="ad-k">Birthday</span><span>2004/11/10</span></div>
+          <div class="ad-row"><span class="ad-k">Height / Weight</span><span>183.8cm / 75.2kg</span></div>
+          <div class="ad-row"><span class="ad-k">Favorite</span><span>猫, 惰眠を貪ること</span></div>
+          <div class="ad-row"><span class="ad-k">Hobby</span><span>ウィスキー, タバコ, 麻雀, サバゲー, ゲーム(FPS全般, アークナイツ, ZZZ, etc...)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Window: Skills -->
+    <div class="window" id="win-skills" style="top:100px;left:340px;width:500px;display:none;">
+      <div class="win-titlebar" data-drag="skills">
+        <div class="win-dots"><span class="wd wd-close" data-close="skills"></span><span class="wd wd-min"></span><span class="wd wd-max"></span></div>
+        <span class="win-title">Skills/</span>
+        <div class="win-dots-spacer"></div>
+      </div>
+      <div class="win-body">
+        <div class="win-toolbar">
+          <span class="toolbar-path">/home/ta-tsu150/skills/</span>
+        </div>
+        <div class="skill-grid">
+          <div class="skill-file"><div class="sf-icon">TS</div><span>TypeScript</span></div>
+          <div class="skill-file"><div class="sf-icon">C#</div><span>C# / .NET</span></div>
+          <div class="skill-file"><div class="sf-icon">Vu</div><span>Vue.js / Nuxt</span></div>
+          <div class="skill-file"><div class="sf-icon">Ne</div><span>NestJS / Prisma</span></div>
+          <div class="skill-file"><div class="sf-icon">RN</div><span>React Native</span></div>
+          <div class="skill-file"><div class="sf-icon">Nd</div><span>Node.js</span></div>
+          <div class="skill-file"><div class="sf-icon">PG</div><span>PostgreSQL</span></div>
+          <div class="skill-file"><div class="sf-icon">AW</div><span>AWS</span></div>
+          <div class="skill-file"><div class="sf-icon">Az</div><span>Azure</span></div>
+          <div class="skill-file"><div class="sf-icon">Dk</div><span>Docker</span></div>
+          <div class="skill-file"><div class="sf-icon">DD</div><span>DDD / Clean</span></div>
+          <div class="skill-file"><div class="sf-icon">TD</div><span>TDD</span></div>
+          <div class="skill-file"><div class="sf-icon">AP</div><span>REST API</span></div>
+          <div class="skill-file"><div class="sf-icon">DB</div><span>SQL / Migration</span></div>
+          <div class="skill-file"><div class="sf-icon">Gt</div><span>Git / GitHub</span></div>
+          <div class="skill-file"><div class="sf-icon">CI</div><span>CI/CD</span></div>
+          <div class="skill-file"><div class="sf-icon">Zp</div><span>Zapier / Slack</span></div>
+          <div class="skill-file"><div class="sf-icon">AI</div><span>Claude / LLM</span></div>
+          <div class="skill-file"><div class="sf-icon">TF</div><span>TestFlight</span></div>
+          <div class="skill-file"><div class="sf-icon">GS</div><span>Apps Script</span></div>
+          <div class="skill-file"><div class="sf-icon">i18</div><span>i18n</span></div>
+          <div class="skill-file"><div class="sf-icon">UX</div><span>UI/UX設計</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Window: Timeline -->
+    <div class="window" id="win-timeline" style="top:140px;left:200px;width:560px;display:none;">
+      <div class="win-titlebar" data-drag="timeline">
+        <div class="win-dots"><span class="wd wd-close" data-close="timeline"></span><span class="wd wd-min"></span><span class="wd wd-max"></span></div>
+        <span class="win-title">Timeline.log</span>
+        <div class="win-dots-spacer"></div>
+      </div>
+      <div class="win-body win-body-log">
+        <div class="log-line"><span class="log-t">[2004-11]</span> <span class="log-msg">爆誕。近所を走り回りめちゃくちゃ寝るガキンチョとして幼生を過ごす。小～中学で7年間バスケ。運動神経はそこそこよかったけど頭は良くなかった。</span></div>
+        <div class="log-line"><span class="log-t">[2020-04]</span> <span class="log-msg">地元工業高校に入学。情報技術を専攻する学科に進み, 人生で初めてパソコンに触れる。工業高校らしく第二種電気工事士などの工業資格も取得。ハンドボール部で主将を務め、最後の大会で優秀選手賞受賞。三重国体選抜を辞退し進学を決意。</span></div>
+        <div class="log-line"><span class="log-t">[2023-04]</span> <span class="log-msg">名古屋の専門学校 情報学科に入学。Webアプリケーション作成をはじめに情報技術を本格的に触り始める。IPAの基本/応用情報技術者をはじめとする複数の資格も取得。</span></div>
+        <div class="log-line"><span class="log-t">[2025-04]</span> <span class="log-msg">現在勤務している会社に新卒入社。フルスタックエンジニアとしてWebアプリケーション・モバイルアプリ・クラウドインフラの設計・開発に従事。本配属後はすったもんだあって会社の荒波にもまれることに...</span></div>
+        <div class="log-cursor">_</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Taskbar -->
+  <div class="taskbar">
+    <button class="taskbar-start" id="startBtn">
+      <span class="start-icon">T</span>
+      <span>ta-tsu150</span>
+    </button>
+    <div class="taskbar-windows" id="taskbarWindows">
+      <button class="taskbar-win active" data-window="about">About.exe</button>
+    </div>
+    <div class="taskbar-clock" id="taskbarClock"></div>
+  </div>
+
+  <script>
+    /* Window management */
+    var windows = document.querySelectorAll('.window');
+    var taskbarWins = document.getElementById('taskbarWindows');
+    var zIndex = 10;
+
+    function bringToFront(id) {
+      var w = document.getElementById('win-' + id);
+      if (!w) return;
+      zIndex++;
+      w.style.zIndex = zIndex;
+      w.style.display = 'flex';
+      updateTaskbar();
+    }
+
+    function closeWindow(id) {
+      var w = document.getElementById('win-' + id);
+      if (w) w.style.display = 'none';
+      updateTaskbar();
+    }
+
+    function updateTaskbar() {
+      taskbarWins.innerHTML = '';
+      windows.forEach(function(w) {
+        if (w.style.display !== 'none') {
+          var id = w.id.replace('win-', '');
+          var b = document.createElement('button');
+          b.className = 'taskbar-win';
+          b.textContent = w.querySelector('.win-title').textContent;
+          b.dataset.window = id;
+          b.addEventListener('click', function() { bringToFront(id); });
+          taskbarWins.appendChild(b);
+        }
+      });
+    }
+
+    /* Desktop icon clicks */
+    document.querySelectorAll('.desktop-icon').forEach(function(icon) {
+      icon.addEventListener('dblclick', function() {
+        var id = icon.dataset.window;
+        if (id === 'github') { window.open('https://github.com/ta-tsu150', '_blank'); return; }
+        bringToFront(id);
+      });
+      icon.addEventListener('click', function() {
+        var id = icon.dataset.window;
+        if (id === 'github') { window.open('https://github.com/ta-tsu150', '_blank'); return; }
+        bringToFront(id);
+      });
+    });
+
+    /* Close buttons */
+    document.querySelectorAll('[data-close]').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        closeWindow(btn.dataset.close);
+      });
+    });
+
+    /* Click titlebar to bring to front */
+    document.querySelectorAll('.win-titlebar').forEach(function(bar) {
+      bar.addEventListener('mousedown', function() {
+        var id = bar.dataset.drag;
+        bringToFront(id);
+      });
+    });
+
+    /* Dragging */
+    var dragTarget = null, dragOffX = 0, dragOffY = 0;
+    document.querySelectorAll('.win-titlebar').forEach(function(bar) {
+      bar.addEventListener('mousedown', function(e) {
+        if (e.target.classList.contains('wd')) return;
+        var win = bar.parentElement;
+        dragTarget = win;
+        var rect = win.getBoundingClientRect();
+        dragOffX = e.clientX - rect.left;
+        dragOffY = e.clientY - rect.top;
+      });
+    });
+    document.addEventListener('mousemove', function(e) {
+      if (!dragTarget) return;
+      dragTarget.style.left = (e.clientX - dragOffX) + 'px';
+      dragTarget.style.top = (e.clientY - dragOffY) + 'px';
+    });
+    document.addEventListener('mouseup', function() { dragTarget = null; });
+
+    /* Clock */
+    function updateClock() {
+      var d = new Date();
+      document.getElementById('taskbarClock').textContent =
+        String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+    }
+    updateClock();
+    setInterval(updateClock, 30000);
+
+    /* Init */
+    bringToFront('about');
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ta-tsu150 | Windows 95</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="w95-desktop" id="desktop">
+
+    <!-- Desktop Icons -->
+    <div class="w95-icons">
+      <button class="w95-icon" data-window="about">
+        <div class="w95-icon-img">&#128100;</div>
+        <span>About</span>
+      </button>
+      <button class="w95-icon" data-window="skills">
+        <div class="w95-icon-img">&#128193;</div>
+        <span>Skills</span>
+      </button>
+      <button class="w95-icon" data-window="timeline">
+        <div class="w95-icon-img">&#128221;</div>
+        <span>Timeline.txt</span>
+      </button>
+      <button class="w95-icon" data-window="github">
+        <div class="w95-icon-img">&#127760;</div>
+        <span>GitHub</span>
+      </button>
+    </div>
+
+    <!-- Window: About (Properties dialog) -->
+    <div class="w95-window" id="win-about" style="top:40px;left:60px;width:440px;">
+      <div class="w95-titlebar" data-drag="about">
+        <span class="w95-titlebar-icon">&#128100;</span>
+        <span class="w95-titlebar-text">Tatsuya Ichino のプロパティ</span>
+        <div class="w95-titlebar-btns">
+          <button class="w95-btn" data-close="about">&#10005;</button>
+        </div>
+      </div>
+      <div class="w95-body">
+        <div class="prop-tabs">
+          <button class="prop-tab active">全般</button>
+          <button class="prop-tab">詳細</button>
+        </div>
+        <div class="prop-panel">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+            <div style="width:48px;height:48px;background:#000080;color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;">T</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;">市野 達也 / Tatsuya Ichino</div>
+              <div style="font-size:11px;color:#555;">Full-Stack Engineer</div>
+            </div>
+          </div>
+          <hr style="border:none;border-top:1px solid #808080;margin:8px 0;">
+          <div style="font-size:12px;color:#333;margin-bottom:12px;">
+            2025年4月に新卒入社し、フルスタックエンジニアとしてWebアプリケーション・モバイルアプリ・クラウドインフラの設計・開発に従事。
+          </div>
+
+          <div class="group-box">
+            <span class="group-box-title">基本情報</span>
+            <div class="prop-row"><span class="prop-k">出身:</span><span class="prop-v">三重県 川越町</span></div>
+            <div class="prop-row"><span class="prop-k">生年月日:</span><span class="prop-v">2004/11/10</span></div>
+            <div class="prop-row"><span class="prop-k">身長 / 体重:</span><span class="prop-v">183.8cm / 75.2kg</span></div>
+          </div>
+
+          <div class="group-box">
+            <span class="group-box-title">趣味・好み</span>
+            <div class="prop-row"><span class="prop-k">好きなもの:</span><span class="prop-v">猫, 惰眠を貪ること</span></div>
+            <div class="prop-row"><span class="prop-k">趣味:</span><span class="prop-v">ウィスキー, タバコ, 麻雀, サバゲー, ゲーム(FPS, アークナイツ, ZZZ...)</span></div>
+          </div>
+
+          <div class="dialog-btns">
+            <button class="dialog-btn" data-close="about">OK</button>
+            <button class="dialog-btn" data-close="about">キャンセル</button>
+            <button class="dialog-btn">適用(A)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Window: Skills (Explorer tree view) -->
+    <div class="w95-window hidden" id="win-skills" style="top:70px;left:280px;width:380px;">
+      <div class="w95-titlebar" data-drag="skills">
+        <span class="w95-titlebar-icon">&#128193;</span>
+        <span class="w95-titlebar-text">Skills - エクスプローラ</span>
+        <div class="w95-titlebar-btns">
+          <button class="w95-btn" data-close="skills">&#10005;</button>
+        </div>
+      </div>
+      <div class="w95-menubar">
+        <button class="w95-menu-item"><span class="underline">F</span>ile</button>
+        <button class="w95-menu-item"><span class="underline">E</span>dit</button>
+        <button class="w95-menu-item"><span class="underline">V</span>iew</button>
+        <button class="w95-menu-item"><span class="underline">H</span>elp</button>
+      </div>
+      <div class="w95-body" style="padding:0;">
+        <div class="tree-view">
+          <div class="tree-root"><span class="tree-icon">&#128193;</span><span class="tree-label">C:\Skills</span></div>
+
+          <div class="tree-root" style="padding-left:8px;"><span class="tree-icon">&#128194;</span><span class="tree-label">Frontend</span></div>
+          <div class="tree-node"><span class="tree-icon">&#128196;</span><span class="tree-label">TypeScript</span></div>
+          <div class="tree-node"><span class="tree-icon">&#128196;</span><span class="tree-label">Vue.js / Nuxt</span></div>
+          <div class="tree-node"><span class="tree-icon">&#128196;</span><span class="tree-label">React Native</span></div>
+          <div class="tree-node"><span class="tree-icon">&#128196;</span><span class="tree-label">UI/UX設計</span></div>
+
+          <div class="tree-root" style="padding-left:8px;"><span class="tree-icon">&#128194;</span><span class="tree-label">Backend</span></div>
+          <div class="tree-node"><span class="tree-icon">&#128196;</span><span class="tree-label">C# / .NET</span></div>
+          <div class="tree-node"><span class="tree-icon">&#128196;</span><span class="tree-label">NestJS / Prisma</span></div>
+          <div class="tree-node"><span class="tree-icon">&#128196;</span><span class="tree-label">Node.js</span></div>
+          <div class="tree-node"><span class="tree-icon">&#128196;</span><span class="tree-label">REST API</span></div>
+          <div class="tree-node"><span class="tree-icon">&#128196;</span><span class="tree-label">PostgreSQL</span></div>
+
+          <div class="tree-root" style="padding-left:8px;"><span class="tree-icon">&#128194;</span><span class="tree-label">Infrastructure</span></div>
+          <div class="tree-node"><span class="tree-icon">&#128196;</span><span class="tree-label">AWS</span></div>
+          <div class="tree-node"><span class="tree-icon">&#128196;</span><span class="tree-label">Azure</span></div>
+          <div class="tree-node"><span class="tree-icon">&#128196;</span><span class="tree-label">Docker</span></div>
+          <div class="tree-node"><span class="tree-icon">&#128196;</span><span class="tree-label">CI/CD</span></div>
+
+          <div class="tree-root" style="padding-left:8px;"><span class="tree-icon">&#128194;</span><span class="tree-label">Practices</span></div>
+          <div class="tree-node"><span class="tree-icon">&#128196;</span><span class="tree-label">DDD / Clean Architecture</span></div>
+          <div class="tree-node"><span class="tree-icon">&#128196;</span><span class="tree-label">TDD</span></div>
+          <div class="tree-node"><span class="tree-icon">&#128196;</span><span class="tree-label">Git / GitHub</span></div>
+          <div class="tree-node"><span class="tree-icon">&#128196;</span><span class="tree-label">i18n</span></div>
+
+          <div class="tree-root" style="padding-left:8px;"><span class="tree-icon">&#128194;</span><span class="tree-label">Tools</span></div>
+          <div class="tree-node"><span class="tree-icon">&#128196;</span><span class="tree-label">Claude / LLM</span></div>
+          <div class="tree-node"><span class="tree-icon">&#128196;</span><span class="tree-label">Zapier / Slack</span></div>
+          <div class="tree-node"><span class="tree-icon">&#128196;</span><span class="tree-label">Apps Script</span></div>
+          <div class="tree-node"><span class="tree-icon">&#128196;</span><span class="tree-label">TestFlight</span></div>
+        </div>
+      </div>
+      <div class="w95-statusbar">
+        <span class="w95-status-section">22 個のオブジェクト</span>
+      </div>
+    </div>
+
+    <!-- Window: Timeline (Notepad) -->
+    <div class="w95-window hidden" id="win-timeline" style="top:100px;left:160px;width:500px;">
+      <div class="w95-titlebar" data-drag="timeline">
+        <span class="w95-titlebar-icon">&#128221;</span>
+        <span class="w95-titlebar-text">Timeline.txt - メモ帳</span>
+        <div class="w95-titlebar-btns">
+          <button class="w95-btn" data-close="timeline">&#10005;</button>
+        </div>
+      </div>
+      <div class="w95-menubar">
+        <button class="w95-menu-item"><span class="underline">F</span>ile</button>
+        <button class="w95-menu-item"><span class="underline">E</span>dit</button>
+        <button class="w95-menu-item"><span class="underline">S</span>earch</button>
+        <button class="w95-menu-item"><span class="underline">H</span>elp</button>
+      </div>
+      <div class="notepad-body">== TIMELINE ==
+
+[2004-11] 爆誕
+  三重県川越町に生まれる。
+  近所を走り回りめちゃくちゃ寝るガキンチョ。
+  小～中学で7年間バスケ。
+  運動神経はそこそこよかったけど頭は良くなかった。
+
+[2020-04] 地元工業高校 入学
+  情報技術を専攻する学科に進み,
+  人生で初めてパソコンに触れる。
+  工業高校らしく第二種電気工事士などの
+  工業資格も取得。
+  ハンドボール部で主将を務め、
+  最後の大会で優秀選手賞受賞。
+  三重国体選抜を辞退し進学を決意。
+
+[2023-04] 名古屋の専門学校 入学
+  情報学科に入学。
+  Webアプリケーション作成をはじめに
+  情報技術を本格的に触り始める。
+  IPAの基本/応用情報技術者をはじめとする
+  複数の資格も取得。
+
+[2025-04] 新卒入社
+  現在勤務している会社に入社。
+  フルスタックエンジニアとして
+  Web/モバイル/クラウドインフラの
+  設計・開発に従事。
+
+  本配属後はすったもんだあって
+  会社の荒波にもまれることに...
+
+---
+(c) 2025 ta-tsu150</div>
+    </div>
+  </div>
+
+  <!-- Start Menu -->
+  <div class="start-menu" id="startMenu">
+    <div class="start-menu-sidebar"><span>ta-tsu150</span></div>
+    <div class="start-menu-items">
+      <button class="start-menu-item" data-window="about">&#128100; About</button>
+      <button class="start-menu-item" data-window="skills">&#128193; Skills</button>
+      <button class="start-menu-item" data-window="timeline">&#128221; Timeline</button>
+      <div class="start-menu-sep"></div>
+      <button class="start-menu-item" data-window="github">&#127760; GitHub</button>
+    </div>
+  </div>
+
+  <!-- Taskbar -->
+  <div class="w95-taskbar">
+    <button class="start-btn" id="startBtn">
+      <span class="start-logo"><span class="start-logo-grid"><span></span><span></span><span></span><span></span></span></span>
+      Start
+    </button>
+    <div class="taskbar-items" id="taskbarItems">
+      <button class="taskbar-item active" data-window="about">&#128100; Tatsuya Ichino のプロパティ</button>
+    </div>
+    <div class="taskbar-tray">
+      <span id="trayClock"></span>
+    </div>
+  </div>
+
+  <script>
+    var windows = document.querySelectorAll('.w95-window');
+    var taskbarItems = document.getElementById('taskbarItems');
+    var startMenu = document.getElementById('startMenu');
+    var zIndex = 10;
+
+    function bringToFront(id) {
+      var w = document.getElementById('win-' + id);
+      if (!w) return;
+      zIndex++;
+      w.style.zIndex = zIndex;
+      w.classList.remove('hidden');
+      updateTaskbar(id);
+    }
+
+    function closeWindow(id) {
+      var w = document.getElementById('win-' + id);
+      if (w) w.classList.add('hidden');
+      updateTaskbar(null);
+    }
+
+    function updateTaskbar(activeId) {
+      taskbarItems.innerHTML = '';
+      windows.forEach(function(w) {
+        if (!w.classList.contains('hidden')) {
+          var id = w.id.replace('win-', '');
+          var b = document.createElement('button');
+          b.className = 'taskbar-item' + (id === activeId ? ' active' : '');
+          b.textContent = w.querySelector('.w95-titlebar-text').textContent;
+          b.dataset.window = id;
+          b.addEventListener('click', function() { bringToFront(id); });
+          taskbarItems.appendChild(b);
+        }
+      });
+    }
+
+    document.querySelectorAll('.w95-icon, .start-menu-item').forEach(function(el) {
+      el.addEventListener('click', function() {
+        var id = el.dataset.window;
+        if (id === 'github') { window.open('https://github.com/ta-tsu150', '_blank'); return; }
+        bringToFront(id);
+        startMenu.classList.remove('open');
+      });
+    });
+
+    document.querySelectorAll('[data-close]').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        closeWindow(btn.dataset.close);
+      });
+    });
+
+    document.querySelectorAll('.w95-titlebar').forEach(function(bar) {
+      bar.addEventListener('mousedown', function() {
+        var id = bar.dataset.drag;
+        if (id) bringToFront(id);
+      });
+    });
+
+    /* Dragging */
+    var dragTarget = null, dragOffX = 0, dragOffY = 0;
+    document.querySelectorAll('.w95-titlebar').forEach(function(bar) {
+      bar.addEventListener('mousedown', function(e) {
+        if (e.target.classList.contains('w95-btn')) return;
+        var win = bar.parentElement;
+        dragTarget = win;
+        var rect = win.getBoundingClientRect();
+        dragOffX = e.clientX - rect.left;
+        dragOffY = e.clientY - rect.top;
+      });
+    });
+    document.addEventListener('mousemove', function(e) {
+      if (!dragTarget) return;
+      dragTarget.style.left = (e.clientX - dragOffX) + 'px';
+      dragTarget.style.top = (e.clientY - dragOffY) + 'px';
+    });
+    document.addEventListener('mouseup', function() { dragTarget = null; });
+
+    /* Start menu */
+    document.getElementById('startBtn').addEventListener('click', function(e) {
+      e.stopPropagation();
+      startMenu.classList.toggle('open');
+    });
+    document.addEventListener('click', function() { startMenu.classList.remove('open'); });
+
+    /* Clock */
+    function updateClock() {
+      var d = new Date();
+      document.getElementById('trayClock').textContent =
+        String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+    }
+    updateClock();
+    setInterval(updateClock, 30000);
+
+    bringToFront('about');
+  </script>
+
+</body>
+</html>

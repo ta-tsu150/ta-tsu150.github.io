@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ta-tsu150 | Chat</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="phone-frame">
+    <!-- Status bar -->
+    <div class="status-bar">
+      <span id="statusTime"></span>
+      <span class="status-icons">100%</span>
+    </div>
+
+    <!-- Chat header -->
+    <div class="chat-header">
+      <div class="chat-avatar">T</div>
+      <div class="chat-header-info">
+        <h1>Tatsuya Ichino</h1>
+        <span class="chat-status">Online</span>
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div class="messages" id="messages">
+
+      <div class="date-divider"><span>Portfolio Chat</span></div>
+
+      <!-- Intro -->
+      <div class="msg msg-them">
+        <div class="msg-avatar">T</div>
+        <div class="msg-bubble">
+          <p>こんにちは！市野 達也です。</p>
+          <span class="msg-time">09:00</span>
+        </div>
+      </div>
+
+      <div class="msg msg-them">
+        <div class="msg-spacer"></div>
+        <div class="msg-bubble">
+          <p>Full-Stack Engineer (Frontend / Backend / Infra) として働いています。</p>
+          <span class="msg-time">09:00</span>
+        </div>
+      </div>
+
+      <div class="msg msg-me">
+        <div class="msg-bubble me">
+          <p>プロフィール教えてください！</p>
+          <span class="msg-time">09:01</span>
+        </div>
+      </div>
+
+      <!-- Profile -->
+      <div class="msg msg-them">
+        <div class="msg-avatar">T</div>
+        <div class="msg-bubble msg-card">
+          <div class="card-header">Profile</div>
+          <div class="card-row"><span class="card-k">出身</span><span>三重県 川越町</span></div>
+          <div class="card-row"><span class="card-k">生年月日</span><span>2004/11/10</span></div>
+          <div class="card-row"><span class="card-k">身長 / 体重</span><span>183.8cm / 75.2kg</span></div>
+          <div class="card-row"><span class="card-k">好きなもの</span><span>猫, 惰眠を貪ること</span></div>
+          <div class="card-row"><span class="card-k">趣味</span><span>ウィスキー, タバコ, 麻雀, サバゲー, ゲーム(FPS, アークナイツ, ZZZ...)</span></div>
+          <span class="msg-time">09:02</span>
+        </div>
+      </div>
+
+      <div class="msg msg-me">
+        <div class="msg-bubble me">
+          <p>スキルは？</p>
+          <span class="msg-time">09:03</span>
+        </div>
+      </div>
+
+      <!-- Skills as bubbles -->
+      <div class="msg msg-them">
+        <div class="msg-avatar">T</div>
+        <div class="msg-bubble">
+          <p>こんな技術を使ってます：</p>
+          <span class="msg-time">09:03</span>
+        </div>
+      </div>
+
+      <div class="msg msg-them">
+        <div class="msg-spacer"></div>
+        <div class="msg-bubble msg-tags">
+          <span class="chat-tag">TypeScript</span><span class="chat-tag">C# / .NET</span>
+          <span class="chat-tag">Vue.js / Nuxt</span><span class="chat-tag">NestJS / Prisma</span>
+          <span class="chat-tag">React Native</span><span class="chat-tag">Node.js</span>
+          <span class="chat-tag">PostgreSQL</span><span class="chat-tag">AWS</span>
+          <span class="chat-tag">Azure</span><span class="chat-tag">Docker</span>
+          <span class="chat-tag">DDD</span><span class="chat-tag">TDD</span>
+          <span class="chat-tag">REST API</span><span class="chat-tag">Git / GitHub</span>
+          <span class="chat-tag">CI/CD</span><span class="chat-tag">Claude / LLM</span>
+          <span class="chat-tag">Zapier</span><span class="chat-tag">i18n</span>
+          <span class="chat-tag">UI/UX</span>
+          <span class="msg-time">09:04</span>
+        </div>
+      </div>
+
+      <div class="msg msg-me">
+        <div class="msg-bubble me">
+          <p>これまでの経歴は？</p>
+          <span class="msg-time">09:05</span>
+        </div>
+      </div>
+
+      <!-- Timeline as conversation -->
+      <div class="msg msg-them">
+        <div class="msg-avatar">T</div>
+        <div class="msg-bubble">
+          <p><strong>2004年</strong> — 爆誕。近所を走り回りめちゃくちゃ寝るガキンチョ。小～中学で7年間バスケ。</p>
+          <span class="msg-time">09:06</span>
+        </div>
+      </div>
+
+      <div class="msg msg-them">
+        <div class="msg-spacer"></div>
+        <div class="msg-bubble">
+          <p><strong>2020年</strong> — 地元工業高校に入学。情報技術を専攻し人生初のPC体験。ハンドボール部主将を務め、優秀選手賞受賞。三重国体選抜を辞退し進学を決意。</p>
+          <span class="msg-time">09:06</span>
+        </div>
+      </div>
+
+      <div class="msg msg-them">
+        <div class="msg-spacer"></div>
+        <div class="msg-bubble">
+          <p><strong>2023年</strong> — 名古屋の専門学校 情報学科に入学。Web開発を本格的に開始。IPA基本/応用情報技術者取得。</p>
+          <span class="msg-time">09:07</span>
+        </div>
+      </div>
+
+      <div class="msg msg-them">
+        <div class="msg-spacer"></div>
+        <div class="msg-bubble">
+          <p><strong>2025年</strong> — 現在の会社に新卒入社。フルスタックエンジニアとして設計・開発に従事。</p>
+          <span class="msg-time">09:07</span>
+        </div>
+      </div>
+
+      <div class="msg msg-them">
+        <div class="msg-spacer"></div>
+        <div class="msg-bubble">
+          <p class="dim">本配属後はすったもんだあって会社の荒波にもまれることに... 😅</p>
+          <span class="msg-time">09:08</span>
+        </div>
+      </div>
+
+      <div class="msg msg-me">
+        <div class="msg-bubble me">
+          <p>すごい経歴！GitHub見てみます 👀</p>
+          <span class="msg-time">09:09</span>
+        </div>
+      </div>
+
+      <div class="msg msg-them">
+        <div class="msg-avatar">T</div>
+        <div class="msg-bubble msg-link">
+          <a href="https://github.com/ta-tsu150" target="_blank" rel="noopener">
+            <div class="link-preview">
+              <div class="link-icon">GH</div>
+              <div>
+                <div class="link-title">github.com/ta-tsu150</div>
+                <div class="link-desc">Check out my repositories</div>
+              </div>
+            </div>
+          </a>
+          <span class="msg-time">09:09</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Input bar -->
+    <div class="input-bar">
+      <div class="input-field" contenteditable="false">メッセージを入力...</div>
+      <button class="send-btn" aria-label="送信">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </div>
+
+    <div class="phone-footer">&copy; 2025 ta-tsu150</div>
+  </div>
+
+  <script>
+    /* Time */
+    function updateTime() {
+      var d = new Date();
+      document.getElementById('statusTime').textContent =
+        String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+    }
+    updateTime(); setInterval(updateTime, 30000);
+
+    /* Scroll to bottom */
+    var msgs = document.getElementById('messages');
+    msgs.scrollTop = msgs.scrollHeight;
+
+    /* Staggered message appearance */
+    var allMsgs = document.querySelectorAll('.msg');
+    allMsgs.forEach(function(m, i) {
+      m.style.opacity = '0';
+      m.style.transform = 'translateY(12px)';
+      setTimeout(function() {
+        m.style.transition = 'opacity 0.3s, transform 0.3s';
+        m.style.opacity = '1';
+        m.style.transform = 'translateY(0)';
+      }, 100 + i * 120);
+    });
+  </script>
+</body>
+</html>
