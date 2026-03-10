@@ -165,14 +165,64 @@
           <span class="prompt">~</span> GitHub
         </a>
       </div>
+      <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="テーマ切替">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <rect x="2" y="3" width="16" height="14" rx="2"/>
+          <line x1="2" y1="7" x2="18" y2="7"/>
+          <circle cx="5" cy="5" r="0.8" fill="currentColor" stroke="none"/>
+          <circle cx="7.5" cy="5" r="0.8" fill="currentColor" stroke="none"/>
+          <circle cx="10" cy="5" r="0.8" fill="currentColor" stroke="none"/>
+        </svg>
+      </button>
     </div>
   </nav>
 
-  <main class="content">
+  <!-- Theme Switcher Panel -->
+  <div class="theme-panel-overlay" id="themePanelOverlay"></div>
+  <div class="theme-panel" id="themePanel">
+    <div class="theme-panel-header">
+      <h3>Page Design</h3>
+      <button class="theme-panel-close" id="themePanelClose" aria-label="閉じる">&times;</button>
+    </div>
+    <div class="theme-panel-body">
+      <button class="theme-option" data-theme="default">
+        <div class="theme-preview theme-preview-default">
+          <div class="tp-bar"></div>
+          <div class="tp-content"><div class="tp-line"></div><div class="tp-line short"></div></div>
+        </div>
+        <span class="theme-option-name">Default</span>
+        <span class="theme-option-desc">Dark Terminal</span>
+      </button>
+      <button class="theme-option" data-theme="mac">
+        <div class="theme-preview theme-preview-mac">
+          <div class="tp-bar tp-bar-mac"><span class="tp-dot tp-red"></span><span class="tp-dot tp-yellow"></span><span class="tp-dot tp-green"></span></div>
+          <div class="tp-content"><div class="tp-line"></div><div class="tp-line short"></div></div>
+        </div>
+        <span class="theme-option-name">Mac Terminal</span>
+        <span class="theme-option-desc">macOS Window Style</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mac Terminal Window Wrapper -->
+  <div class="mac-window" id="macWindow">
+    <div class="mac-titlebar">
+      <div class="mac-buttons">
+        <span class="mac-btn mac-btn-close"></span>
+        <span class="mac-btn mac-btn-min"></span>
+        <span class="mac-btn mac-btn-max"></span>
+      </div>
+      <span class="mac-titlebar-text">ta-tsu150@portfolio — {{ page.title | default: "~" }}</span>
+      <div class="mac-titlebar-spacer"></div>
+    </div>
+    <div class="mac-body" id="macBody"></div>
+  </div>
+
+  <main class="content" id="mainContent">
     {{ content }}
   </main>
 
-  <footer class="footer">
+  <footer class="footer" id="mainFooter">
     <div class="footer-inner">
       <p class="footer-text">
         <span class="prompt">$</span> echo "Built with Jekyll & GitHub Pages"
@@ -180,6 +230,75 @@
       <p class="footer-copy">&copy; {{ site.time | date: '%Y' }} {{ site.title | default: "ta-tsu150" }}</p>
     </div>
   </footer>
+
+  <!-- Theme Switcher Logic -->
+  <script>
+  (function() {
+    var btn = document.getElementById('themeToggleBtn');
+    var panel = document.getElementById('themePanel');
+    var overlay = document.getElementById('themePanelOverlay');
+    var closeBtn = document.getElementById('themePanelClose');
+    var options = document.querySelectorAll('.theme-option');
+    var macWindow = document.getElementById('macWindow');
+    var macBody = document.getElementById('macBody');
+    var mainContent = document.getElementById('mainContent');
+    var mainFooter = document.getElementById('mainFooter');
+    var navbar = document.querySelector('.navbar');
+
+    function openPanel() {
+      panel.classList.add('open');
+      overlay.classList.add('open');
+    }
+    function closePanel() {
+      panel.classList.remove('open');
+      overlay.classList.remove('open');
+    }
+
+    btn.addEventListener('click', function() {
+      panel.classList.contains('open') ? closePanel() : openPanel();
+    });
+    overlay.addEventListener('click', closePanel);
+    closeBtn.addEventListener('click', closePanel);
+
+    function applyTheme(theme) {
+      document.body.setAttribute('data-theme', theme);
+      localStorage.setItem('page-theme', theme);
+
+      options.forEach(function(o) {
+        o.classList.toggle('active', o.getAttribute('data-theme') === theme);
+      });
+
+      if (theme === 'mac') {
+        /* Move content into Mac window */
+        macBody.appendChild(mainContent);
+        macBody.appendChild(mainFooter);
+        macWindow.style.display = 'flex';
+      } else {
+        /* Move content back to body */
+        var macW = document.getElementById('macWindow');
+        macW.parentNode.insertBefore(mainContent, macW);
+        macW.parentNode.insertBefore(mainFooter, macW);
+        macWindow.style.display = 'none';
+      }
+    }
+
+    options.forEach(function(o) {
+      o.addEventListener('click', function() {
+        applyTheme(o.getAttribute('data-theme'));
+        closePanel();
+      });
+    });
+
+    /* Restore saved theme */
+    var saved = localStorage.getItem('page-theme') || 'default';
+    applyTheme(saved);
+
+    /* Keyboard: Escape to close panel */
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closePanel();
+    });
+  })();
+  </script>
 
 </body>
 </html>
