@@ -1003,30 +1003,349 @@ body {
   background: var(--bg-primary);
 }
 
-/* === Mac Theme Adjustments === */
-[data-theme="mac"] .navbar {
-  background: rgba(13, 17, 23, 0.95);
-  border-bottom-color: #3a3a42;
+/* ========================================
+   MAC TERMINAL THEME (CRT / Green Phosphor)
+   ======================================== */
+
+/* --- CRT Scanline Overlay --- */
+[data-theme="mac"] .mac-window::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.12) 2px,
+    rgba(0, 0, 0, 0.12) 4px
+  );
+  border-radius: 12px;
 }
 
+[data-theme="mac"] .mac-window {
+  position: relative;
+  border-color: #1a3a1a;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(0, 255, 65, 0.04);
+}
+
+/* --- Mac Titlebar: terminal style --- */
+[data-theme="mac"] .mac-titlebar {
+  background: linear-gradient(180deg, #1e2a1e, #162016);
+  border-bottom-color: #1a3a1a;
+}
+
+[data-theme="mac"] .mac-titlebar-text {
+  color: #00882a;
+  font-family: 'Courier New', 'Consolas', 'Monaco', monospace;
+}
+
+/* --- Body: dark terminal bg --- */
+[data-theme="mac"] .mac-body {
+  background: #0d1117;
+}
+
+/* --- Global text override: green phosphor --- */
+[data-theme="mac"] body {
+  background: #0a0a0a;
+}
+
+[data-theme="mac"] .navbar {
+  background: rgba(10, 10, 10, 0.95);
+  border-bottom-color: #1a3a1a;
+}
+
+[data-theme="mac"] .nav-logo,
+[data-theme="mac"] .nav-logo .prompt {
+  color: #00ff41;
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+[data-theme="mac"] .nav-link {
+  color: #00882a;
+}
+[data-theme="mac"] .nav-link:hover,
+[data-theme="mac"] .nav-link.active {
+  color: #00ff41;
+  background: rgba(0, 255, 65, 0.08);
+  text-shadow: 0 0 8px rgba(0, 255, 65, 0.3);
+}
+[data-theme="mac"] .nav-link .prompt {
+  color: #00882a;
+}
+
+/* --- Accent color override --- */
+[data-theme="mac"] .prompt {
+  color: #00ff41;
+  text-shadow: 0 0 8px rgba(0, 255, 65, 0.4);
+}
+
+/* --- Hero --- */
+[data-theme="mac"] .hero-greeting {
+  color: #00ff41;
+  border-right-color: #00ff41;
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.4);
+}
+
+[data-theme="mac"] .hero-name {
+  color: #39ff14;
+  text-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+  font-family: 'JetBrains Mono', 'Courier New', 'Consolas', monospace;
+}
+
+[data-theme="mac"] .hero-tagline {
+  color: #00882a;
+}
+
+/* --- Terminal box --- */
+[data-theme="mac"] .hero-terminal {
+  background: rgba(0, 255, 65, 0.02);
+  border: 1px solid #1a3a1a;
+  box-shadow: none;
+}
+
+[data-theme="mac"] .hero-terminal .key {
+  color: #00d4ff;
+}
+
+[data-theme="mac"] .hero-terminal .value {
+  color: #ffdd00;
+}
+
+[data-theme="mac"] .hero-terminal .line {
+  color: #00ff41;
+}
+
+[data-theme="mac"] .terminal-cmd {
+  color: #00882a;
+}
+[data-theme="mac"] .terminal-cmd:hover {
+  color: #00ff41;
+  text-shadow: 0 0 8px rgba(0, 255, 65, 0.3);
+}
+[data-theme="mac"] .terminal-cmd .cursor {
+  background: #00ff41;
+}
+
+[data-theme="mac"] .hero-terminal .cursor {
+  background: #00ff41;
+}
+
+/* --- Sections --- */
+[data-theme="mac"] .section-title {
+  color: #00ff41;
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+[data-theme="mac"] .section-title::after {
+  background: linear-gradient(to right, #1a3a1a, transparent);
+}
+
+/* --- Skill tags --- */
+[data-theme="mac"] .skill-tag {
+  background: rgba(0, 255, 65, 0.05);
+  border: 1px solid #1a3a1a;
+  color: #00ff41;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
+[data-theme="mac"] .skill-tag:hover {
+  border-color: #00ff41;
+  box-shadow: 0 0 12px rgba(0, 255, 65, 0.15);
+  background: rgba(0, 255, 65, 0.1);
+}
+
+/* --- Git log --- */
+[data-theme="mac"] .git-log {
+  background: rgba(0, 255, 65, 0.02);
+  border: 1px solid #1a3a1a;
+  box-shadow: none;
+}
+[data-theme="mac"] .git-log-cmd {
+  color: #00882a;
+}
+[data-theme="mac"] .git-graph {
+  color: #ff3333;
+}
+[data-theme="mac"] .git-hash {
+  color: #ff9500;
+}
+[data-theme="mac"] .git-date {
+  color: #00d4ff;
+}
+[data-theme="mac"] .git-msg {
+  color: #00ff41;
+}
+[data-theme="mac"] .git-log-entry:hover {
+  background: rgba(0, 255, 65, 0.04);
+}
+[data-theme="mac"] .git-log-entry:hover .git-msg {
+  color: #39ff14;
+  text-shadow: 0 0 8px rgba(0, 255, 65, 0.3);
+}
+
+/* --- Content / Footer --- */
 [data-theme="mac"] .content {
   padding-top: 20px;
   padding-bottom: 40px;
 }
 
 [data-theme="mac"] .footer {
-  border-top-color: #3a3a42;
+  border-top-color: #1a3a1a;
+}
+[data-theme="mac"] .footer-text,
+[data-theme="mac"] .footer-copy {
+  color: #00882a;
 }
 
-[data-theme="mac"] .hero-terminal,
-[data-theme="mac"] .git-log {
-  border-color: #3a3a42;
+/* --- Blog post content --- */
+[data-theme="mac"] .post-title {
+  color: #39ff14;
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
+[data-theme="mac"] .post-meta {
+  color: #00882a;
+}
+[data-theme="mac"] .post-content h2 {
+  color: #00d4ff;
+  text-shadow: 0 0 8px rgba(0, 212, 255, 0.2);
+}
+[data-theme="mac"] .post-content h3 {
+  color: #ffdd00;
+}
+[data-theme="mac"] .post-content p {
+  color: #00ff41;
+}
+[data-theme="mac"] .post-content a {
+  color: #00d4ff;
+  text-decoration-color: rgba(0, 212, 255, 0.3);
+}
+[data-theme="mac"] .post-content ul,
+[data-theme="mac"] .post-content ol {
+  color: #00ff41;
+}
+[data-theme="mac"] .post-content code {
+  background: rgba(0, 255, 65, 0.05);
+  border-color: #1a3a1a;
+  color: #ffdd00;
+}
+[data-theme="mac"] .post-content pre {
+  background: rgba(0, 255, 65, 0.02);
+  border-color: #1a3a1a;
   box-shadow: none;
-  border-radius: 8px;
+}
+[data-theme="mac"] .post-content pre code {
+  color: #00ff41;
+}
+[data-theme="mac"] .post-content blockquote {
+  border-left-color: #00ff41;
+  background: rgba(0, 255, 65, 0.04);
+  color: #00882a;
 }
 
-[data-theme="mac"] .skill-tag {
-  border-color: #3a3a42;
+/* --- Scrollbar: green --- */
+[data-theme="mac"] ::-webkit-scrollbar-thumb {
+  background: #1a3a1a;
+}
+[data-theme="mac"] ::-webkit-scrollbar-thumb:hover {
+  background: #00882a;
+}
+[data-theme="mac"] ::selection {
+  background: #00ff41;
+  color: #0a0a0a;
+}
+
+/* --- Theme toggle btn --- */
+[data-theme="mac"] .theme-toggle-btn {
+  border-color: #1a3a1a;
+  color: #00882a;
+  background: rgba(0, 255, 65, 0.03);
+}
+[data-theme="mac"] .theme-toggle-btn:hover {
+  color: #00ff41;
+  border-color: #00ff41;
+  background: rgba(0, 255, 65, 0.1);
+}
+
+/* --- About page --- */
+[data-theme="mac"] .about-greeting {
+  color: #00ff41;
+  border-right-color: #00ff41;
+}
+[data-theme="mac"] .about-terminal {
+  background: rgba(0, 255, 65, 0.02);
+  border-color: #1a3a1a;
+  box-shadow: none;
+}
+
+/* --- Back link --- */
+[data-theme="mac"] .back-link {
+  color: #00882a;
+}
+[data-theme="mac"] .back-link:hover {
+  color: #00ff41;
+}
+[data-theme="mac"] .back-link .cursor {
+  background: #00882a;
+}
+[data-theme="mac"] .back-link:hover .cursor {
+  background: #00ff41;
+}
+
+/* --- Cards --- */
+[data-theme="mac"] .card {
+  background: rgba(0, 255, 65, 0.02);
+  border-color: #1a3a1a;
+}
+[data-theme="mac"] .card:hover {
+  border-color: #00ff41;
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
+}
+[data-theme="mac"] .card-title {
+  color: #00d4ff;
+}
+[data-theme="mac"] .card-desc {
+  color: #00882a;
+}
+
+/* --- Post list items --- */
+[data-theme="mac"] .post-item {
+  background: rgba(0, 255, 65, 0.02);
+  border-color: #1a3a1a;
+}
+[data-theme="mac"] .post-item:hover {
+  border-color: #00ff41;
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
+}
+[data-theme="mac"] .post-item-date {
+  color: #00882a;
+}
+[data-theme="mac"] .post-item-title {
+  color: #00ff41;
+}
+[data-theme="mac"] .post-item:hover .post-item-title {
+  color: #39ff14;
+  text-shadow: 0 0 8px rgba(0, 255, 65, 0.3);
+}
+
+/* --- Boot overlay in mac mode --- */
+[data-theme="mac"] .boot-overlay {
+  background: #0a0a0a;
+}
+[data-theme="mac"] .boot-screen {
+  color: #00882a;
+}
+[data-theme="mac"] .boot-ok {
+  color: #00ff41;
+  text-shadow: 0 0 8px rgba(0, 255, 65, 0.4);
+}
+[data-theme="mac"] .boot-prompt {
+  color: #00ff41;
+}
+[data-theme="mac"] .boot-cursor {
+  color: #00ff41;
 }
 
 /* ========================================
@@ -1079,14 +1398,22 @@ body {
 
   /* Mac window mobile */
   .mac-window {
-    margin: 68px 8px 16px;
-    border-radius: 10px;
+    margin: 68px 6px 12px;
+    border-radius: 8px;
     min-height: calc(100vh - 100px);
+  }
+
+  [data-theme="mac"] .mac-window::after {
+    border-radius: 8px;
   }
 
   [data-theme="mac"] .content {
     padding-top: 12px;
     padding-left: 12px;
     padding-right: 12px;
+  }
+
+  [data-theme="mac"] .hero-name {
+    font-size: 1.8rem;
   }
 }
