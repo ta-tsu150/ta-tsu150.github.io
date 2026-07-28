@@ -10,6 +10,7 @@ export const profile: Profile = {
   tagline: 'Cloud Infrastructure / DevOps / Platform Engineering',
   summary:
     '2025年4月に株式会社FIXERに新卒入社し、フルスタックエンジニアとしてWebアプリケーション・モバイルアプリ・クラウドインフラの設計・開発に従事。',
+  avatar: '/images/tatsu.jpg',
   birthplace: '三重県 川越町',
   birthday: '2004/11/10',
   githubUrl: GITHUB_URL,

@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2026-07-28',
   devtools: { enabled: true },
 
-  modules: ['@nuxt/icon'],
+  modules: ['@nuxt/icon', '@nuxt/image'],
 
   css: ['~/assets/css/main.css'],
 
@@ -32,6 +32,14 @@ export default defineNuxtConfig({
       scan: true,
       sizeLimitKb: 256,
     },
+  },
+
+  // On a static build this resolves to the `ipxStatic` provider: every variant
+  // referenced by a prerendered page is generated at build time and written
+  // into .output/public, so no image service is needed at runtime.
+  image: {
+    quality: 100,
+    format: ['webp', 'jpg'],
   },
 
   typescript: {

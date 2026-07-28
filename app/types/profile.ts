@@ -52,6 +52,8 @@ export interface Profile {
   readonly role: string
   readonly tagline: string
   readonly summary: string
+  /** Path under `public/`, e.g. `/images/tatsu.jpg`. Case-sensitive once deployed. */
+  readonly avatar: string
   readonly birthplace: string
   readonly birthday: string
   readonly githubUrl: string

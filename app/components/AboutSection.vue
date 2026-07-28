@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { profile } from '~/data/profile'
 
-const initial = profile.name.charAt(0)
+/** Rendered diameter in CSS pixels; `densities` covers HiDPI on top of this. */
+const AVATAR_SIZE = 100
 </script>
 
 <template>
@@ -9,7 +10,17 @@ const initial = profile.name.charAt(0)
     <SectionHeading id="about-title" title="About" />
 
     <GlassCard class="about-card">
-      <div class="avatar-placeholder" aria-hidden="true">{{ initial }}</div>
+      <NuxtImg
+        :src="profile.avatar"
+        :width="AVATAR_SIZE"
+        :height="AVATAR_SIZE"
+        densities="x1 x2"
+        fit="cover"
+        format="webp"
+        loading="lazy"
+        alt="プロフィール写真"
+        class="avatar"
+      />
       <div class="about-body">
         <h3>{{ profile.nameJa }} / {{ profile.name }}</h3>
         <p>{{ profile.summary }}</p>
@@ -38,18 +49,18 @@ const initial = profile.name.charAt(0)
   align-items: center;
 }
 
-.avatar-placeholder {
+.avatar {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: var(--bg);
+  object-fit: cover;
   flex-shrink: 0;
+  /* Gradient ring picks up the accent colours the placeholder used to carry. */
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--bg), var(--bg)) padding-box,
+    linear-gradient(135deg, var(--accent), var(--accent-2)) border-box;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
 }
 
 .about-body h3 {
