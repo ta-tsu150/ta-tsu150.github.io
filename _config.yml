@@ -1,7 +1,0 @@
-title: "ta-tsu150"
-description: "Cloud Infra / DevOps / LLM"
-plugins:
-  - jekyll-feed
-exclude:
-  - Docs
-  - themes
