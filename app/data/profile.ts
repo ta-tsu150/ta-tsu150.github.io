@@ -34,43 +34,61 @@ export const profile: Profile = {
       {
         key: 'hobby',
         value:
-          'ウィスキー, タバコ, 麻雀, サバゲー, ゲーム',
+          'ウィスキー, タバコ, 麻雀, ダーツ, サバゲー, ゲーム',
       },
     ],
   ],
 
   skills: [
-    { icon: 'lucide:server', title: 'Backend', detail: 'NestJS / C# .NET / REST API / DDD' },
-    { icon: 'lucide:layout-dashboard', title: 'Frontend', detail: 'Vue.js / Nuxt.js / TypeScript' },
-    { icon: 'lucide:smartphone', title: 'Mobile', detail: 'Expo / React Native' },
-    { icon: 'lucide:cloud', title: 'Cloud', detail: 'AWS / Azure / Docker' },
-    { icon: 'lucide:shield-check', title: 'Quality', detail: 'TDD / AI Code Review / Swagger' },
-    { icon: 'lucide:database', title: 'Database', detail: 'PostgreSQL / Prisma' },
+    { icon: 'lucide:server', title: 'Backend', detail: 'NestJS / C# .NET / REST API / Clean Architecture' },
+    { icon: 'lucide:layout-dashboard', title: 'Frontend', detail: 'Vue.js / Nuxt.js / TypeScript / Composition API' },
+    { icon: 'lucide:smartphone', title: 'Mobile', detail: 'Expo / React Native / TestFlight' },
+    { icon: 'lucide:cloud', title: 'Cloud', detail: 'AWS / Azure / Docker / GitHub Actions' },
+    { icon: 'lucide:shield-check', title: 'Quality', detail: 'TDD / AI Code Review / Swagger / ESLint' },
+    { icon: 'lucide:database', title: 'Database', detail: 'PostgreSQL / Prisma / Azure SQL / EF Core' },
   ],
 
   skillTags: [
+    // Languages
     'TypeScript',
     'C# / .NET',
-    'Vue.js / Nuxt.js',
-    'NestJS / Prisma',
-    'Expo / React Native',
     'Node.js',
-    'PostgreSQL',
-    'AWS',
-    'Azure',
-    'Docker',
-    'DDD / Clean Architecture',
-    'TDD',
-    'REST API / Swagger',
     'SQL / DB Migration',
-    'Git / GitHub',
-    'CI/CD',
-    'Zapier / Slack Bot',
-    'Claude / LLM活用',
-    'TestFlight / Xcode',
-    'Google Apps Script',
+    // Frontend
+    'Vue.js / Nuxt.js',
+    'Composition API / Composables',
     'i18n',
+    'アクセシビリティ対応',
     'UI/UX設計',
+    // Mobile
+    'Expo / React Native',
+    'TestFlight / Xcode',
+    // Backend
+    'NestJS / Prisma',
+    'Entity Framework Core',
+    'DDD / Clean Architecture',
+    'REST API / Swagger',
+    'OAuth 2.0 / JWT',
+    // Data
+    'PostgreSQL',
+    'Azure SQL Database',
+    // Cloud
+    'AWS Cognito',
+    'AWS Lambda / S3 / SQS',
+    'API Gateway / CloudFront',
+    'Azure App Service',
+    'Docker / Docker Compose',
+    'GitHub Actions / CI-CD',
+    // Quality
+    'TDD / ユニットテスト',
+    'ESLint / コーディング規約',
+    'リファクタリング',
+    'Git / GitHub',
+    // AI / automation
+    'Claude Code / Codex / Kiro',
+    'LLM活用 / AIコードレビュー',
+    'Zapier / Slack Bot',
+    'Google Apps Script',
   ],
 
   timeline: [
