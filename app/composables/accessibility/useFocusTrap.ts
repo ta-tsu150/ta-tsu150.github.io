@@ -19,7 +19,8 @@ interface FocusTrapOptions {
  *
  * On activation focus moves to the first focusable child; on deactivation it
  * returns to whatever was focused before, so closing a dialog with the keyboard
- * puts the user back on the control that opened it.
+ * puts the user back on the control that opened it — unless closing has already
+ * sent focus somewhere else deliberately, which is left alone.
  */
 export function useFocusTrap(
   container: Ref<HTMLElement | null>,
@@ -70,7 +71,16 @@ export function useFocusTrap(
       focusableChildren()[0]?.focus()
       return
     }
-    previouslyFocused?.focus()
+    // Closing may itself have moved focus on purpose — a nav link jumping to
+    // its section, for instance. Only pull focus back to the opener when it is
+    // still inside the dialog, or has fallen back to <body> because the dialog
+    // is going away.
+    const focused = document.activeElement
+    const stillInsideDialog = focused instanceof HTMLElement
+      && (container.value?.contains(focused) ?? false)
+    const droppedToBody = focused === null || focused === document.body
+
+    if (stillInsideDialog || droppedToBody) previouslyFocused?.focus()
     previouslyFocused = null
   })
 

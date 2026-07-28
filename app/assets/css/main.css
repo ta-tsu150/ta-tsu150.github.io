@@ -23,10 +23,11 @@
     'Noto Sans JP', sans-serif;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
+/*
+ * Deliberately no `scroll-behavior: smooth` here. It would also apply to scroll
+ * *restoration* on reload, turning it into a visible glide down the page.
+ * In-page links do their own smooth scroll — see composables/useInPageAnchors.ts.
+ */
 body {
   font-family: var(--font);
   background: var(--bg);
@@ -183,10 +184,6 @@ body {
 
 /* ===== Reduced motion ===== */
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
   *,
   *::before,
   *::after {

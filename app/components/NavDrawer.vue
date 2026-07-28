@@ -18,10 +18,10 @@ function setScrollLock(locked: boolean): void {
 
 function close(): void {
   // Unlock synchronously rather than waiting on the watcher below: a nav link
-  // closes the drawer and then relies on the browser's default anchor jump,
-  // which a still-locked <body> swallows. `defineModel` round-trips through the
-  // parent, so `isOpen` does not change during this call — not even a
-  // `flush: 'sync'` watcher would run in time.
+  // closes the drawer and then `useInPageAnchors` scrolls, later in the same
+  // click, and a still-locked <body> swallows that scroll. `defineModel`
+  // round-trips through the parent, so `isOpen` does not change during this
+  // call — not even a `flush: 'sync'` watcher would run in time.
   setScrollLock(false)
   isOpen.value = false
 }
