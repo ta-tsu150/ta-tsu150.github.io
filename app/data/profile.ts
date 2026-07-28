@@ -27,7 +27,7 @@ export const profile: Profile = {
   details: [
     [
       { key: 'height', value: '183.8cm' },
-      { key: 'weight', value: '75.2kg' },
+      { key: 'weight', value: '約75kg' },
     ],
     [
       { key: 'favorite', value: '猫' },
