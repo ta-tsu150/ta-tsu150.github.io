@@ -44,6 +44,34 @@ export interface TimelineEntry {
   readonly paragraphs: readonly string[]
 }
 
+/** One technical topic inside a work entry. */
+export interface WorkTopic {
+  readonly title: string
+  readonly body: string
+}
+
+/**
+ * One entry in the Works section — the evidence behind the Skills tags.
+ *
+ * Client and product names never appear here. Describe engagements by industry
+ * and system type only, and keep internal system names, ticket ids and figures
+ * out entirely. Anything committed here ships in the client bundle, so an entry
+ * that is not cleared for publication must not be in this file at all.
+ */
+export interface WorkEntry {
+  /** Stable key for list rendering. */
+  readonly id: string
+  /** Industry plus system type, e.g. `医療・調剤領域の業務システム`. */
+  readonly title: string
+  readonly period: string
+  /** Iconify name, e.g. `lucide:smartphone`. */
+  readonly icon: string
+  readonly challenge: string
+  readonly role: string
+  readonly stack: readonly string[]
+  readonly topics: readonly WorkTopic[]
+}
+
 /** Everything the page renders, in one place. */
 export interface Profile {
   readonly handle: string
@@ -61,5 +89,6 @@ export interface Profile {
   readonly details: readonly (readonly LabelledRow[])[]
   readonly skills: readonly SkillCategory[]
   readonly skillTags: readonly string[]
+  readonly works: readonly WorkEntry[]
   readonly timeline: readonly TimelineEntry[]
 }

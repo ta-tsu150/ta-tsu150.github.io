@@ -4,8 +4,14 @@ useScrollReveal()
 </script>
 
 <template>
+  <!--
+    Personal first, then technical: About (who) → Timeline (how I got here)
+    → Skills (what I can do) → Works (the evidence). Keep `SECTION_IDS` and
+    `navGroups` in `data/profile.ts` in the same order.
+  -->
   <HeroSection />
   <AboutSection />
-  <SkillsSection />
   <TimelineSection />
+  <SkillsSection />
+  <WorksSection />
 </template>
