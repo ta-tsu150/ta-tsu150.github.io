@@ -1,16 +1,24 @@
 <script setup lang="ts">
-import { navGroups, profile } from '~/data/profile'
+import { navGroups } from '~/data/profile'
 
 const props = defineProps<{
   /** Id of the section currently in view, for the active highlight. */
   activeId: string
+  /**
+   * The navbar toggle. It sits outside the panel but acts as this dialog's back
+   * control, so the focus trap keeps it inside the tab loop.
+   */
+  toggleEl: HTMLElement | null
 }>()
 
 const isOpen = defineModel<boolean>({ required: true })
 
 const panel = ref<HTMLElement | null>(null)
 
-useFocusTrap(panel, isOpen, { onEscape: close })
+useFocusTrap(panel, isOpen, {
+  onEscape: close,
+  alsoFocusable: computed(() => props.toggleEl),
+})
 
 function setScrollLock(locked: boolean): void {
   document.body.style.overflow = locked ? 'hidden' : ''
@@ -54,18 +62,6 @@ onBeforeUnmount(() => setScrollLock(false))
           aria-modal="true"
           aria-label="ナビゲーション"
         >
-          <div class="drawer-head">
-            <span class="drawer-brand">{{ profile.handle }}</span>
-            <button
-              type="button"
-              class="drawer-close"
-              aria-label="メニューを閉じる"
-              @click="close"
-            >
-              <Icon name="lucide:x" />
-            </button>
-          </div>
-
           <nav class="drawer-nav">
             <template v-for="(group, index) in navGroups" :key="index">
               <p v-if="group.label" class="drawer-group-label">{{ group.label }}</p>
@@ -114,9 +110,14 @@ onBeforeUnmount(() => setScrollLock(false))
   backdrop-filter: blur(2px);
 }
 
+/*
+ * Starts below the navbar so the toggle and the brand stay uncovered — the
+ * toggle morphs into this panel's back control, so it must remain the same
+ * on-screen button throughout.
+ */
 .drawer-panel {
   position: absolute;
-  top: 0;
+  top: var(--navbar-height);
   bottom: 0;
   left: 0;
   width: min(320px, 85vw);
@@ -127,41 +128,6 @@ onBeforeUnmount(() => setScrollLock(false))
   border-right: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
   overflow-y: auto;
-}
-
-.drawer-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 4px 8px 12px;
-  border-bottom: 1px solid var(--glass-border);
-}
-
-.drawer-brand {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--accent);
-  letter-spacing: -0.02em;
-}
-
-.drawer-close {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border: 1px solid transparent;
-  border-radius: 10px;
-  background: transparent;
-  color: var(--text-muted);
-  font-size: 1.15rem;
-  cursor: pointer;
-  transition: color 0.2s, background 0.2s;
-}
-
-.drawer-close:hover {
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.08);
 }
 
 .drawer-nav {

@@ -12,15 +12,22 @@ const FOCUSABLE_SELECTOR = [
 interface FocusTrapOptions {
   /** Called when Escape is pressed while the trap is active. */
   onEscape?: () => void
+  /**
+   * A focusable that belongs to the dialog's tab loop despite living outside
+   * `container` — typically a trigger that doubles as the close control. It is
+   * placed first in the loop, matching where such a control normally sits.
+   */
+  alsoFocusable?: Ref<HTMLElement | null>
 }
 
 /**
- * Keeps keyboard focus inside `container` while `isActive` is true.
+ * Keeps keyboard focus inside `container` (plus `alsoFocusable`) while
+ * `isActive` is true.
  *
- * On activation focus moves to the first focusable child; on deactivation it
- * returns to whatever was focused before, so closing a dialog with the keyboard
- * puts the user back on the control that opened it — unless closing has already
- * sent focus somewhere else deliberately, which is left alone.
+ * On activation focus moves to the first focusable *inside* the container — the
+ * trigger has just been pressed, so putting focus back on it would feel like
+ * nothing happened. On deactivation focus returns to whatever was focused
+ * before, unless closing has already sent it somewhere else deliberately.
  */
 export function useFocusTrap(
   container: Ref<HTMLElement | null>,
@@ -29,14 +36,24 @@ export function useFocusTrap(
 ): void {
   let previouslyFocused: HTMLElement | null = null
 
+  const isRendered = (el: HTMLElement): boolean =>
+    // `offsetParent` is null for position: fixed elements, so measure
+    // visibility with client rects instead.
+    el.getClientRects().length > 0
+
   function focusableChildren(): HTMLElement[] {
     const root = container.value
     if (!root) return []
     return Array.from(
       root.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
-      // `offsetParent` is null for position: fixed elements, so measure
-      // visibility with client rects instead.
-    ).filter((el) => el.getClientRects().length > 0)
+    ).filter(isRendered)
+  }
+
+  /** The full tab loop: the external control, then the container's own items. */
+  function focusLoop(): HTMLElement[] {
+    const external = options.alsoFocusable?.value
+    const outside = external && isRendered(external) ? [external] : []
+    return [...outside, ...focusableChildren()]
   }
 
   function handleKeydown(event: KeyboardEvent): void {
@@ -50,18 +67,27 @@ export function useFocusTrap(
 
     if (event.key !== 'Tab') return
 
-    const items = focusableChildren()
-    const first = items[0]
-    const last = items[items.length - 1]
-    if (!first || !last) return
+    const items = focusLoop()
+    if (items.length === 0) return
 
-    if (event.shiftKey && document.activeElement === first) {
-      event.preventDefault()
-      last.focus()
-    } else if (!event.shiftKey && document.activeElement === last) {
-      event.preventDefault()
-      first.focus()
+    /*
+     * Every Tab is driven explicitly rather than only wrapping at the ends.
+     * `alsoFocusable` lives in a different part of the DOM from the container
+     * (the panel is teleported to <body>), so the loop order and the document's
+     * own tab order do not agree — deciding by index is the only way to keep
+     * focus inside.
+     */
+    event.preventDefault()
+
+    const current = items.indexOf(document.activeElement as HTMLElement)
+    if (current === -1) {
+      items[0]?.focus()
+      return
     }
+
+    const step = event.shiftKey ? -1 : 1
+    const next = (current + step + items.length) % items.length
+    items[next]?.focus()
   }
 
   watch(isActive, async (active) => {
@@ -77,7 +103,8 @@ export function useFocusTrap(
     // is going away.
     const focused = document.activeElement
     const stillInsideDialog = focused instanceof HTMLElement
-      && (container.value?.contains(focused) ?? false)
+      && ((container.value?.contains(focused) ?? false)
+        || focused === options.alsoFocusable?.value)
     const droppedToBody = focused === null || focused === document.body
 
     if (stillInsideDialog || droppedToBody) previouslyFocused?.focus()
