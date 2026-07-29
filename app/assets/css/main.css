@@ -25,6 +25,19 @@
     'Noto Sans JP', sans-serif;
 }
 
+html {
+  /*
+   * Keep the scrollbar's gutter reserved at all times. The drawer locks
+   * scrolling with `body { overflow: hidden }`, which removes the scrollbar and
+   * widens the viewport by its width — centred content jumps sideways and the
+   * fixed navbar grows every time the menu opens.
+   *
+   * No JS fallback: platforms that still lack `scrollbar-gutter` are the ones
+   * using zero-width overlay scrollbars, where there is nothing to compensate.
+   */
+  scrollbar-gutter: stable;
+}
+
 /*
  * Deliberately no `scroll-behavior: smooth` here. It would also apply to scroll
  * *restoration* on reload, turning it into a visible glide down the page.
