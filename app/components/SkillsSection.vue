@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { profile } from '~/data/profile'
+
+const { selected, toggle } = useSkillFilter()
 </script>
 
 <template>
@@ -17,9 +19,23 @@ import { profile } from '~/data/profile'
     </div>
 
     <GlassCard class="skill-tags-card">
+      <p class="skill-tags-hint">
+        クリックすると、そのスキルを使った Works を強調表示します。
+      </p>
       <ul class="skill-tags">
-        <li v-for="tag in profile.skillTags" :key="tag" class="skill-tag">
-          {{ tag }}
+        <li v-for="tag in profile.skillTags" :key="tag.label">
+          <button
+            v-if="tag.works.length > 0"
+            type="button"
+            class="skill-tag is-linked"
+            :class="{ 'is-selected': selected === tag.label }"
+            :aria-pressed="selected === tag.label"
+            @click="toggle(tag.label)"
+          >
+            {{ tag.label }}
+            <span class="skill-tag-count">{{ tag.works.length }}</span>
+          </button>
+          <span v-else class="skill-tag">{{ tag.label }}</span>
         </li>
       </ul>
     </GlassCard>
@@ -67,6 +83,12 @@ import { profile } from '~/data/profile'
   padding: 24px;
 }
 
+.skill-tags-hint {
+  margin-bottom: 16px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
 .skill-tags {
   display: flex;
   flex-wrap: wrap;
@@ -75,6 +97,10 @@ import { profile } from '~/data/profile'
 }
 
 .skill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font: inherit;
   font-size: 0.8rem;
   padding: 6px 16px;
   border-radius: 999px;
@@ -84,10 +110,41 @@ import { profile } from '~/data/profile'
   transition: background 0.2s, border-color 0.2s, transform 0.2s;
 }
 
-.skill-tag:hover {
+/* Chips with no backing Works entry stay as plain, non-interactive text. */
+.skill-tag.is-linked {
+  cursor: pointer;
+}
+
+.skill-tag.is-linked:hover {
   background: rgba(129, 140, 248, 0.25);
   border-color: var(--accent);
   transform: translateY(-2px);
+}
+
+.skill-tag.is-selected {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+  font-weight: 600;
+}
+
+.skill-tag-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.15em;
+  height: 1.15em;
+  padding: 0 0.25em;
+  border-radius: 999px;
+  background: rgba(129, 140, 248, 0.25);
+  font-size: 0.68rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
+.skill-tag.is-selected .skill-tag-count {
+  background: rgba(10, 10, 26, 0.25);
+  color: var(--bg);
 }
 
 @media (max-width: 768px) {

@@ -49,7 +49,7 @@ import { profile } from '~/data/profile'
 }
 
 /* scroll reveal — see composables/useScrollReveal.ts */
-.reveal-enabled .timeline-item:not(.visible) {
+.reveal-enabled .timeline-item:not([data-revealed]) {
   opacity: 0;
   transform: translateX(-20px);
 }

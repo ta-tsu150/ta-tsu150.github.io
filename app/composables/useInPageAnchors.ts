@@ -17,12 +17,6 @@
  * working deep link.
  */
 export function useInPageAnchors(): void {
-  function scrollBehavior(): ScrollBehavior {
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      ? 'instant'
-      : 'smooth'
-  }
-
   /**
    * Mirrors what the browser's own anchor navigation does for keyboard users,
    * so the skip link and section jumps still move the focus point.
@@ -75,7 +69,7 @@ export function useInPageAnchors(): void {
     if (!target) return
 
     event.preventDefault()
-    target.scrollIntoView({ behavior: scrollBehavior(), block: 'start' })
+    smoothScrollTo(target)
     focusWithoutScrolling(target)
   }
 

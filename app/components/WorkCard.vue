@@ -1,11 +1,26 @@
 <script setup lang="ts">
 import type { WorkEntry } from '~/types/profile'
 
-defineProps<{ entry: WorkEntry }>()
+withDefaults(
+  defineProps<{
+    entry: WorkEntry
+    /**
+     * Whether this entry demonstrates the currently selected skill.
+     * `null` means no skill is selected, so nothing is emphasised.
+     */
+    match?: boolean | null
+  }>(),
+  { match: null },
+)
 </script>
 
 <template>
-  <GlassCard as="article" class="work">
+  <GlassCard
+    :id="`work-${entry.id}`"
+    as="article"
+    class="work"
+    :class="{ 'is-match': match === true, 'is-muted': match === false }"
+  >
     <header class="work-head">
       <span class="work-icon" aria-hidden="true">
         <Icon :name="entry.icon" />
@@ -44,6 +59,40 @@ defineProps<{ entry: WorkEntry }>()
   display: flex;
   flex-direction: column;
   gap: 20px;
+  /*
+   * Clears the fixed navbar plus the sticky filter bar when a skill chip jumps
+   * straight to this card.
+   */
+  scroll-margin-top: 130px;
+  /*
+   * Restates the `.glass-card` transitions from main.css because this scoped
+   * rule wins on specificity and a shorthand cannot be extended — dropping them
+   * would kill the scroll-reveal animation. `filter` is the addition.
+   */
+  transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease,
+    border-color 0.3s ease, filter 0.25s ease;
+}
+
+/* ===== Skill filter emphasis ===== */
+
+/*
+ * `.glass-card` already owns opacity for the scroll reveal, so the muted state
+ * dims via a colour overlay and desaturation instead of fighting over it.
+ */
+.work.is-muted {
+  filter: saturate(0.4) brightness(0.82);
+}
+
+.work.is-match {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent-glow), 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work.is-muted {
+    /* Keep the cue, drop the animated feel. */
+    filter: saturate(0.35);
+  }
 }
 
 /* ===== Header ===== */

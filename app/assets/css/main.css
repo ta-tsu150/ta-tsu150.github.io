@@ -101,10 +101,11 @@ body {
  *
  * Content is visible by default and only hidden once `.reveal-enabled` is set
  * on <html>, so the prerendered page stays readable without JavaScript.
- * `:not(.visible)` stops matching once an element has been revealed, which
- * keeps the hover transform above from being out-specified.
+ * `:not([data-revealed])` stops matching once an element has been revealed,
+ * which keeps the hover transform above from being out-specified. See
+ * utils/reveal.ts for why the flag is an attribute rather than a class.
  */
-.reveal-enabled .glass-card:not(.visible) {
+.reveal-enabled .glass-card:not([data-revealed]) {
   opacity: 0;
   transform: translateY(30px);
 }
@@ -161,7 +162,7 @@ body {
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-.reveal-enabled .section-title:not(.visible) {
+.reveal-enabled .section-title:not([data-revealed]) {
   opacity: 0;
   transform: translateY(20px);
 }

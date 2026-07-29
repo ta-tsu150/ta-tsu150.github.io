@@ -1,9 +1,6 @@
 /** Elements that fade/slide in once they enter the viewport. */
 const DEFAULT_SELECTORS = ['.glass-card', '.timeline-item', '.section-title'] as const
 
-/** Class the stylesheet keys the "revealed" state off. */
-const VISIBLE_CLASS = 'visible'
-
 /**
  * Set on <html> by an inline script in `nuxt.config.ts` before first paint.
  * Its presence is what makes the reveal styles apply at all — without it the
@@ -17,7 +14,7 @@ interface ScrollRevealOptions {
 }
 
 /**
- * Adds `.visible` to matching elements as they scroll into view.
+ * Marks matching elements revealed as they scroll into view.
  *
  * Drops the whole effect — leaving every element visible — when the user
  * prefers reduced motion or `IntersectionObserver` is unavailable, so content
@@ -51,7 +48,7 @@ export function useScrollReveal(options: ScrollRevealOptions = {}): void {
       (entries, self) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return
-          entry.target.classList.add(VISIBLE_CLASS)
+          revealNow(entry.target)
           // Reveal is one-way: stop watching once it has fired.
           self.unobserve(entry.target)
         })

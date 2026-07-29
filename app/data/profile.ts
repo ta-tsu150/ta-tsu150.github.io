@@ -49,47 +49,55 @@ export const profile: Profile = {
     { icon: 'lucide:database', title: 'Database', detail: 'PostgreSQL / Prisma / Azure SQL / EF Core' },
   ],
 
+  /*
+   * `works` points at the entries that actually demonstrate each skill. The
+   * evidence is sometimes in a topic body rather than the stack list, so this is
+   * hand-maintained rather than string-matched against `works[].stack`.
+   *
+   * An empty array is a deliberate "nothing on this page backs it up yet" — the
+   * chip then renders as plain text instead of a button.
+   */
   skillTags: [
     // Languages
-    'TypeScript',
-    'C# / .NET',
-    'Node.js',
-    'SQL / DB Migration',
+    { label: 'TypeScript', works: ['internal-hr', 'medical-ops', 'btoc-mobile'] },
+    { label: 'C# / .NET', works: ['dotnet-training'] },
+    { label: 'Node.js', works: ['btoc-mobile'] },
+    { label: 'SQL / DB Migration', works: ['dotnet-training', 'internal-hr'] },
     // Frontend
-    'Vue.js / Nuxt.js',
-    'Composition API / Composables',
-    'i18n',
-    'アクセシビリティ対応',
-    'UI/UX設計',
+    { label: 'Vue.js / Nuxt.js', works: ['internal-hr', 'medical-ops', 'btoc-mobile'] },
+    { label: 'Composition API / Composables', works: ['internal-hr', 'medical-ops', 'btoc-mobile'] },
+    { label: 'i18n', works: ['medical-ops'] },
+    { label: 'アクセシビリティ対応', works: [] },
+    { label: 'UI/UX設計', works: ['internal-hr', 'medical-ops'] },
     // Mobile
-    'Expo / React Native',
-    'TestFlight / Xcode',
+    { label: 'Expo / React Native', works: ['btoc-mobile'] },
+    { label: 'TestFlight / Xcode', works: ['btoc-mobile'] },
     // Backend
-    'NestJS / Prisma',
-    'Entity Framework Core',
-    'DDD / Clean Architecture',
-    'REST API / Swagger',
-    'OAuth 2.0 / JWT',
+    { label: 'NestJS / Prisma', works: ['btoc-mobile'] },
+    { label: 'Entity Framework Core', works: ['dotnet-training'] },
+    { label: 'DDD / Clean Architecture', works: ['btoc-mobile', 'dotnet-training'] },
+    { label: 'REST API / Swagger', works: ['btoc-mobile'] },
+    { label: 'OAuth 2.0 / JWT', works: ['btoc-mobile'] },
     // Data
-    'PostgreSQL',
-    'Azure SQL Database',
+    { label: 'PostgreSQL', works: ['internal-hr', 'btoc-mobile'] },
+    { label: 'Azure SQL Database', works: ['dotnet-training'] },
     // Cloud
-    'AWS Cognito',
-    'AWS Lambda / S3 / SQS',
-    'API Gateway / CloudFront',
-    'Azure App Service',
-    'Docker / Docker Compose',
-    'GitHub Actions / CI-CD',
+    { label: 'AWS Cognito', works: ['btoc-mobile'] },
+    { label: 'AWS Lambda / S3 / SQS', works: ['btoc-mobile'] },
+    { label: 'API Gateway / CloudFront', works: ['btoc-mobile'] },
+    { label: 'Azure App Service', works: ['dotnet-training'] },
+    { label: 'Docker / Docker Compose', works: ['medical-ops'] },
+    { label: 'GitHub Actions / CI-CD', works: ['btoc-mobile'] },
     // Quality
-    'TDD / ユニットテスト',
-    'ESLint / コーディング規約',
-    'リファクタリング',
-    'Git / GitHub',
+    { label: 'TDD / ユニットテスト', works: ['dotnet-training'] },
+    { label: 'ESLint / コーディング規約', works: [] },
+    { label: 'リファクタリング', works: ['btoc-mobile', 'internal-hr'] },
+    { label: 'Git / GitHub', works: ['btoc-mobile', 'dotnet-training'] },
     // AI / automation
-    'Claude Code / Codex / Kiro',
-    'LLM活用 / AIコードレビュー',
-    'Zapier / Slack Bot',
-    'Google Apps Script',
+    { label: 'Claude Code / Codex / Kiro', works: [] },
+    { label: 'LLM活用 / AIコードレビュー', works: [] },
+    { label: 'Zapier / Slack Bot', works: ['btoc-mobile'] },
+    { label: 'Google Apps Script', works: ['medical-ops'] },
   ],
 
   /*

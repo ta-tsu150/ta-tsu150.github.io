@@ -44,6 +44,28 @@ export interface TimelineEntry {
   readonly paragraphs: readonly string[]
 }
 
+/**
+ * Ids of the Works entries.
+ *
+ * Declared as a union rather than a bare string so that the `works` references
+ * on each skill tag are checked at compile time. Adding an entry means adding
+ * its id here too.
+ */
+export type WorkId = 'internal-hr' | 'medical-ops' | 'btoc-mobile' | 'dotnet-training'
+
+/**
+ * One chip in the Skills tag cloud.
+ *
+ * `works` lists the entries that actually demonstrate the skill — including
+ * ones where the evidence is in the topic text rather than the stack list. An
+ * empty array means nothing on the page backs it up yet, and the chip renders
+ * as plain text instead of a control.
+ */
+export interface SkillTag {
+  readonly label: string
+  readonly works: readonly WorkId[]
+}
+
 /** One technical topic inside a work entry. */
 export interface WorkTopic {
   readonly title: string
@@ -59,8 +81,8 @@ export interface WorkTopic {
  * that is not cleared for publication must not be in this file at all.
  */
 export interface WorkEntry {
-  /** Stable key for list rendering. */
-  readonly id: string
+  /** Stable key for list rendering, and the target of `SkillTag.works`. */
+  readonly id: WorkId
   /** Industry plus system type, e.g. `医療・調剤領域の業務システム`. */
   readonly title: string
   readonly period: string
@@ -88,7 +110,7 @@ export interface Profile {
   readonly heroInfo: readonly LabelledRow[]
   readonly details: readonly (readonly LabelledRow[])[]
   readonly skills: readonly SkillCategory[]
-  readonly skillTags: readonly string[]
+  readonly skillTags: readonly SkillTag[]
   readonly works: readonly WorkEntry[]
   readonly timeline: readonly TimelineEntry[]
 }

@@ -2,8 +2,8 @@
 /**
  * Frosted panel used throughout the page.
  *
- * Styling lives in `assets/css/main.css` because `useScrollReveal` toggles
- * `.visible` on `.glass-card` globally.
+ * Styling lives in `assets/css/main.css` because `useScrollReveal` marks
+ * `.glass-card` elements revealed globally, via `data-revealed`.
  */
 withDefaults(
   defineProps<{
