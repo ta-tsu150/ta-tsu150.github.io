@@ -80,18 +80,18 @@ withDefaults(
  * dims via a colour overlay and desaturation instead of fighting over it.
  */
 .work.is-muted {
-  filter: saturate(0.4) brightness(0.82);
+  filter: var(--muted-filter);
 }
 
 .work.is-match {
   border-color: var(--accent);
-  box-shadow: 0 0 0 1px var(--accent-glow), 0 12px 40px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 0 1px var(--accent-glow), var(--shadow-lifted);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .work.is-muted {
     /* Keep the cue, drop the animated feel. */
-    filter: saturate(0.35);
+    filter: var(--muted-filter);
   }
 }
 
@@ -111,7 +111,7 @@ withDefaults(
   flex-shrink: 0;
   border-radius: 12px;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: var(--bg);
+  color: var(--on-accent);
   font-size: 1.3rem;
 }
 
@@ -161,8 +161,8 @@ withDefaults(
   font-size: 0.75rem;
   padding: 4px 12px;
   border-radius: 999px;
-  background: rgba(129, 140, 248, 0.1);
-  border: 1px solid rgba(129, 140, 248, 0.2);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-soft-border);
   color: var(--text-muted);
 }
 

@@ -61,11 +61,11 @@ const { selected, matchedWorkIds, clear, isMatched } = useSkillFilter()
   padding: 12px 16px;
   border-radius: 12px;
   /* Opaque enough that cards scrolling underneath do not show through. */
-  background: rgba(24, 24, 48, 0.92);
+  background: var(--surface-raised);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   border: 1px solid var(--accent-glow);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+  box-shadow: var(--shadow-float);
   font-size: 0.85rem;
   color: var(--text-muted);
 }
@@ -90,7 +90,7 @@ const { selected, matchedWorkIds, clear, isMatched } = useSkillFilter()
 }
 
 .works-filter-clear:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-hover);
   border-color: var(--text-muted);
 }
 

@@ -15,7 +15,7 @@
   position: fixed;
   border-radius: 50%;
   filter: blur(120px);
-  opacity: 0.4;
+  opacity: var(--blob-opacity);
   z-index: 0;
   pointer-events: none;
 }

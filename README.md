@@ -2,7 +2,7 @@
 
 Self-introduction page — https://ta-tsu150.github.io/
 
-All code is written using AI.
+Ichino's Programming Playground
 
 This is just a place to kill time, so please overlook the quality issues.
 

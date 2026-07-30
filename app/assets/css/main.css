@@ -7,22 +7,140 @@
   box-sizing: border-box;
 }
 
+/* ===== Theme-independent tokens ===== */
 :root {
-  --bg: #0a0a1a;
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  --text: #e4e4e7;
-  --text-muted: #a1a1aa;
-  --accent: #818cf8;
-  --accent-glow: rgba(129, 140, 248, 0.3);
-  --accent-2: #34d399;
-  --accent-3: #f472b6;
   --radius: 16px;
   /* 12px padding + 38px control + 12px padding + 1px border. */
   --navbar-height: 63px;
   --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans',
     'Noto Sans JP', sans-serif;
+
+  /*
+   * The theme toggle paints both states regardless of which theme is active, so
+   * its palette cannot live in either theme block. Values sampled from the
+   * reference animation.
+   */
+  --toggle-day: linear-gradient(150deg, #a5c4ff, #7aa5ff);
+  --toggle-night: #141826;
+  --toggle-thumb: #ffffff;
+  --toggle-cloud: rgba(255, 255, 255, 0.62);
+
+  /* How long the whole page takes to cross-fade between themes. */
+  --theme-fade: 320ms;
+}
+
+/*
+ * Horizontal centre of the bite cut out of the theme toggle's moon.
+ *
+ * Registered so it can be transitioned: the bite lives inside a `mask-image`
+ * gradient, and only a typed custom property interpolates. Declared here rather
+ * than in the component because `@property` is global regardless of scoping.
+ */
+@property --moon-bite-x {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
+/*
+ * ===== Themes =====
+ *
+ * Dark is the base, light overrides it under `[data-theme='light']`. An inline
+ * script in nuxt.config.ts resolves the stored choice (or the OS preference)
+ * onto <html> before first paint, so the prerendered page never shows the wrong
+ * theme and the toggle never visibly flips on hydration.
+ *
+ * With JavaScript off no attribute is set and the dark base applies, which is
+ * what the site looked like before the toggle existed.
+ *
+ * Every colour on the site has to come from here. A value hard-coded in a
+ * component is a value that cannot follow the theme — glass in particular
+ * inverts rather than shifts: translucent white over a dark page becomes
+ * translucent black-on-white, not a lighter white.
+ */
+:root {
+  --bg: #0a0a1a;
+  --text: #e4e4e7;
+  --text-muted: #a1a1aa;
+
+  --accent: #818cf8;
+  --accent-2: #34d399;
+  --accent-3: #f472b6;
+  --accent-glow: rgba(129, 140, 248, 0.3);
+  /* Foreground for accent-filled surfaces. Not `--bg`: light theme keeps a
+     mid-tone accent, so the text on it stays white rather than following the
+     page background. */
+  --on-accent: #0a0a1a;
+
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+  /* Neutral overlays: hover states, faint chips, and the sticky filter bar. */
+  --surface-hover: rgba(255, 255, 255, 0.08);
+  --surface-subtle: rgba(255, 255, 255, 0.04);
+  --surface-raised: rgba(24, 24, 48, 0.92);
+
+  /* Accent tints, weakest to strongest. */
+  --accent-soft: rgba(129, 140, 248, 0.1);
+  --accent-soft-border: rgba(129, 140, 248, 0.2);
+  --accent-soft-strong: rgba(129, 140, 248, 0.25);
+  --accent-active: rgba(129, 140, 248, 0.14);
+
+  --backdrop: rgba(5, 5, 15, 0.6);
+  --shadow-lifted: 0 12px 40px rgba(0, 0, 0, 0.4);
+  --shadow-float: 0 6px 24px rgba(0, 0, 0, 0.35);
+
+  /* Veil over an accent-filled surface, for a badge sitting on a filled chip. */
+  --on-accent-veil: rgba(0, 0, 0, 0.22);
+
+  /* Background blobs read as glow here, so they can be strong. */
+  --blob-opacity: 0.4;
+  /* De-emphasis for non-matching Works cards: darken away from the page. */
+  --muted-filter: saturate(0.4) brightness(0.82);
+}
+
+:root[data-theme='light'] {
+  /* Sampled from the reference animation's light state. */
+  --bg: #eef5ff;
+  --text: #1e293b;
+  --text-muted: #5b6478;
+
+  /* Darker than the dark theme's accent: the same indigo that reads well on
+     near-black fails contrast on near-white, and it also feeds the focus ring
+     and the gradient in the hero heading. */
+  --accent: #4f46e5;
+  --accent-2: #0d9488;
+  --accent-3: #db2777;
+  --accent-glow: rgba(79, 70, 229, 0.24);
+  --on-accent: #ffffff;
+
+  /* Glass inverts: a mostly-opaque white panel over the tinted page. */
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(30, 41, 59, 0.1);
+  --glass-shadow: 0 8px 32px rgba(30, 41, 59, 0.08);
+
+  --surface-hover: rgba(30, 41, 59, 0.06);
+  --surface-subtle: rgba(30, 41, 59, 0.04);
+  --surface-raised: rgba(255, 255, 255, 0.94);
+
+  --accent-soft: rgba(79, 70, 229, 0.08);
+  --accent-soft-border: rgba(79, 70, 229, 0.2);
+  --accent-soft-strong: rgba(79, 70, 229, 0.16);
+  --accent-active: rgba(79, 70, 229, 0.12);
+
+  --backdrop: rgba(30, 41, 59, 0.32);
+  --shadow-lifted: 0 12px 40px rgba(30, 41, 59, 0.14);
+  --shadow-float: 0 6px 24px rgba(30, 41, 59, 0.12);
+
+  --on-accent-veil: rgba(0, 0, 0, 0.18);
+
+  /* Lower than the dark theme's: on a pale page the same strength stops reading
+     as ambient glow and starts reading as loud colour fields. */
+  --blob-opacity: 0.2;
+  /* Reversed: on a light page, de-emphasis means fading *towards* the
+     background, so lift brightness and drop contrast instead. */
+  --muted-filter: saturate(0.35) brightness(1.04) contrast(0.93);
 }
 
 html {
@@ -52,6 +170,36 @@ body {
   min-height: 100vh;
 }
 
+/*
+ * ===== Theme cross-fade =====
+ *
+ * Colours live in custom properties, which cannot be transitioned, so the fade
+ * has to be applied to the properties that read them. `useTheme` sets this
+ * attribute only for the duration of a switch, which means:
+ *   - the initial paint never animates (the attribute is absent on load), and
+ *   - these rules never interfere with hover or reveal transitions the rest of
+ *     the time.
+ *
+ * `opacity` and `transform` are deliberately excluded, so a card mid-reveal or
+ * mid-hover does not get its motion retimed.
+ *
+ * The toggle's own subtree is excluded outright. Because this rule is
+ * `!important` and omits `transform`, it would otherwise cancel the thumb's
+ * slide — the switch would teleport rather than travel.
+ */
+:root[data-theme-changing] *:not(.theme-toggle, .theme-toggle *),
+:root[data-theme-changing] *:not(.theme-toggle, .theme-toggle *)::before,
+:root[data-theme-changing] *:not(.theme-toggle, .theme-toggle *)::after {
+  transition:
+    background-color var(--theme-fade) ease,
+    background-image var(--theme-fade) ease,
+    border-color var(--theme-fade) ease,
+    color var(--theme-fade) ease,
+    fill var(--theme-fade) ease,
+    box-shadow var(--theme-fade) ease,
+    filter var(--theme-fade) ease !important;
+}
+
 /* ===== Accessibility ===== */
 :focus-visible {
   outline: 2px solid var(--accent);
@@ -67,7 +215,7 @@ body {
   padding: 10px 18px;
   border-radius: 8px;
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
   font-weight: 600;
   text-decoration: none;
   transform: translateY(-200%);
@@ -107,7 +255,7 @@ body {
 
 .glass-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-lifted);
   border-color: var(--accent-glow);
 }
 
@@ -140,7 +288,7 @@ body {
 
 .btn-primary {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
   box-shadow: 0 4px 20px var(--accent-glow);
 }
 
@@ -156,7 +304,7 @@ body {
 }
 
 .btn-outline:hover {
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--surface-hover);
   border-color: var(--text-muted);
 }
 

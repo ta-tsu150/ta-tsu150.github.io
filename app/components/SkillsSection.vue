@@ -64,7 +64,7 @@ const { selected, toggle } = useSkillFilter()
   align-items: center;
   justify-content: center;
   font-size: 1.4rem;
-  color: var(--bg);
+  color: var(--on-accent);
 }
 
 .skill-card h3 {
@@ -104,8 +104,8 @@ const { selected, toggle } = useSkillFilter()
   font-size: 0.8rem;
   padding: 6px 16px;
   border-radius: 999px;
-  background: rgba(129, 140, 248, 0.1);
-  border: 1px solid rgba(129, 140, 248, 0.2);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-soft-border);
   color: var(--text);
   transition: background 0.2s, border-color 0.2s, transform 0.2s;
 }
@@ -116,7 +116,7 @@ const { selected, toggle } = useSkillFilter()
 }
 
 .skill-tag.is-linked:hover {
-  background: rgba(129, 140, 248, 0.25);
+  background: var(--accent-soft-strong);
   border-color: var(--accent);
   transform: translateY(-2px);
 }
@@ -124,7 +124,7 @@ const { selected, toggle } = useSkillFilter()
 .skill-tag.is-selected {
   background: var(--accent);
   border-color: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
   font-weight: 600;
 }
 
@@ -136,15 +136,15 @@ const { selected, toggle } = useSkillFilter()
   height: 1.15em;
   padding: 0 0.25em;
   border-radius: 999px;
-  background: rgba(129, 140, 248, 0.25);
+  background: var(--accent-soft-strong);
   font-size: 0.68rem;
   font-variant-numeric: tabular-nums;
   color: var(--text-muted);
 }
 
 .skill-tag.is-selected .skill-tag-count {
-  background: rgba(10, 10, 26, 0.25);
-  color: var(--bg);
+  background: var(--on-accent-veil);
+  color: var(--on-accent);
 }
 
 @media (max-width: 768px) {

@@ -54,7 +54,7 @@ import { profile } from '~/data/profile'
   padding: 6px 16px;
   border: 1px solid var(--accent-glow);
   border-radius: 999px;
-  background: rgba(129, 140, 248, 0.08);
+  background: var(--accent-soft);
 }
 
 .hero-name {

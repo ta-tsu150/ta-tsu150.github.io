@@ -26,6 +26,8 @@ const toggle = ref<HTMLButtonElement | null>(null)
     </button>
 
     <a href="#hero" class="nav-brand">{{ profile.handle }}</a>
+
+    <ThemeToggle class="nav-theme" />
   </nav>
 
   <NavDrawer v-model="isDrawerOpen" :active-id="activeId" :toggle-el="toggle" />
@@ -72,7 +74,12 @@ const toggle = ref<HTMLButtonElement | null>(null)
 
 .nav-toggle:hover {
   color: var(--text);
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-hover);
+}
+
+/* Pushed to the far edge — the row is otherwise all left-aligned. */
+.nav-theme {
+  margin-left: auto;
 }
 
 .nav-brand {

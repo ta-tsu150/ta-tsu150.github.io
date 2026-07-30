@@ -105,7 +105,7 @@ onBeforeUnmount(() => setScrollLock(false))
 .drawer-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(5, 5, 15, 0.6);
+  background: var(--backdrop);
   -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
 }
@@ -167,12 +167,12 @@ onBeforeUnmount(() => setScrollLock(false))
 
 .drawer-link:hover {
   color: var(--text);
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-hover);
 }
 
 .drawer-link.active {
   color: var(--text);
-  background: rgba(129, 140, 248, 0.14);
+  background: var(--accent-active);
   box-shadow: inset 2px 0 0 var(--accent);
 }
 

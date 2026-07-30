@@ -60,7 +60,7 @@ const AVATAR_SIZE = 100
   background:
     linear-gradient(var(--bg), var(--bg)) padding-box,
     linear-gradient(135deg, var(--accent), var(--accent-2)) border-box;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  box-shadow: var(--shadow-float);
 }
 
 .about-body h3 {
@@ -83,7 +83,7 @@ const AVATAR_SIZE = 100
   color: var(--text-muted);
   padding: 4px 12px;
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--surface-subtle);
   border: 1px solid var(--glass-border);
 }
 

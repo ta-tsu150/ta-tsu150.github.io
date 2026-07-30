@@ -80,6 +80,23 @@ export default defineNuxtConfig({
           innerHTML: "document.documentElement.classList.add('reveal-enabled')",
           tagPosition: 'head',
         },
+        {
+          /*
+           * Resolves the theme before the first paint. The prerendered HTML has
+           * no theme baked in, so without this the page would render dark and
+           * then snap to light — and the toggle would visibly flip.
+           *
+           * Keep the storage key in step with `THEME_STORAGE_KEY` in
+           * composables/useTheme.ts.
+           */
+          innerHTML:
+            '(function(){try{var k="ta-tsu150:theme",s=localStorage.getItem(k),'
+            + 't=s==="light"||s==="dark"?s:'
+            + '(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");'
+            + 'document.documentElement.dataset.theme=t;}'
+            + 'catch(e){document.documentElement.dataset.theme="dark";}})()',
+          tagPosition: 'head',
+        },
       ],
     },
   },
