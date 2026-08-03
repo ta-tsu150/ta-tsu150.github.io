@@ -229,10 +229,24 @@ body {
 /* ===== Glass primitives ===== */
 
 /*
- * Declaration order matters: the CSS minifier collapses `-webkit-backdrop-filter`
- * and `backdrop-filter` into one declaration and keeps the LAST one. Current
- * Chrome no longer recognises the `-webkit-` alias at all, so the standard
- * property has to come last or the blur silently disappears from the build.
+ * `.glass` blurs, `.glass-card` does not — and the difference is not cosmetic
+ * indifference, it is what each one actually sits on top of.
+ *
+ * The navbar, drawer and sticky filter bar float over the page's own text and
+ * cards, so they have real detail to diffuse. The cards sit on nothing but the
+ * flat page colour and three blobs that are already blurred by 120px, so their
+ * `backdrop-filter` was blurring an image with no high frequencies left in it —
+ * paying for ~18 full-surface blur passes to produce almost no visible effect.
+ *
+ * That mattered: every one of those passes had to be re-sampled while the blobs
+ * animated, and under scrolling Chrome could fail to invalidate compositor tiles,
+ * leaving blank rectangles across the page.
+ *
+ * Declaration order matters below: the CSS minifier collapses
+ * `-webkit-backdrop-filter` and `backdrop-filter` into one declaration and keeps
+ * the LAST one. Current Chrome no longer recognises the `-webkit-` alias at all,
+ * so the standard property has to come last or the blur silently disappears from
+ * the build.
  */
 .glass {
   background: var(--glass-bg);
@@ -243,8 +257,6 @@ body {
 
 .glass-card {
   background: var(--glass-bg);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius);
   box-shadow: var(--glass-shadow);
