@@ -99,15 +99,11 @@ export interface Profile {
   readonly handle: string
   readonly name: string
   readonly nameJa: string
-  readonly role: string
-  readonly tagline: string
   readonly summary: string
   /** Path under `public/`, e.g. `/images/tatsu.jpg`. Case-sensitive once deployed. */
   readonly avatar: string
   readonly birthplace: string
   readonly birthday: string
-  readonly githubUrl: string
-  readonly heroInfo: readonly LabelledRow[]
   readonly details: readonly (readonly LabelledRow[])[]
   readonly skills: readonly SkillCategory[]
   readonly skillTags: readonly SkillTag[]

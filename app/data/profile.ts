@@ -6,24 +6,11 @@ export const profile: Profile = {
   handle: 'ta-tsu150',
   name: 'Tatsuya Ichino',
   nameJa: '市野 達也',
-  role: 'Full-Stack Engineer (Frontend / Backend / Infra)',
-  tagline: 'Cloud Infrastructure / DevOps / Platform Engineering',
   summary:
     '2025年4月に株式会社FIXERに新卒入社し、フルスタックエンジニアとしてWebアプリケーション・モバイルアプリ・クラウドインフラの設計・開発に従事。',
   avatar: '/images/tatsu.jpg',
   birthplace: '三重県 川越町',
   birthday: '2004/11/10',
-  githubUrl: GITHUB_URL,
-
-  heroInfo: [
-    { key: 'role', value: 'Full-Stack Engineer (Frontend / Backend / Infra)' },
-    {
-      key: 'stack',
-      value:
-        'TypeScript, AWS, Azure, Vue.js / Nuxt, React Native, NestJS, C# / .NET, Docker',
-    },
-    { key: 'interests', value: 'AI活用' },
-  ],
 
   details: [
     [
