@@ -15,6 +15,19 @@ const STARS = [
   { top: '56%', left: '27%', size: 6, star: true, delay: 340 },
   { top: '76%', left: '13%', size: 3, star: false, delay: 380 },
 ] as const
+
+/*
+ * The light-side counterpart, and staggered for the same reason the stars are.
+ *
+ * Both of these sit under the thumb's dark-mode resting place, so they read as
+ * being uncovered by it as it leaves. The larger one goes first, matching the
+ * stars, where the 8px one also leads. Only two elements, so the gap is wider
+ * than the stars' 20–40ms — at that spacing a pair reads as simultaneous.
+ */
+const CLOUDS = [
+  { top: '20%', right: '13%', size: 7, delay: 240 },
+  { top: '52%', right: '34%', size: 3, delay: 340 },
+] as const
 </script>
 
 <template>
@@ -27,8 +40,18 @@ const STARS = [
     @click="toggle"
   >
     <span class="track">
-      <span class="cloud cloud-a" />
-      <span class="cloud cloud-b" />
+      <span
+        v-for="(c, i) in CLOUDS"
+        :key="`c${i}`"
+        class="cloud"
+        :style="{
+          top: c.top,
+          right: c.right,
+          width: `${c.size}px`,
+          height: `${c.size}px`,
+          '--cloud-delay': `${c.delay}ms`,
+        }"
+      />
 
       <span
         v-for="(s, i) in STARS"
@@ -231,34 +254,33 @@ const STARS = [
     transform 160ms ease;
 }
 
-/* ===== Clouds: light only ===== */
+/*
+ * ===== Clouds: light only, popping outwards from the thumb =====
+ *
+ * The mirror image of the stars, and deliberately so: same collapsed scale, same
+ * overshoot easing, same fast-out/staggered-in split. The offset is the stars'
+ * with its x negated, because the thumb these emerge from rests on the *right*
+ * in dark, where the stars' rests on the left in light.
+ *
+ * The two rules are asymmetric on purpose. Leaving is one quick movement with no
+ * delay, so the clouds are gone before the thumb reaches them; arriving is slower
+ * and per-element, so they appear one after another behind it.
+ */
 .cloud {
   position: absolute;
   border-radius: 50%;
   background: var(--toggle-cloud);
   opacity: 0;
-  transform: scale(0.3);
-  transition: opacity 140ms ease, transform 200ms ease;
-}
-
-.cloud-a {
-  top: 20%;
-  right: 13%;
-  width: 7px;
-  height: 7px;
-}
-
-.cloud-b {
-  top: 52%;
-  right: 34%;
-  width: 3px;
-  height: 3px;
+  transform: translate(5px, 2px) scale(0.2);
+  transition: opacity 120ms ease, transform 160ms ease;
 }
 
 :root[data-theme='light'] .cloud {
   opacity: 1;
   transform: none;
-  transition: opacity 200ms ease 200ms, transform 260ms var(--slide) 200ms;
+  transition:
+    opacity 200ms ease var(--cloud-delay),
+    transform 260ms var(--slide) var(--cloud-delay);
 }
 
 @media (prefers-reduced-motion: reduce) {
