@@ -25,21 +25,35 @@ import { profile } from '~/data/profile'
 </template>
 
 <style scoped>
+/*
+ * The rail and the dots are drawn by different elements — the rail by this
+ * list's `::before`, each dot inside its own item — so their horizontal
+ * positions have to be derived rather than written out twice. They were, and
+ * the dots sat 4px right of the rail's centre.
+ *
+ * `--rail-x` is the single source of truth: the centre line, measured from this
+ * list's left edge. Everything else is offset from it.
+ */
 .timeline {
+  --gutter: 32px;
+  --rail-x: 8px;
+  --rail-w: 2px;
+  --dot-size: 16px;
+
   position: relative;
-  padding-left: 32px;
+  padding-left: var(--gutter);
   list-style: none;
 }
 
 .timeline::before {
   content: '';
   position: absolute;
-  left: 7px;
+  left: calc(var(--rail-x) - var(--rail-w) / 2);
   top: 0;
   bottom: 0;
-  width: 2px;
+  width: var(--rail-w);
   background: linear-gradient(to bottom, var(--accent), var(--accent-2));
-  border-radius: 1px;
+  border-radius: calc(var(--rail-w) / 2);
 }
 
 .timeline-item {
@@ -56,10 +70,14 @@ import { profile } from '~/data/profile'
 
 .timeline-dot {
   position: absolute;
-  left: -28px;
+  /*
+   * Positioned inside the item, whose left edge sits at `--gutter`, so subtract
+   * that to get back into the list's coordinates before centring on the rail.
+   */
+  left: calc(var(--rail-x) - var(--gutter) - var(--dot-size) / 2);
   top: 32px;
-  width: 16px;
-  height: 16px;
+  width: var(--dot-size);
+  height: var(--dot-size);
   border-radius: 50%;
   background: var(--accent);
   border: 3px solid var(--bg);
