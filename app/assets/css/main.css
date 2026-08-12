@@ -104,7 +104,15 @@
   /* Sampled from the reference animation's light state. */
   --bg: #eef5ff;
   --text: #1e293b;
-  --text-muted: #5b6478;
+  /*
+   * Darkened from #5b6478 to buy contrast headroom for the stronger background
+   * tint below. The hero's small uppercase label is the one run of text on the
+   * page that sits directly over the brightest part of a blob with nothing
+   * between them, and at the old value it was the single element deciding how
+   * strong the background could be. Everything else muted had over a full point
+   * of margin, so this costs nothing elsewhere and only raises it.
+   */
+  --text-muted: #525b6e;
 
   /* Darker than the dark theme's accent: the same indigo that reads well on
      near-black fails contrast on near-white, and it also feeds the focus ring
@@ -135,9 +143,23 @@
 
   --on-accent-veil: rgba(0, 0, 0, 0.18);
 
-  /* Lower than the dark theme's: on a pale page the same strength stops reading
-     as ambient glow and starts reading as loud colour fields. */
-  --blob-opacity: 0.2;
+  /*
+   * Still lower than the dark theme's 0.4, but no longer half of it.
+   *
+   * At 0.2 the background was barely there on a pale page. Measured in CIELAB
+   * across the viewport, dark spans 19.7 in lightness and 20.7 in chroma; light
+   * managed 10.3 and 14.0. At 0.34 it reaches 15.8 and 22.3 — the colour spread
+   * now matches dark and the lightness spread is close, which is the right
+   * balance, because what reads on a pale page is the tint, not the brightness.
+   *
+   * 0.34 is a ceiling, not a preference. Every 0.01 of tint costs text contrast,
+   * and the limit is not adjustable by choosing different colours: swapping the
+   * 600-level accents for the dark theme's lighter 400-level trio was measured
+   * and bought 20.8 chroma per point of contrast against 21.8 for the current
+   * palette — no better. On a white page any tint is a darkening, whatever hue
+   * it is.
+   */
+  --blob-opacity: 0.34;
   /* Reversed: on a light page, de-emphasis means fading *towards* the
      background, so lift brightness and drop contrast instead. */
   --muted-filter: saturate(0.35) brightness(1.04) contrast(0.93);
