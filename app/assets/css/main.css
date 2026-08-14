@@ -364,6 +364,62 @@ body {
   padding: 100px 24px;
 }
 
+/*
+ * The page is one long document, so the browser lays the whole thing out before
+ * it can paint anything. Traced on a throttled phone profile, that was a single
+ * Layout event of ~1.3s over ~690 layout objects, and the first contentful paint
+ * waited behind it. Nothing else came close: all the JavaScript arrived inside
+ * 140ms, and disabling the blurred blobs or the backdrop filters changed neither
+ * the layout time nor the paint time.
+ *
+ * These three sections are always below the fold. `content-visibility: auto`
+ * lets the browser skip their layout until they approach the viewport, which
+ * took the initial Layout to ~500ms and the first paint from ~1.7s to ~0.95s on
+ * the same profile.
+ *
+ * `contain-intrinsic-size: auto <len>` is what keeps that invisible to the
+ * reader. The length stands in for the section's height until it has been laid
+ * out once; `auto` then makes the browser remember the real measurement and use
+ * that instead. Get the placeholder wrong and the scrollbar lies and in-page
+ * links land in the wrong place, so these are measured, not estimated — and they
+ * are *content-box* heights, with `.section`'s vertical padding removed, because
+ * that is the box the property sizes. Seeded with border-box heights instead,
+ * the document reported itself 239px too tall.
+ */
+#timeline,
+#skills,
+#works {
+  content-visibility: auto;
+}
+
+#timeline {
+  contain-intrinsic-size: auto 1176px;
+}
+
+#skills {
+  contain-intrinsic-size: auto 2555px;
+}
+
+#works {
+  contain-intrinsic-size: auto 5038px;
+}
+
+/* Above the 768px breakpoint the text wraps far less, so the sections are
+   shorter and the padding is 100px rather than 60px. */
+@media (min-width: 769px) {
+  #timeline {
+    contain-intrinsic-size: auto 820px;
+  }
+
+  #skills {
+    contain-intrinsic-size: auto 970px;
+  }
+
+  #works {
+    contain-intrinsic-size: auto 2951px;
+  }
+}
+
 .section-title {
   font-size: 2rem;
   font-weight: 700;
