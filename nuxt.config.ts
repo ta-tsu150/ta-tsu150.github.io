@@ -70,7 +70,23 @@ export default defineNuxtConfig({
           content: 'Full-Stack Engineer (Frontend / Backend / Infra)',
         },
       ],
-      link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+      /*
+       * Generated from `app/assets/favicon-source.png` — see that file's note.
+       * The mark is near-white over transparency, so it ships on the dark tile
+       * rather than bare: measured against a white tab bar, two thirds of its
+       * pixels sat below 1.5:1. On the tile it is 10.7:1 whatever the browser
+       * chrome is doing.
+       *
+       * `.ico` first for browsers that only look for one, a 32px PNG for the
+       * tab, 192px for Android's fallback when there is no manifest, and a
+       * full-bleed square for iOS, which applies its own rounded mask.
+       */
+      link: [
+        { rel: 'icon', href: '/favicon.ico', sizes: '48x48' },
+        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32.png' },
+        { rel: 'icon', type: 'image/png', sizes: '192x192', href: '/favicon-192.png' },
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
+      ],
       script: [
         {
           // Runs before first paint so scroll-reveal targets start hidden with
