@@ -51,7 +51,12 @@ export interface TimelineEntry {
  * on each skill tag are checked at compile time. Adding an entry means adding
  * its id here too.
  */
-export type WorkId = 'internal-hr' | 'medical-ops' | 'btoc-mobile' | 'dotnet-training'
+export type WorkId =
+  | 'internal-hr'
+  | 'onprem-ai-apps'
+  | 'medical-ops'
+  | 'btoc-mobile'
+  | 'dotnet-training'
 
 /**
  * One chip in the Skills tag cloud.

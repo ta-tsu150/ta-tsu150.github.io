@@ -46,16 +46,17 @@ export const profile: Profile = {
    */
   skillTags: [
     // Languages
-    { label: 'TypeScript', works: ['internal-hr', 'medical-ops', 'btoc-mobile'] },
+    { label: 'TypeScript', works: ['internal-hr', 'onprem-ai-apps', 'medical-ops', 'btoc-mobile'] },
     { label: 'C# / .NET', works: ['dotnet-training'] },
     { label: 'Node.js', works: ['btoc-mobile'] },
     { label: 'SQL / DB Migration', works: ['dotnet-training', 'internal-hr'] },
     // Frontend
-    { label: 'Vue.js / Nuxt.js', works: ['internal-hr', 'medical-ops', 'btoc-mobile'] },
+    { label: 'Vue.js / Nuxt.js', works: ['internal-hr', 'onprem-ai-apps', 'medical-ops', 'btoc-mobile'] },
     { label: 'Composition API / Composables', works: ['internal-hr', 'medical-ops', 'btoc-mobile'] },
     { label: 'i18n', works: ['medical-ops'] },
     { label: 'アクセシビリティ対応', works: [] },
-    { label: 'UI/UX設計', works: ['internal-hr', 'medical-ops'] },
+    { label: 'UI/UX設計', works: ['internal-hr', 'onprem-ai-apps', 'medical-ops'] },
+    { label: '業務フロー設計', works: ['internal-hr', 'medical-ops'] },
     // Mobile
     { label: 'Expo / React Native', works: ['btoc-mobile'] },
     { label: 'TestFlight / Xcode', works: ['btoc-mobile'] },
@@ -63,26 +64,34 @@ export const profile: Profile = {
     { label: 'NestJS / Prisma', works: ['btoc-mobile'] },
     { label: 'Entity Framework Core', works: ['dotnet-training'] },
     { label: 'DDD / Clean Architecture', works: ['btoc-mobile', 'dotnet-training'] },
-    { label: 'REST API / Swagger', works: ['btoc-mobile'] },
+    { label: 'REST API / Swagger', works: ['btoc-mobile', 'internal-hr'] },
     { label: 'OAuth 2.0 / JWT', works: ['btoc-mobile'] },
+    { label: '権限設計 / ロール管理', works: ['internal-hr'] },
     // Data
-    { label: 'PostgreSQL', works: ['internal-hr', 'btoc-mobile'] },
-    { label: 'Azure SQL Database', works: ['dotnet-training'] },
+    { label: 'PostgreSQL', works: ['btoc-mobile'] },
+    { label: 'Azure SQL Database', works: ['dotnet-training', 'internal-hr'] },
     // Cloud
     { label: 'AWS Cognito', works: ['btoc-mobile'] },
     { label: 'AWS Lambda / S3 / SQS', works: ['btoc-mobile'] },
     { label: 'API Gateway / CloudFront', works: ['btoc-mobile'] },
-    { label: 'Azure App Service', works: ['dotnet-training'] },
-    { label: 'Docker / Docker Compose', works: ['medical-ops'] },
+    { label: 'Azure App Service', works: ['dotnet-training', 'internal-hr'] },
+    { label: 'Docker / Docker Compose', works: ['medical-ops', 'internal-hr', 'onprem-ai-apps'] },
     { label: 'GitHub Actions / CI-CD', works: ['btoc-mobile'] },
+    { label: 'Linux / SSH', works: ['onprem-ai-apps'] },
+    { label: '閉域環境 / オンプレ運用', works: ['onprem-ai-apps'] },
     // Quality
     { label: 'TDD / ユニットテスト', works: ['dotnet-training'] },
     { label: 'ESLint / コーディング規約', works: [] },
     { label: 'リファクタリング', works: ['btoc-mobile', 'internal-hr'] },
     { label: 'Git / GitHub', works: ['btoc-mobile', 'dotnet-training'] },
+    { label: '監査ログ', works: ['internal-hr'] },
+    { label: 'ISMS / 情報セキュリティ運用', works: [] },
+    { label: '手順書 / ドキュメント整備', works: ['onprem-ai-apps', 'internal-hr'] },
     // AI / automation
-    { label: 'Claude Code / Codex / Kiro', works: [] },
-    { label: 'LLM活用 / AIコードレビュー', works: [] },
+    { label: 'Claude Code / Codex / Kiro', works: ['onprem-ai-apps', 'internal-hr'] },
+    { label: 'LLM活用 / AIコードレビュー', works: ['onprem-ai-apps', 'internal-hr'] },
+    { label: 'プロンプト設計', works: ['onprem-ai-apps'] },
+    { label: '文書検索 / RAG', works: ['onprem-ai-apps'] },
     { label: 'Zapier / Slack Bot', works: ['btoc-mobile'] },
     { label: 'Google Apps Script', works: ['medical-ops'] },
   ],
@@ -98,30 +107,71 @@ export const profile: Profile = {
   works: [
     {
       id: 'internal-hr',
-      title: '社内向け業務システム（勤怠・人事・組織管理）',
+      title: '社内向け業務システム（組織管理・人事評価）',
       period: '2026年3月 〜 現在',
       icon: 'lucide:building-2',
       challenge:
-        '社内で使われていた既存の勤怠管理システムの置き換えと、人事・組織情報を扱う管理画面の整備。組織情報が複数システムに分散し、変更のたびに手作業で反映する運用になっていた。',
+        '社内で使われていた既存の勤怠管理システムの置き換えと、人事・組織情報を扱う管理画面の整備。組織情報が複数システムに分散し、変更のたびに手作業で反映する運用になっていた。後半は、同じ基盤の上に人事評価のワークフローを載せる段階に入った。',
       role:
-        'スコープと要件の検討に参加。組織図機能の実装、既存社内ツールとのUI統一、リポジトリおよびホスティング環境の移行を担当。',
-      stack: ['Nuxt', 'TypeScript', 'PostgreSQL', 'Render', 'コンテナ'],
+        'スコープと要件の検討に参加。組織図機能の実装、既存社内ツールとのUI統一、リポジトリおよびホスティング環境の移行を担当。評価機能については、要件の整理から実装・本番展開・リリース後の修正までを一人で担当した。',
+      stack: ['Nuxt', 'TypeScript', 'Azure SQL Database', 'Azure App Service', 'Render', 'コンテナ'],
       topics: [
         {
           title: '組織図機能の実装',
-          body: '階層構造の表示と並び順の制御を実装。並行して、他タブから浮いていた画面を既存社内ツールのデザインに合わせて改修した。改修の進め方自体を関係者に確認しながら進めた。',
+          body: '階層構造の表示と並び順の制御を実装した。全社の組織体制図は画像を差し込む運用も検討されていたが、登録済みの役職者や所属情報から描画する方式を選び、編集側の操作を変えずに表示だけが変わる形にした。並行して、他タブから浮いていた画面を既存社内ツールのデザインに合わせて改修した。改修の進め方自体を関係者に確認しながら進めた。',
         },
         {
           title: '組織情報の同期方針の検討',
           body: '変更を複数システムに手入力する運用だったため、マスタとなるDBから取得する方針を提案・検討した。月次の定期実行に加えて、変更日程がずれ込むケースに備えて手動実行の導線も用意する構成にした。',
         },
         {
-          title: 'リポジトリ移行とホスティング移行の並行実施',
-          body: '既存機能のフィードバック対応と並行して、リポジトリ移行とホスティング環境の移行を進めた。',
+          title: 'リポジトリ・ホスティングの移行と本番リリース',
+          body: '既存機能のフィードバック対応と並行して、リポジトリ移行とホスティング環境の移行を進めた。本番と開発環境でスキーマ・データに差異があったため、使用テーブルと差分を整理したうえで臨んだ。移行作業自体はセキュリティ面の調整を担う所管チームと分担し、移行後に崩れた画面の修正を担当した。',
         },
         {
-          title: '環境間のDB差異の洗い出し',
-          body: '本番と開発環境でスキーマ・データに差異があったため、使用テーブルと差分を整理した。',
+          title: '評価機能における閲覧権限の再定義',
+          body: '評価機能を、同じシステムの日報機能で使っていた管理者権限をそのまま流用して実装していた。日報は横断的に見えてよいという判断で責任者層に管理者権限を付与していたため、評価では本来見えないはずの他者の評価や後段のステップまで閲覧できる状態になっていた。全社公開の直前に気づいて報告し、評価における管理者の定義を立て直したうえで、日報の可視範囲と評価の可視範囲を分離した。あわせて、等級情報を既存のDBに同居させると業務上それを見る必要のない担当者にも参照できてしまうため、権限設定を分けたDBを別に用意し、接続元を限定する構成にした。',
+        },
+        {
+          title: '評価フローの再設計と兼務の判定',
+          body: '当初は「一次・二次・最終」という段数でフローを表現していたが、組織の実態に合わなかった。同一人物が複数の役職を兼務していると同じ人が二度評価することになり、該当する役職者がいない場合は途中で止まる。段数ではなく役割そのものを明示する形に実装し直し、該当者がいない段は飛ばす構造にした。加えて、従業員情報を提供する基幹API側が兼務設定を正しく返しておらず、兼務者が片方の役割としてしか判定されない問題を特定し、API側に修正を入れて所管チームのレビューを受けた。',
+        },
+        {
+          title: '監査ログの不足への対応',
+          body: '本番運用に入ってから、データの入出力を追跡できる記録を残していないことに気づいた。ホスティング側のログ保持期間内で遡れる範囲を調査したうえで、以降はデータのやり取りを監査ログとして記録する実装に変更した。',
+        },
+      ],
+    },
+    {
+      id: 'onprem-ai-apps',
+      title: '閉域環境向けAI業務支援アプリ（金融・自治体・建設）',
+      period: '2026年8月 〜 現在',
+      icon: 'lucide:cpu',
+      challenge:
+        '外部ネットワークから切り離された環境で動作するAI基盤に載せる業務支援アプリを、複数の業種向けに立ち上げる必要があった。提案段階で見せるモックから、販売を前提とした実装までが対象になる。',
+      role:
+        '要件資料からのキャッチアップ、画面とバックエンドの実装、コンテナ構成、実機へのデプロイと動作確認を担当。初期は単独、その後は複数名の体制に加わり、参加者向けの手順書整備も行った。',
+      stack: ['TypeScript', 'Nuxt', 'Docker', 'LLM連携', 'Linux / SSH', 'コンテナデプロイ'],
+      topics: [
+        {
+          title: '提案用モックから本開発への移行',
+          body: '業務要件の資料のみを手がかりに、フロントエンドだけの構成で短期間に動作するモックを作成した。共有の際は、そのまま販売できる状態ではないことを毎回明示するようにした。提案の場で評価を受けて本開発に進む判断がされ、販売を前提とした構成に作り直す段階から複数名のチームで進める形になった。',
+        },
+        {
+          title: 'AIの役割を判定ではなく下読みに限定した設計',
+          body: '記録の点検業務を支援する機能では、AIに最終判断をさせず、観点ごとの評価と根拠の提示までを担当させ、確定は人が行う構造にした。一次確認と二次確認は同一人物では行えないようにし、一次判定をやり直した場合は済んでいた二次確認を無効に戻す。承認の根拠が変わる以上そうあるべきという判断で、意図した挙動として手順書にも明記した。',
+        },
+        {
+          title: 'AIに接続できていない状態を画面上で識別できるようにした',
+          body: 'AI連携に失敗した際、固定のデモ用データを返す実装になっており、見た目では正常時と区別がつかなかった。実際の解析結果ではないことを画面上のタグで明示し、デモや動作確認の前に必ず確認する項目として手順書に落とした。',
+        },
+        {
+          title: '更新のたびにデータが消える構成の修正',
+          body: 'アプリを更新するとDBのコンテナも作り直され、取り込み済みの文書データが失われる構成になっていた。基盤側のリポジトリにあった永続化の記述を参照して構成を見直し、更新をまたいでデータが保持されるようにした。',
+        },
+        {
+          title: '閉域環境での配布手順の整備',
+          body: 'アプリを基盤に載せる手順が共有されておらず、関わる人が同じ箇所で詰まる状況だった。自分が詰まった点も含めて手順書にまとめ、後から参加したメンバーに共有した。',
         },
       ],
     },
