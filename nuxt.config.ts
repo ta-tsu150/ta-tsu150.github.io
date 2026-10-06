@@ -5,8 +5,6 @@ export default defineNuxtConfig({
 
   modules: ['@nuxt/icon', '@nuxt/image'],
 
-  css: ['~/assets/css/main.css'],
-
   // Nuxt only auto-imports the top level of `composables/` by default; this
   // opts in the feature subdirectories (accessibility/, forms/, table/, ...).
   imports: {
@@ -21,6 +19,28 @@ export default defineNuxtConfig({
     prerender: {
       crawlLinks: true,
       routes: ['/'],
+    },
+  },
+
+  hooks: {
+    /*
+     * Drop the `modulepreload` and `prefetch` hints Nuxt emits for the client
+     * chunks.
+     *
+     * They are a win on a fast connection and a loss on a slow one. The page is
+     * prerendered and its styles are inlined, so the first paint needs the
+     * document and nothing else — but `modulepreload` is a high-priority
+     * fetch, so nine JS chunks were pulled down in parallel with it and, on a
+     * link with roughly 50 KB/s of real throughput, took the bandwidth the
+     * document needed. Without the hints the same chunks still load, just
+     * behind the thing that unblocks rendering.
+     */
+    'build:manifest': (manifest) => {
+      for (const entry of Object.values(manifest)) {
+        entry.preload = false
+        entry.prefetch = false
+        entry.dynamicImports = []
+      }
     },
   },
 
