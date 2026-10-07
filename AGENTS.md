@@ -1,79 +1,64 @@
-# System Instructions
+# AGENTS.md
 
-## 重要な実装済み機能・設定
-### 画像最適化システム
-- **@nuxt/image**: 全プロジェクトで導入済み、`<img>`タグ使用禁止
-- **設定**: nuxt.config.tsでquality: 100、webp/jpg/png対応
-- **実装パターン**: sizes属性は実際の表示サイズ、loading="lazy"、placeholder設定
+個人ポートフォリオ（https://ta-tsu150.github.io/）のリポジトリ。Nuxt 4 の静的生成で、GitHub Pages に配信している。
 
-### アクセシビリティ基盤
-- **フォーカス管理**: tailwind.config.jsで統一focus-visible:ring設定済み
-- **フォーカストラップ**: `composables/accessibility/useFocusTrap.ts`実装済み
-- **ARIA対応**: 全モーダルでrole="dialog"、aria-modal="true"対応済み
-- **キーボード操作**: 全モーダルでEscキー処理実装済み
+## コマンド
 
-### composables構成（実装済み）
-- `composables/accessibility/` - フォーカストラップ等のアクセシビリティ機能
-- `composables/core/` - ステータス管理等の基幹機能
-- `composables/forms/` - フォーム関連機能
-- `composables/table/` - テーブル関連機能
+| コマンド | 内容 |
+| --- | --- |
+| `npm run dev` | 開発サーバー（http://localhost:3000） |
+| `npm run generate` | 静的サイトを `.output/public` に生成 |
+| `npm run preview` | 生成物をローカルで確認 |
+| `npm run typecheck` | 型チェック（vue-tsc） |
 
-## コードベースの特徴と対応指針
+`npm run dev` だけで判断しない。描画をブロックする資産の扱いや `content-visibility` の挙動は
+生成物でしか再現しないので、push 前に `npm run generate && npm run preview` を通す。
 
-### 1. コンポーネント設計の重要原則
-- **50-100行以内を目安**にコンポーネントを設計する
-- 200行を超える大型コンポーネントは積極的にリファクタリング対象とする
-- **ビジネスロジックとUIロジックの分離**を徹底し、composablesへの分離を推奨する
-- フォーム管理、テーブル操作、状態管理等の共通ロジックはcomposable化する
+## 構成
 
-### 2. テーブルコンポーネントの共通パターン
-- `useTableSort`, `useTableFilter`, `useTablePagination`などのcomposablesを活用
-- ソート・フィルタリング・ページネーション機能は共通化されたロジックを使用
-- 各テーブルコンポーネントは100行以内に収めることを目標とする
+- 表示内容はすべて `app/data/profile.ts`（型は `app/types/profile.ts`）にある。文言の修正はここで完結する
+- Works を追加したら、`app/types/profile.ts` の `WorkId` union にも id を足す。これを忘れると型チェックで落ちる
+- `skillTags[].works` には、本文を読んで根拠が分かる Works だけを入れる。根拠がなければ空配列にすると、チップがボタンではなくただの文字として表示される
+- セクションの順番は `app/pages/index.vue`・`SECTION_IDS`・`navGroups` の3か所で揃える
 
-### 3. 状態管理アーキテクチャ
-- **useState**を基盤としたグローバル状態管理が推奨パターン
-- 認証状態、ユーザー情報、通知設定などは専用のcomposableで管理
-- コンポーネント間のデータ共有にはuseStateを活用する
+## スタイル
 
-### 4. TypeScript型安全性の重視
-- **strict mode**に完全対応済み
-- any型の使用は避け、明示的な型定義を徹底
-- ジェネリクス、ユーティリティ型、型ガードを積極的に活用
-- PropsとEmitには必ず明示的な型定義を行う
+- Tailwind や UI ライブラリは使っていない。素の CSS とスコープ付き `<style>` だけ
+- 色はすべて `app/assets/css/main.css` のトークンから取る（ダークが基準、`:root[data-theme='light']` で上書き）。コンポーネントに色を直書きしない
+- グローバル CSS は `app/app.vue` の `<style>` から `@import` する。HTML にインライン化させるためなので、`nuxt.config.ts` の `css:` に戻さない
+- `-webkit-backdrop-filter` と `backdrop-filter` を並べるときは、必ず prefixed を先に書く。ミニファイアが2つを1つに畳んで後ろだけを残し、現行 Chrome は prefixed を解釈しないため、逆順だと指定ごと消える
+- スクロール表示の状態は class ではなく `data-revealed` 属性で持つ（理由は `app/utils/reveal.ts`）
 
-### 5. アイコン管理の統一
-- インラインSVGは使用せず、**@nuxt/icon**（Iconify）を使用
-- 一貫性のあるサイズクラス（w-6 h-6等）を適用
-- 必要に応じてaria-label属性を追加してアクセシビリティに配慮
+## 計測にもとづく指定（変更したら測り直す）
 
-### 6. 開発時の優先事項
-1. **既存のコーディング規約の遵守**（CODING_STANDARDS.md参照）
-2. **DRY原則**の徹底（共通ロジックのcomposable化）
-3. **単一責任原則**の実現（コンポーネントの適切な分割）
-4. **型安全性**の確保（TypeScript strict mode対応）
-5. **アクセシビリティ対応**（WCAG 2.1 Level AA準拠）
-6. **画像最適化**（@nuxt/image使用、適切なsizes設定）
-7. **保守性**と**テスタビリティ**の向上
+- `#timeline`・`#skills`・`#works` の `contain-intrinsic-size` は**実測値**。古いままだとスクロールバーの長さが狂い、ページ内リンクが手前に着地する
+- 測り直しは 390px と 1280px の2つの幅で行い、`.section` の上下 padding を除いた**コンテンツボックスの高さ**を使う。手順は `main.css` の該当コメントにある
+- Works のトピックを折りたたむなど高さが大きく変わる変更をしたら、必ず最後に測り直す
 
-### 7. リファクタリング対象の優先順位
-1. 200行超の大型コンポーネント（特にページコンポーネント、モーダル、テーブル）
-2. 重複するビジネスロジック（フォーム管理、API呼び出し等）
-3. `<img>`タグの残存箇所（`<NuxtImg>`への置換必須）
-4. アクセシビリティ未対応箇所（ARIA属性、キーボード操作、フォーカス管理）
-5. any型や型定義が不完全な箇所
+## アクセシビリティ
 
-### 8. 画像最適化・アクセシビリティ対応の統一指針
-- **画像要素**: `<img>`タグは禁止、必ず`<NuxtImg>`を使用する
-- **画像設定**: quality: 100、sizes属性は実際の表示サイズに合わせて設定
-- **フォーカス管理**: 統一されたfocus-visible:ringスタイル（tailwind.config.js設定済み）
-- **モーダル対応**: role="dialog", aria-modal="true", Escキー処理、フォーカストラップ必須
-- **ARIA属性**: ボタン・フォーム要素にaria-label、エラーメッセージにaria-describedby
-- **キーボード操作**: Tab・Shift+Tab・Escキーでの操作性を必ず確保
-- **スクリーンリーダー対応**: セマンティックHTML・適切なrole属性の使用
+- フォーカス表示は `main.css` の `:focus-visible` で統一している
+- ダイアログやドロワーは `app/composables/accessibility/useFocusTrap.ts` を使い、Esc で閉じられるようにする
+- アニメーションは `prefers-reduced-motion` で止める
+- JS が無効でも、また JS は動くがバンドルが届かなくても、本文が読める状態を保つ（後者は head のインラインスクリプトのタイマーで担保している）
+- 印刷でも本文が消えないこと。`main.css` の `@media print` を壊さない
 
-### 9. 実装時の注意点
-- 新規機能実装時は上記原則に基づいて最初から適切に設計する
-- 既存コードの修正時は可能な範囲でリファクタリングも併せて実施
-- composablesディレクトリ構成は機能別（forms/, table/, states/, accessibility/等）に整理する
-- モーダル・ダイアログ作成時は`composables/accessibility/useFocusTrap.ts`を活用する
+## 画像・アイコン
+
+- 画像は `<NuxtImg>` を使い、`width`・`height`・`densities` を明示する。元画像は `public/images/` に置く
+- `public/` はそのまま公開される。使わなくなったファイルは必ず消す
+- アイコンは `@nuxt/icon` の `lucide:*` を使う。インライン SVG は書かない
+- ファビコン一式は `app/assets/favicon-source.png` から生成する。手順は隣の `favicon-source.md`
+
+## 公開してよい情報
+
+- 顧客名・製品名・社内システム名・実績値は書かない。業種とシステム種別までにする
+- 勤務先のシステムについて、セキュリティ上の不備の具体像は書かない（会社の承認を得たものを除く）
+- 下書きは `Docs/`（gitignore 済み）に置く
+
+> 補足：現在の `works` にある評価機能の権限不備と監査ログの記述は、この規則より前に書いたもので、
+> 会社確認が未了。確認が取れるまでは記述を増やさない。
+
+## コンポーネントの大きさ
+
+- 目安は script と template で合計100行以内。スコープ付き CSS は行数に数えない
