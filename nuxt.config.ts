@@ -112,7 +112,20 @@ export default defineNuxtConfig({
           // no flash of content. Deliberately NOT in the CSS: if JavaScript is
           // unavailable this never runs, and the prerendered page renders in
           // full instead of a blank `opacity: 0` screen.
-          innerHTML: "document.documentElement.classList.add('reveal-enabled')",
+          //
+          // The timer covers the failure that fallback misses: JavaScript runs,
+          // so the class goes on, but the app bundle never arrives or never
+          // mounts — an extension or proxy blocking it, or simply a bad
+          // connection. `useScrollReveal` sets `data-reveal-ready` once it has
+          // taken over; without that by 4s the hidden state is dropped and the
+          // page shows in full. Four seconds because the bundle lands in two to
+          // three even on the ~50 KB/s link the other comments here measure
+          // against, and overshooting only costs the animation, never content.
+          innerHTML:
+            "document.documentElement.classList.add('reveal-enabled');"
+            + 'setTimeout(function(){var d=document.documentElement;'
+            + "if(!d.hasAttribute('data-reveal-ready'))"
+            + "d.classList.remove('reveal-enabled')},4000)",
           tagPosition: 'head',
         },
         {

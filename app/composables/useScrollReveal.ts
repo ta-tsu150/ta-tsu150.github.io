@@ -8,6 +8,17 @@ const DEFAULT_SELECTORS = ['.glass-card', '.timeline-item', '.section-title'] as
  */
 const REVEAL_ENABLED_CLASS = 'reveal-enabled'
 
+/**
+ * Set on <html> as soon as this composable runs.
+ *
+ * The inline script that adds `reveal-enabled` also starts a timer, and drops
+ * the class again if this attribute has not appeared. That covers the case the
+ * no-JavaScript fallback misses: JavaScript runs, so the class goes on, but the
+ * app bundle never arrives or never mounts — leaving every reveal target stuck
+ * at `opacity: 0` with nothing to turn it back on.
+ */
+const REVEAL_READY_ATTR = 'data-reveal-ready'
+
 interface ScrollRevealOptions {
   readonly selectors?: readonly string[]
   readonly threshold?: number
@@ -27,6 +38,8 @@ export function useScrollReveal(options: ScrollRevealOptions = {}): void {
 
   onMounted(() => {
     const root = document.documentElement
+    root.setAttribute(REVEAL_READY_ATTR, '')
+
     const targets = Array.from(
       document.querySelectorAll<HTMLElement>(selectors.join(',')),
     )
