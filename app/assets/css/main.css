@@ -398,16 +398,29 @@ body {
   content-visibility: auto;
 }
 
+/*
+ * Measured 2026-10-07, content-box heights with `.section` padding removed.
+ *
+ * Conditions matter and move the numbers, so they are recorded here: headless
+ * Chrome, 390x844 with mobile emulation at dpr 3, and 1280x900 without. A
+ * review measuring the same page under slightly different emulation got values
+ * about 4% taller, which is more than the slack these have.
+ *
+ * These went stale once already: the Works section gained an entry and Skills
+ * gained nine tags, and nobody re-measured — leaving the placeholder 2816px
+ * short on mobile, so the in-page link to Works landed 412px above its target
+ * and showed the tail of Skills instead. Re-measure whenever content changes.
+ */
 #timeline {
   contain-intrinsic-size: auto 1176px;
 }
 
 #skills {
-  contain-intrinsic-size: auto 2555px;
+  contain-intrinsic-size: auto 2967px;
 }
 
 #works {
-  contain-intrinsic-size: auto 5038px;
+  contain-intrinsic-size: auto 7854px;
 }
 
 /* Above the 768px breakpoint the text wraps far less, so the sections are
@@ -418,11 +431,11 @@ body {
   }
 
   #skills {
-    contain-intrinsic-size: auto 970px;
+    contain-intrinsic-size: auto 1107px;
   }
 
   #works {
-    contain-intrinsic-size: auto 2951px;
+    contain-intrinsic-size: auto 4284px;
   }
 }
 
