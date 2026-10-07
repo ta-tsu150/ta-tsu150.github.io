@@ -478,3 +478,94 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/*
+ * ===== Print =====
+ *
+ * Printing the page produced the navbar and a background and nothing else: of
+ * eleven pages, nine carried no body text at all.
+ *
+ * Two causes. Scroll reveal only fires for what has actually been scrolled
+ * into view, and printing does not scroll — so everything the reader never
+ * reached was still at `opacity: 0`. And `content-visibility: auto` leaves the
+ * deferred sections unrendered, which print has no reason to resolve either.
+ *
+ * Paper is white and browsers drop backgrounds by default, so the ink is taken
+ * from the light palette whatever the on-screen theme is. The scoped component
+ * styles outrank these selectors, hence `!important` on the overrides.
+ */
+@media print {
+  :root {
+    --bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #475569;
+    --accent: #4f46e5;
+    --accent-2: #0d9488;
+    --on-accent: #ffffff;
+    --glass-bg: transparent;
+    --glass-border: #cbd5e1;
+    --glass-shadow: none;
+    --accent-soft: transparent;
+  }
+
+  /* Decoration and controls: nothing here survives on paper. */
+  .blobs,
+  .navbar,
+  .skip-link,
+  .works-filter,
+  .hero-actions {
+    display: none !important;
+  }
+
+  /*
+   * Chrome drops an element carrying `backdrop-filter` from the PDF entirely —
+   * not blank, absent. The footer was the only `.glass` element left once the
+   * navbar is hidden above, and it vanished from the print while reporting
+   * `visibility: visible` and a sane box in the DOM. `.glass-card` is unaffected
+   * because it deliberately does not blur.
+   *
+   * Prefixed first, standard last — the same ordering the `.glass` rule above
+   * documents. The minifier collapses the pair into one declaration and keeps
+   * whichever came last, and current Chrome ignores the prefixed form, so
+   * writing them the other way round silently drops the rule. Which is what
+   * happened on the first attempt here: the footer stayed missing.
+   */
+  .glass {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .reveal-enabled .glass-card:not([data-revealed]),
+  .reveal-enabled .section-title:not([data-revealed]),
+  .reveal-enabled .timeline-item:not([data-revealed]) {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /*
+   * Each section starts a fresh page. `break-after: avoid` on the headings
+   * would be the lighter touch, but Chrome ignores it here and left headings
+   * stranded at the foot of a page.
+   */
+  #timeline,
+  #skills,
+  #works {
+    content-visibility: visible;
+    break-before: page;
+  }
+
+  #hero {
+    min-height: auto;
+    padding: 48px 0 0;
+  }
+
+  .section {
+    padding: 32px 0;
+  }
+
+  .timeline-item,
+  .skill-card,
+  .detail-card {
+    break-inside: avoid;
+  }
+}
