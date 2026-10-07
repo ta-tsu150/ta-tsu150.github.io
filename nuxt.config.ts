@@ -81,7 +81,6 @@ export default defineNuxtConfig({
           content:
             '市野 達也 / Tatsuya Ichino のポートフォリオ。Cloud Infrastructure / DevOps / Platform Engineering。',
         },
-        { name: 'theme-color', content: '#0a0a1a' },
         { property: 'og:type', content: 'website' },
         { property: 'og:title', content: 'ta-tsu150 | Portfolio' },
         { property: 'og:url', content: 'https://ta-tsu150.github.io/' },

@@ -33,6 +33,24 @@ export function useTheme(): ThemeControl {
 
   let fadeTimer: ReturnType<typeof setTimeout> | undefined
 
+  /*
+   * `theme-color` is declared here rather than statically in nuxt.config, and
+   * set through the head system rather than by touching the DOM.
+   *
+   * It used to be a static tag holding the dark value, which left a reader
+   * whose system prefers light looking at a light page under a navy address
+   * bar. Writing the tag imperatively on mount did not fix it: the head system
+   * owns that tag and patches it back to its own value during hydration, so the
+   * write was reverted. (It appeared to work from `set()` only because by then
+   * hydration had finished and nothing re-rendered it.)
+   *
+   * Prerendering emits the dark value, which is what the no-JavaScript
+   * fallback renders anyway.
+   */
+  useHead({
+    meta: [{ name: 'theme-color', content: () => META_THEME_COLOR[theme.value] }],
+  })
+
   onMounted(() => {
     // Adopt whatever the inline script already decided.
     theme.value = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark'
@@ -49,10 +67,6 @@ export function useTheme(): ThemeControl {
 
     clearTimeout(fadeTimer)
     fadeTimer = setTimeout(() => root.removeAttribute(CHANGING_ATTR), FADE_MS)
-
-    document
-      .querySelector('meta[name="theme-color"]')
-      ?.setAttribute('content', META_THEME_COLOR[next])
 
     try {
       localStorage.setItem(THEME_STORAGE_KEY, next)
