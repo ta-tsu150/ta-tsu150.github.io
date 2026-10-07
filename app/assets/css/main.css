@@ -246,7 +246,13 @@ body {
   position: absolute;
   top: 8px;
   left: 8px;
-  z-index: 200;
+  /*
+   * Above the fixed navbar, which is also 200 — and equal values fall back to
+   * DOM order, where the navbar comes later. The link took focus on the first
+   * Tab but stayed underneath the bar, so the one affordance a keyboard user
+   * meets first was invisible.
+   */
+  z-index: 300;
   padding: 10px 18px;
   border-radius: 8px;
   background: var(--accent);
