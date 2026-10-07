@@ -23,3 +23,6 @@ Thumbs.db
 /claude/
 /Docs/
 /themes/
+
+# AI agent settings (local only)
+/.agents/
