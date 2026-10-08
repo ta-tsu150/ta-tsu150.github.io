@@ -12,7 +12,13 @@ const toggle = ref<HTMLButtonElement | null>(null)
 </script>
 
 <template>
-  <nav class="navbar glass">
+  <!--
+    A banner, not a `<nav>`. It holds the drawer's toggle, the brand link and
+    the theme switch — no list of destinations — and having a second unlabelled
+    navigation landmark next to the drawer's own gave a screen reader two
+    identical entries to choose between. The drawer keeps the only `<nav>`.
+  -->
+  <header class="navbar glass">
     <button
       ref="toggle"
       type="button"
@@ -28,7 +34,7 @@ const toggle = ref<HTMLButtonElement | null>(null)
     <a href="#hero" class="nav-brand">{{ profile.handle }}</a>
 
     <ThemeToggle class="nav-theme" />
-  </nav>
+  </header>
 
   <NavDrawer v-model="isDrawerOpen" :active-id="activeId" :toggle-el="toggle" />
 </template>
