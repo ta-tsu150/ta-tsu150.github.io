@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { theme, isDark, toggle } = useTheme()
+const { isDark, toggle } = useTheme()
 
 /*
  * Round dots and four-pointed stars, mixed the way the reference does.
@@ -31,12 +31,18 @@ const CLOUDS = [
 </script>
 
 <template>
+  <!--
+    The label is fixed. `role="switch"` already carries the state in
+    `aria-checked`, so a label that changed with it produced "switch to the
+    light theme, switch, on" — the label describing the action and the role
+    describing the state, with nothing naming what was on.
+  -->
   <button
     type="button"
     role="switch"
     class="theme-toggle"
     :aria-checked="isDark"
-    :aria-label="theme === 'dark' ? 'ライトテーマに切り替える' : 'ダークテーマに切り替える'"
+    aria-label="ダークテーマ"
     @click="toggle"
   >
     <span class="track">
