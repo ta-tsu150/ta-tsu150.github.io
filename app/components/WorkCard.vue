@@ -38,7 +38,7 @@ withDefaults(
       <dd>{{ entry.role }}</dd>
     </dl>
 
-    <ul class="work-stack">
+    <ul class="work-stack" role="list">
       <li v-for="item in entry.stack" :key="item">{{ item }}</li>
     </ul>
 

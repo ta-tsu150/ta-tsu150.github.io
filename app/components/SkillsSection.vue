@@ -22,7 +22,7 @@ const { selected, toggle } = useSkillFilter()
       <p class="skill-tags-hint">
         クリックすると、そのスキルを使った Works を強調表示します。
       </p>
-      <ul class="skill-tags">
+      <ul class="skill-tags" role="list">
         <li v-for="tag in profile.skillTags" :key="tag.label">
           <button
             v-if="tag.works.length > 0"
@@ -33,7 +33,13 @@ const { selected, toggle } = useSkillFilter()
             @click="toggle(tag.label)"
           >
             {{ tag.label }}
-            <span class="skill-tag-count">{{ tag.works.length }}</span>
+            <!--
+              Read aloud, the badge was just "TypeScript 3" — a number with
+              nothing saying what it counts. The visible badge has no room for
+              the noun, so it is hidden and the full phrase is exposed instead.
+            -->
+            <span class="skill-tag-count" aria-hidden="true">{{ tag.works.length }}</span>
+            <span class="sr-only">（Works {{ tag.works.length }}件）</span>
           </button>
           <span v-else class="skill-tag">{{ tag.label }}</span>
         </li>

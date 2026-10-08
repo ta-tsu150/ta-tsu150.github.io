@@ -6,7 +6,7 @@ import { profile } from '~/data/profile'
   <section id="timeline" class="section" aria-labelledby="timeline-title">
     <SectionHeading id="timeline-title" title="Timeline" />
 
-    <ol class="timeline">
+    <ol class="timeline" role="list">
       <li v-for="entry in profile.timeline" :key="entry.date" class="timeline-item">
         <span class="timeline-dot" aria-hidden="true" />
         <GlassCard class="timeline-card">
