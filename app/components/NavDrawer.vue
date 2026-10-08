@@ -20,8 +20,25 @@ useFocusTrap(panel, isOpen, {
   alsoFocusable: computed(() => props.toggleEl),
 })
 
-function setScrollLock(locked: boolean): void {
+/**
+ * Locks everything behind the drawer: scrolling, and — via `inert` — focus and
+ * assistive technology too.
+ *
+ * The navbar is deliberately left live, because its toggle is the drawer's
+ * close control. That is also why the panel is not `aria-modal`: a modal whose
+ * close control sits outside it is a contradiction, and some screen readers
+ * honour `aria-modal` by hiding everything outside the dialog, which would have
+ * hidden the only way out.
+ *
+ * `inert` does not replace the focus trap. It covers `main` and `footer`, but
+ * the navbar stays reachable, and the brand link and theme toggle inside it are
+ * not part of the dialog — the trap is what keeps Tab to the toggle plus the
+ * panel.
+ */
+function setBackgroundLocked(locked: boolean): void {
   document.body.style.overflow = locked ? 'hidden' : ''
+  document.querySelectorAll('main, footer')
+    .forEach(el => el.toggleAttribute('inert', locked))
 }
 
 function close(): void {
@@ -30,7 +47,7 @@ function close(): void {
   // click, and a still-locked <body> swallows that scroll. `defineModel`
   // round-trips through the parent, so `isOpen` does not change during this
   // call — not even a `flush: 'sync'` watcher would run in time.
-  setScrollLock(false)
+  setBackgroundLocked(false)
   isOpen.value = false
 }
 
@@ -38,9 +55,9 @@ function isActive(item: { href: string, external?: boolean }): boolean {
   return !item.external && item.href === `#${props.activeId}`
 }
 
-watch(isOpen, setScrollLock)
+watch(isOpen, setBackgroundLocked)
 
-onBeforeUnmount(() => setScrollLock(false))
+onBeforeUnmount(() => setBackgroundLocked(false))
 </script>
 
 <template>
@@ -59,13 +76,12 @@ onBeforeUnmount(() => setScrollLock(false))
           ref="panel"
           class="drawer-panel glass"
           role="dialog"
-          aria-modal="true"
           aria-label="ナビゲーション"
         >
           <nav class="drawer-nav">
             <template v-for="(group, index) in navGroups" :key="index">
               <p v-if="group.label" class="drawer-group-label">{{ group.label }}</p>
-              <ul class="drawer-list">
+              <ul class="drawer-list" role="list">
                 <li v-for="item in group.items" :key="item.href">
                   <a
                     :href="item.href"
