@@ -306,9 +306,12 @@ body {
     border-color 0.3s ease;
 }
 
+/*
+ * Nothing built on `.glass-card` is clickable, so hover only acknowledges the
+ * pointer. Lifting the card and dropping a shadow under it read as an
+ * invitation to press something that does not respond.
+ */
 .glass-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lifted);
   border-color: var(--accent-glow);
 }
 
