@@ -10,9 +10,16 @@
 | `npm run generate` | 静的サイトを `.output/public` に生成 |
 | `npm run preview` | 生成物をローカルで確認 |
 | `npm run typecheck` | 型チェック（vue-tsc） |
+| `npm run lint` | ESLint（`@nuxt/eslint`）。`--fix` 版は `npm run lint:fix` |
 
 `npm run dev` だけで判断しない。描画をブロックする資産の扱いや `content-visibility` の挙動は
 生成物でしか再現しないので、push 前に `npm run generate && npm run preview` を通す。
+
+CI（`.github/workflows/deploy.yml`）は型チェックと Lint をビルドの前に走らせる。
+どちらかが落ちるとデプロイされない。
+
+`app/pages/` のページは単一ルートにする（複数ルートだと Nuxt が遷移や属性の
+引き継ぎを当てる先を失う）。ルート直下のコメントもルート要素として数えられる。
 
 ## 構成
 
@@ -35,6 +42,13 @@
 - 測り直しは 390px と 1280px の2つの幅で行い、`.section` の上下 padding を除いた**コンテンツボックスの高さ**を使う。手順は `main.css` の該当コメントにある
 - Works のトピックを折りたたむなど高さが大きく変わる変更をしたら、必ず最後に測り直す
 
+## TypeScript と状態
+
+- strict モード。`any` は使わず、props と emit には明示的な型を書く
+- Works の id のように、取り違えをビルド時に落とせるものは union 型にする
+  （`skillTags[].works` が存在しない Works を指すと型チェックで落ちる）
+- コンポーネントをまたぐ状態は `useState` で持つ（例：`app/composables/useTheme.ts`）
+
 ## アクセシビリティ
 
 - フォーカス表示は `main.css` の `:focus-visible` で統一している
@@ -48,6 +62,8 @@
 - 画像は `<NuxtImg>` を使い、`width`・`height`・`densities` を明示する。元画像は `public/images/` に置く
 - `public/` はそのまま公開される。使わなくなったファイルは必ず消す
 - アイコンは `@nuxt/icon` の `lucide:*` を使う。インライン SVG は書かない
+- `image.quality` は現状 100。アバターの webp が 200×200 で約19KB あり、品質80なら
+  約6.5KB まで落ちる。下げる判断は未了なので、変えるなら実寸を測ってから
 - ファビコン一式は `app/assets/favicon-source.png` から生成する。手順は隣の `favicon-source.md`
 
 ## 公開してよい情報
