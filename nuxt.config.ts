@@ -81,6 +81,15 @@ export default defineNuxtConfig({
           content:
             '市野 達也 / Tatsuya Ichino のポートフォリオ。Cloud Infrastructure / DevOps / Platform Engineering。',
         },
+        /*
+         * The default. `useTheme` re-declares this through `useHead` and the
+         * head system dedupes on the name, so on the site itself the reactive
+         * one wins and follows the theme. This static entry is what the error
+         * page gets: it replaces `app.vue` rather than rendering inside it, so
+         * no component that calls `useTheme` runs there, and without this the
+         * page shipped no `theme-color` at all.
+         */
+        { name: 'theme-color', content: '#0a0a1a' },
         { property: 'og:type', content: 'website' },
         { property: 'og:title', content: 'ta-tsu150 | Portfolio' },
         { property: 'og:url', content: 'https://ta-tsu150.github.io/' },
