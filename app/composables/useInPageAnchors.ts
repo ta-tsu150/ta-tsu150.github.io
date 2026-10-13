@@ -57,7 +57,9 @@ export function useInPageAnchors(): void {
     const { hash } = anchor
     if (!hash || hash === '#') return
 
-    let target: Element | null = null
+    // No initialiser: the catch returns, so there is no path that reads this
+    // before the assignment.
+    let target: Element | null
     try {
       target = document.querySelector(hash)
     }
