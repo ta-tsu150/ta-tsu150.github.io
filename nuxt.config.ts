@@ -3,10 +3,10 @@ export default defineNuxtConfig({
   compatibilityDate: '2026-07-28',
   devtools: { enabled: true },
 
-  modules: ['@nuxt/icon', '@nuxt/image'],
+  modules: ['@nuxt/icon', '@nuxt/image', '@nuxt/eslint'],
 
   // Nuxt only auto-imports the top level of `composables/` by default; this
-  // opts in the feature subdirectories (accessibility/, forms/, table/, ...).
+  // opts in the subdirectories, currently just `accessibility/`.
   imports: {
     dirs: ['composables/**'],
   },
