@@ -33,6 +33,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Before the build, so a type error stops the deploy rather than shipping
+      # past it. `nuxt typecheck` needs `nuxt prepare` to have generated .nuxt,
+      # which `postinstall` already did.
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
       - name: Build static site
         run: npm run generate
         env:
