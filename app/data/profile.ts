@@ -9,7 +9,6 @@ export const profile: Profile = {
   summary:
     '2025年4月に株式会社FIXERに新卒入社し、フルスタックエンジニアとしてWebアプリケーション・モバイルアプリ・クラウドインフラの設計・開発に従事。',
   avatar: '/images/tatsu.jpg',
-  birthday: '2004/11/10',
 
   skills: [
     { icon: 'lucide:server', title: 'Backend', detail: 'NestJS / C# .NET / REST API / Clean Architecture' },

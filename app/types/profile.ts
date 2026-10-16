@@ -101,7 +101,6 @@ export interface Profile {
   readonly summary: string
   /** Path under `public/`, e.g. `/images/tatsu.jpg`. Case-sensitive once deployed. */
   readonly avatar: string
-  readonly birthday: string
   readonly skills: readonly SkillCategory[]
   readonly skillTags: readonly SkillTag[]
   readonly works: readonly WorkEntry[]

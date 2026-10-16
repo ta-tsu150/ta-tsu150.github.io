@@ -24,9 +24,6 @@ const AVATAR_SIZE = 100
       <div class="about-body">
         <h3>{{ profile.nameJa }} / {{ profile.name }}</h3>
         <p>{{ profile.summary }}</p>
-        <div class="about-meta">
-          <span class="meta-item">{{ profile.birthday }}</span>
-        </div>
       </div>
     </GlassCard>
   </section>
@@ -63,28 +60,10 @@ const AVATAR_SIZE = 100
   margin-bottom: 12px;
 }
 
-.about-meta {
-  display: flex;
-  gap: 16px;
-}
-
-.meta-item {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  padding: 4px 12px;
-  border-radius: 6px;
-  background: var(--surface-subtle);
-  border: 1px solid var(--glass-border);
-}
-
 @media (max-width: 768px) {
   .about-card {
     flex-direction: column;
     text-align: center;
-  }
-
-  .about-meta {
-    justify-content: center;
   }
 }
 </style>
