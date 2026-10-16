@@ -58,7 +58,13 @@ export default defineNuxtConfig({
   // referenced by a prerendered page is generated at build time and written
   // into .output/public, so no image service is needed at runtime.
   image: {
-    quality: 100,
+    /*
+     * 90, not 100. The avatar is the only image here, served at 100 and 200 CSS
+     * pixels, and dropping from 100 halves the 200px variant — 18.6KB to 9.9KB
+     * — for a difference measured at 1.67/255 on average and 41dB PSNR, past
+     * the point anything shows at that size.
+     */
+    quality: 90,
     format: ['webp', 'jpg'],
   },
 
