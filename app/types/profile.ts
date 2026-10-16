@@ -1,9 +1,3 @@
-/** A `key: value` pair rendered as a labelled row (hero info, detail cards). */
-export interface LabelledRow {
-  readonly key: string
-  readonly value: string
-}
-
 /** A single entry in the navigation drawer. */
 export interface NavItem {
   readonly label: string
@@ -107,9 +101,7 @@ export interface Profile {
   readonly summary: string
   /** Path under `public/`, e.g. `/images/tatsu.jpg`. Case-sensitive once deployed. */
   readonly avatar: string
-  readonly birthplace: string
   readonly birthday: string
-  readonly details: readonly (readonly LabelledRow[])[]
   readonly skills: readonly SkillCategory[]
   readonly skillTags: readonly SkillTag[]
   readonly works: readonly WorkEntry[]

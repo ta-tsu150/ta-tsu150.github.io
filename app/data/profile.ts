@@ -9,23 +9,7 @@ export const profile: Profile = {
   summary:
     '2025年4月に株式会社FIXERに新卒入社し、フルスタックエンジニアとしてWebアプリケーション・モバイルアプリ・クラウドインフラの設計・開発に従事。',
   avatar: '/images/tatsu.jpg',
-  birthplace: '三重県 川越町',
   birthday: '2004/11/10',
-
-  details: [
-    [
-      { key: 'height', value: '183.8cm' },
-      { key: 'weight', value: '約75kg' },
-    ],
-    [
-      { key: 'favorite', value: '猫' },
-      {
-        key: 'hobby',
-        value:
-          'ウィスキー, タバコ, 麻雀, ダーツ, サバゲー, ゲーム',
-      },
-    ],
-  ],
 
   skills: [
     { icon: 'lucide:server', title: 'Backend', detail: 'NestJS / C# .NET / REST API / Clean Architecture' },

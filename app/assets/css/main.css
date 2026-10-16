@@ -567,8 +567,7 @@ body {
   }
 
   .timeline-item,
-  .skill-card,
-  .detail-card {
+  .skill-card {
     break-inside: avoid;
   }
 }
