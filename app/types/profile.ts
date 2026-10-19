@@ -98,6 +98,14 @@ export interface Profile {
   readonly handle: string
   readonly name: string
   readonly nameJa: string
+  /**
+   * The job title, in one phrase. The single source for it: the page, the
+   * `description` and the Open Graph tags all read from here, so the site
+   * cannot go back to stating three different ones.
+   */
+  readonly role: string
+  /** The areas behind the role, e.g. `Web / Mobile / Cloud`. */
+  readonly tagline: string
   readonly summary: string
   /** Path under `public/`, e.g. `/images/tatsu.jpg`. Case-sensitive once deployed. */
   readonly avatar: string

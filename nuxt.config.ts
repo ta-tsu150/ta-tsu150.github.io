@@ -1,4 +1,27 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { profile } from './app/data/profile'
+
+const SITE_URL = 'https://ta-tsu150.github.io/'
+
+/*
+ * The head tags are built from `profile` rather than written out, because they
+ * used to disagree with it and with each other: `description` said "Cloud
+ * Infrastructure / DevOps / Platform Engineering", `og:description` said
+ * "Full-Stack Engineer (Frontend / Backend / Infra)", and the page body said
+ * フルスタックエンジニア. Three answers to "what does he do".
+ *
+ * `profile.role` is now the only place the title is written, and everything
+ * else is derived from it.
+ *
+ * They are declared here and not through `useSeoMeta` in `app.vue` for the
+ * reason the `theme-color` comment below gives: `error.vue` replaces
+ * `app.vue`, so a head tag declared only there never reaches the 404 page.
+ */
+const SITE_TITLE = `${profile.nameJa}（${profile.name}）| Portfolio`
+const SITE_DESCRIPTION
+  = `${profile.nameJa} / ${profile.name} のポートフォリオ。`
+    + `${profile.role}（${profile.tagline}）。`
+
 export default defineNuxtConfig({
   compatibilityDate: '2026-07-28',
   devtools: { enabled: true },
@@ -84,15 +107,11 @@ export default defineNuxtConfig({
        * a page about a person that is titled with a username is unfindable by
        * the name anyone would actually type.
        */
-      title: '市野 達也（Tatsuya Ichino）| Portfolio',
+      title: SITE_TITLE,
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        {
-          name: 'description',
-          content:
-            '市野 達也 / Tatsuya Ichino のポートフォリオ。Cloud Infrastructure / DevOps / Platform Engineering。',
-        },
+        { name: 'description', content: SITE_DESCRIPTION },
         /*
          * The default. `useTheme` re-declares this through `useHead` and the
          * head system dedupes on the name, so on the site itself the reactive
@@ -103,12 +122,9 @@ export default defineNuxtConfig({
          */
         { name: 'theme-color', content: '#0a0a1a' },
         { property: 'og:type', content: 'website' },
-        { property: 'og:title', content: '市野 達也（Tatsuya Ichino）| Portfolio' },
-        { property: 'og:url', content: 'https://ta-tsu150.github.io/' },
-        {
-          property: 'og:description',
-          content: 'Full-Stack Engineer (Frontend / Backend / Infra)',
-        },
+        { property: 'og:title', content: SITE_TITLE },
+        { property: 'og:url', content: SITE_URL },
+        { property: 'og:description', content: SITE_DESCRIPTION },
       ],
       /*
        * Generated from `app/assets/favicon-source.png` — see that file's note.
@@ -127,7 +143,7 @@ export default defineNuxtConfig({
          * domain and `/index.html`, and GitHub Pages serves the same bytes for
          * either, so this names which of the two is the page.
          */
-        { rel: 'canonical', href: 'https://ta-tsu150.github.io/' },
+        { rel: 'canonical', href: SITE_URL },
         { rel: 'icon', href: '/favicon.ico', sizes: '48x48' },
         { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32.png' },
         { rel: 'icon', type: 'image/png', sizes: '192x192', href: '/favicon-192.png' },

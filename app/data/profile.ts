@@ -1,4 +1,10 @@
-import type { NavGroup, Profile } from '~/types/profile'
+/*
+ * Relative, not `~/types/profile`, unlike every other import of this
+ * module. `nuxt.config.ts` imports this file to build the head tags, and
+ * the config is checked against the Node tsconfig, where the `~` alias is
+ * not mapped — through that path the aliased form does not resolve.
+ */
+import type { NavGroup, Profile } from '../types/profile'
 
 const GITHUB_URL = 'https://github.com/ta-tsu150'
 
@@ -6,6 +12,8 @@ export const profile: Profile = {
   handle: 'ta-tsu150',
   name: 'Tatsuya Ichino',
   nameJa: '市野 達也',
+  role: 'Full-Stack Engineer',
+  tagline: 'Web / Mobile / Cloud',
   summary:
     '2025年4月に株式会社FIXERに新卒入社し、フルスタックエンジニアとしてWebアプリケーション・モバイルアプリ・クラウドインフラの設計・開発に従事。',
   avatar: '/images/tatsu.jpg',
