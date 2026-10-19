@@ -22,6 +22,17 @@ const SITE_DESCRIPTION
   = `${profile.nameJa} / ${profile.name} のポートフォリオ。`
     + `${profile.role}（${profile.tagline}）。`
 
+/*
+ * The share card. Generated from `app/assets/og-source.png` — see the note
+ * next to it for the dimensions and why it is a JPEG.
+ *
+ * The URL has to be absolute. Crawlers fetch it without the page's base, so a
+ * root-relative path gives them nothing to resolve against and the card comes
+ * back without an image.
+ */
+const OG_IMAGE = `${SITE_URL}og.jpg`
+const OG_IMAGE_ALT = `${profile.role} — ${profile.tagline}`
+
 export default defineNuxtConfig({
   compatibilityDate: '2026-07-28',
   devtools: { enabled: true },
@@ -125,6 +136,17 @@ export default defineNuxtConfig({
         { property: 'og:title', content: SITE_TITLE },
         { property: 'og:url', content: SITE_URL },
         { property: 'og:description', content: SITE_DESCRIPTION },
+        { property: 'og:image', content: OG_IMAGE },
+        { property: 'og:image:type', content: 'image/jpeg' },
+        { property: 'og:image:width', content: '1200' },
+        { property: 'og:image:height', content: '630' },
+        { property: 'og:image:alt', content: OG_IMAGE_ALT },
+        /*
+         * X reads the `og:*` tags for everything else, but it still needs to
+         * be told to use the wide layout; without this it renders the small
+         * square thumbnail instead.
+         */
+        { name: 'twitter:card', content: 'summary_large_image' },
       ],
       /*
        * Generated from `app/assets/favicon-source.png` — see that file's note.
