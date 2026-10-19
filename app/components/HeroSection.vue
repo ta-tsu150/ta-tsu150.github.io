@@ -47,6 +47,13 @@ const nameChars = Array.from(profile.name)
       </h1>
 
       <!--
+        The one line of substance in the first view. Everything else here is the
+        name and the word Portfolio, which say who and what but not what he
+        does — see the note at the top of the style block.
+      -->
+      <p class="hero-role">{{ profile.role }} — {{ profile.tagline }}</p>
+
+      <!--
         One action only. GitHub lives in the nav drawer, which is reachable from
         here anyway, so repeating it in the first view spent attention on a link
         that is not what a first-time reader needs next.
@@ -60,18 +67,25 @@ const nameChars = Array.from(profile.name)
 
 <style scoped>
 /*
- * Deliberately three things: a greeting, the name, and what this site is.
+ * Four things: a greeting, the name, what this site is, and what he does.
  *
  * The role badge, the tagline and the role/stack/interests card that used to sit
  * here all restated content from further down the page — the badge and the card's
- * first row were the same string — so removing them cost no information and took
- * the first view from 277 characters to about 35.
+ * first row were the same string — so removing them took the first view from 277
+ * characters to about 35.
  *
- * The volume that went with them is replaced by motion. The name arrives one
- * character at a time, then the two labels open outwards around it, then the
- * buttons. Everything is CSS keyframes with `both` fill, so it plays without
- * JavaScript and needs no scroll trigger — this block is above the fold by
- * definition.
+ * That cut one line too many. With all of it gone the first screen said who and
+ * what the site is but never what the person does, and the next answer was a
+ * scroll away. `.hero-role` is the one line back: not the badge and not the card,
+ * and a signpost rather than a repetition — the same `profile.role` the title,
+ * the description and the share card derive from, which is the whole of C-3's
+ * single source and not a second copy of it.
+ *
+ * The volume that went with the rest is replaced by motion. The name arrives one
+ * character at a time, then the two labels open outwards around it, then the role
+ * line, then the buttons. Everything is CSS keyframes with `both` fill, so it
+ * plays without JavaScript and needs no scroll trigger — this block is above the
+ * fold by definition.
  */
 .hero {
   position: relative;
@@ -131,7 +145,12 @@ const nameChars = Array.from(profile.name)
   flex-direction: column;
   align-items: center;
   gap: 14px;
-  margin-bottom: 48px;
+  /*
+   * Tight, because `.hero-role` now sits directly below and belongs with the
+   * name rather than with the button. The 48px that used to be here — the gap
+   * to the actions — moved onto that element.
+   */
+  margin-bottom: 18px;
 }
 
 .hero-name {
@@ -190,6 +209,23 @@ const nameChars = Array.from(profile.name)
   }
 }
 
+/* ===== Role ===== */
+
+/*
+ * Arrives between the Portfolio label and the buttons, keeping the sequence
+ * reading top to bottom: 640ms greeting, 760ms Portfolio, 820ms here, 880ms
+ * buttons. It borrows the buttons' keyframes — both are a short rise into
+ * place, and a second identical set would only be another thing to keep in
+ * step.
+ */
+.hero-role {
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+  margin-bottom: 44px;
+  animation: actions-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 820ms both;
+}
+
 /* ===== Actions ===== */
 .hero-actions {
   display: flex;
@@ -218,6 +254,7 @@ const nameChars = Array.from(profile.name)
   .hero-greeting,
   .hero-kind,
   .hero-char,
+  .hero-role,
   .hero-actions {
     animation: none;
   }
