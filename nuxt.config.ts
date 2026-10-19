@@ -78,7 +78,13 @@ export default defineNuxtConfig({
     // so no baseURL is needed.
     head: {
       htmlAttrs: { lang: 'ja' },
-      title: 'ta-tsu150 | Portfolio',
+      /*
+       * The real name, not the GitHub handle. This is the string a search
+       * engine shows as the result's heading and the one a bookmark keeps, so
+       * a page about a person that is titled with a username is unfindable by
+       * the name anyone would actually type.
+       */
+      title: '市野 達也（Tatsuya Ichino）| Portfolio',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -97,7 +103,7 @@ export default defineNuxtConfig({
          */
         { name: 'theme-color', content: '#0a0a1a' },
         { property: 'og:type', content: 'website' },
-        { property: 'og:title', content: 'ta-tsu150 | Portfolio' },
+        { property: 'og:title', content: '市野 達也（Tatsuya Ichino）| Portfolio' },
         { property: 'og:url', content: 'https://ta-tsu150.github.io/' },
         {
           property: 'og:description',
