@@ -122,6 +122,12 @@ export default defineNuxtConfig({
        * full-bleed square for iOS, which applies its own rounded mask.
        */
       link: [
+        /*
+         * One route, one address. The site is reachable as both the bare
+         * domain and `/index.html`, and GitHub Pages serves the same bytes for
+         * either, so this names which of the two is the page.
+         */
+        { rel: 'canonical', href: 'https://ta-tsu150.github.io/' },
         { rel: 'icon', href: '/favicon.ico', sizes: '48x48' },
         { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32.png' },
         { rel: 'icon', type: 'image/png', sizes: '192x192', href: '/favicon-192.png' },
