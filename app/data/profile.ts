@@ -6,7 +6,11 @@
  */
 import type { NavGroup, Profile } from '../types/profile'
 
-const GITHUB_URL = 'https://github.com/ta-tsu150'
+/*
+ * Exported because `nuxt.config.ts` needs it too, for the `sameAs` field of
+ * the Person structured data.
+ */
+export const GITHUB_URL = 'https://github.com/ta-tsu150'
 
 export const profile: Profile = {
   handle: 'ta-tsu150',

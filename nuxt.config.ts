@@ -1,5 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import { profile } from './app/data/profile'
+import { GITHUB_URL, profile } from './app/data/profile'
 
 const SITE_URL = 'https://ta-tsu150.github.io/'
 
@@ -208,6 +208,27 @@ export default defineNuxtConfig({
             + '(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");'
             + 'document.documentElement.dataset.theme=t;}'
             + 'catch(e){document.documentElement.dataset.theme="dark";}})()',
+          tagPosition: 'head',
+        },
+        {
+          /*
+           * Who the page is about, in a form a search engine can read without
+           * parsing prose. `jobTitle` comes from the same `profile.role` as
+           * the title and the description, so there is still only one place
+           * the job title is written.
+           */
+          type: 'application/ld+json',
+          innerHTML: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Person',
+            name: profile.nameJa,
+            alternateName: profile.name,
+            url: SITE_URL,
+            image: `${SITE_URL}${profile.avatar.replace(/^\//, '')}`,
+            jobTitle: profile.role,
+            description: profile.summary,
+            sameAs: [GITHUB_URL],
+          }),
           tagPosition: 'head',
         },
       ],
