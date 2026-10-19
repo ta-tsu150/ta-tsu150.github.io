@@ -27,6 +27,12 @@ CI（`.github/workflows/deploy.yml`）は型チェックと Lint をビルドの
 - Works を追加したら、`app/types/profile.ts` の `WorkId` union にも id を足す。これを忘れると型チェックで落ちる
 - `skillTags[].works` には、本文を読んで根拠が分かる Works だけを入れる。根拠がなければ空配列にすると、チップがボタンではなくただの文字として表示される
 - セクションの順番は `app/pages/index.vue`・`SECTION_IDS`・`navGroups` の3か所で揃える
+- `<title>`・`description`・`og:*`・構造化データは `nuxt.config.ts` が `profile` を import して
+  組み立てる。肩書きの出どころは `profile.role`・`profile.tagline` の1か所だけ（以前は3通りに
+  食い違っていた）。`app.vue` の `useSeoMeta` に移さないこと——`error.vue` は `app.vue` を
+  置き換えて描画されるので、そこに書いた head タグは404ページに届かない
+- そのため `app/data/profile.ts` の型 import だけ相対パス。config 経由だと Node 側の tsconfig で
+  型チェックされ、`~` エイリアスが解決できない
 
 ## スタイル
 
@@ -67,6 +73,8 @@ CI（`.github/workflows/deploy.yml`）は型チェックと Lint をビルドの
 - `public/` の元画像は配信されるので、表示に必要な寸法より大きく置かない。アバターは短辺600。
   ただし元画像を縮めると2段階リサンプルになり、配信される画像が平均2/255ほど動く
 - ファビコン一式は `app/assets/favicon-source.png` から生成する。手順は隣の `favicon-source.md`
+- SNS 共有用の `public/og.jpg` は `app/assets/og-source.png` から生成する。手順と計測値は
+  隣の `og-source.md`。載せる肩書きは `profile.role`・`profile.tagline` と揃える
 
 ## 公開してよい情報
 
