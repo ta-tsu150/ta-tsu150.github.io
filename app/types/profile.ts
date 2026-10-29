@@ -110,8 +110,6 @@ export interface ApproachPoint {
  */
 export interface Approach {
   readonly points: readonly ApproachPoint[]
-  /** The line that sends the reader to the contact form. */
-  readonly closing: string
 }
 
 /**

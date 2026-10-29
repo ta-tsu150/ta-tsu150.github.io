@@ -54,8 +54,6 @@ onMounted(() => {
         <p>{{ point.body }}</p>
       </details>
     </GlassCard>
-
-    <p class="approach-closing">{{ profile.approach.closing }}</p>
   </section>
 </template>
 
@@ -111,12 +109,6 @@ onMounted(() => {
    */
   line-height: 2;
   white-space: pre-line;
-}
-
-.approach-closing {
-  margin-top: 28px;
-  color: var(--text-muted);
-  line-height: 1.9;
 }
 
 @media (max-width: 768px) {
