@@ -21,11 +21,25 @@ const REVEAL_READY_ATTR = 'data-reveal-ready'
 
 interface ScrollRevealOptions {
   readonly selectors?: readonly string[]
+  /** Visible fraction at which an element reveals. It hides again at zero. */
   readonly threshold?: number
 }
 
 /**
- * Marks matching elements revealed as they scroll into view.
+ * Marks matching elements revealed as they scroll into view, and unmarks them
+ * when they leave underneath it.
+ *
+ * The entrance used to fire once and never again, which left the page inert
+ * after a single pass to the bottom. Leaving *downwards* is the only exit that
+ * resets it: scrolling up pushes content off the bottom edge, and scrolling
+ * back down then replays the entrance it would have played the first time.
+ * Leaving upwards — the element scrolled past, above the viewport — does not,
+ * because that content is behind the reader and ought to be waiting as they
+ * left it, not sliding in from the top on the way back.
+ *
+ * Reveal and hide use different thresholds on purpose. An element appears once
+ * a tenth of it is showing and only resets once none of it is, so the two
+ * edges cannot sit on the same scroll position and flicker against each other.
  *
  * Drops the whole effect — leaving every element visible — when the user
  * prefers reduced motion or `IntersectionObserver` is unavailable, so content
@@ -58,15 +72,28 @@ export function useScrollReveal(options: ScrollRevealOptions = {}): void {
     }
 
     observer = new IntersectionObserver(
-      (entries, self) => {
+      (entries) => {
         entries.forEach((entry) => {
-          if (!entry.isIntersecting) return
-          revealNow(entry.target)
-          // Reveal is one-way: stop watching once it has fired.
-          self.unobserve(entry.target)
+          if (entry.intersectionRatio >= threshold) {
+            revealNow(entry.target)
+            return
+          }
+
+          /*
+           * `boundingClientRect.top > 0` is the whole of the direction test:
+           * the element's own top is still below the top of the viewport, so
+           * it went out of the bottom rather than off the top.
+           *
+           * Elements are no longer unobserved once revealed, which is what
+           * makes any of this possible. The observer only reports threshold
+           * crossings, so an untouched element costs nothing between them.
+           */
+          if (entry.intersectionRatio === 0 && entry.boundingClientRect.top > 0) {
+            hideAgain(entry.target)
+          }
         })
       },
-      { threshold },
+      { threshold: [0, threshold] },
     )
 
     targets.forEach((el) => observer?.observe(el))

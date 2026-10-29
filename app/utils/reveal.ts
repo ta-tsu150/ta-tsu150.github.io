@@ -16,3 +16,12 @@ export const REVEAL_ATTR = 'data-revealed'
 export function revealNow(element: Element | null | undefined): void {
   element?.setAttribute(REVEAL_ATTR, '')
 }
+
+/**
+ * Puts an element back to its hidden state, so that scrolling past it again
+ * replays the entrance. Only ever called for elements that have left below the
+ * viewport — see `useScrollReveal`.
+ */
+export function hideAgain(element: Element | null | undefined): void {
+  element?.removeAttribute(REVEAL_ATTR)
+}
