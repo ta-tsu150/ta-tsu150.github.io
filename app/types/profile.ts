@@ -93,6 +93,26 @@ export interface WorkEntry {
   readonly topics: readonly WorkTopic[]
 }
 
+/**
+ * The contact form at the foot of the page.
+ *
+ * The form posts to Formspree, which is what makes a form possible at all on a
+ * static host. The address the messages arrive at is held in that account and
+ * is deliberately not in this repository — a `mailto:` or an address in the
+ * markup is exactly what gets harvested.
+ */
+export interface Contact {
+  /**
+   * The last segment of the Formspree endpoint, e.g. `xyeepzvd`.
+   *
+   * An empty string switches the section and its nav entry off rather than
+   * shipping a form that silently goes nowhere.
+   */
+  readonly formId: string
+  /** The paragraph above the fields. */
+  readonly lead: string
+}
+
 /** Everything the page renders, in one place. */
 export interface Profile {
   readonly handle: string
@@ -113,4 +133,5 @@ export interface Profile {
   readonly skillTags: readonly SkillTag[]
   readonly works: readonly WorkEntry[]
   readonly timeline: readonly TimelineEntry[]
+  readonly contact: Contact
 }

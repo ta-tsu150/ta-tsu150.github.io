@@ -12,6 +12,17 @@ import type { NavGroup, Profile } from '../types/profile'
  */
 export const GITHUB_URL = 'https://github.com/ta-tsu150'
 
+/*
+ * The Formspree form the contact section posts to. Only the id is here; the
+ * address the messages land at is held in the Formspree account, so this file
+ * — which ships to every visitor — never carries an email address.
+ *
+ * Declared up here rather than inside `profile` because `navGroups` also has
+ * to know whether the section exists, and an empty id has to take the nav
+ * entry down with it.
+ */
+const CONTACT_FORM_ID = 'xyeepzvd'
+
 export const profile: Profile = {
   handle: 'ta-tsu150',
   name: 'Tatsuya Ichino',
@@ -295,10 +306,16 @@ export const profile: Profile = {
       ],
     },
   ],
+
+  contact: {
+    formId: CONTACT_FORM_ID,
+    lead:
+      'ご覧いただきありがとうございました。お仕事のご相談、このサイトへのご感想など、お気軽にお送りください。',
+  },
 }
 
 /** Sections tracked for the active-link highlight, in document order. */
-export const SECTION_IDS = ['hero', 'about', 'timeline', 'skills', 'works'] as const
+export const SECTION_IDS = ['hero', 'about', 'timeline', 'skills', 'works', 'contact'] as const
 
 /**
  * Contents of the navigation drawer.
@@ -336,6 +353,9 @@ export const navGroups: readonly NavGroup[] = [
       { label: 'Timeline', href: '#timeline' },
       { label: 'Skills', href: '#skills' },
       { label: 'Works', href: '#works' },
+      // Dropped along with the section itself when the form is not configured,
+      // so the menu never offers a link to an anchor that is not on the page.
+      ...(CONTACT_FORM_ID ? [{ label: 'Contact', href: '#contact' }] : []),
     ],
   },
   {

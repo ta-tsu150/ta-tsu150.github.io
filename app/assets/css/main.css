@@ -521,12 +521,21 @@ body {
     --accent-soft: transparent;
   }
 
-  /* Decoration and controls: nothing here survives on paper. */
+  /*
+   * Decoration and controls: nothing here survives on paper.
+   *
+   * `#contact` goes in full, not just its form. It is a control with no
+   * printed equivalent, and there is deliberately no address to fall back on
+   * — the whole point of routing through Formspree is that no address is in
+   * the markup — so a printed heading over a dead form would promise a way to
+   * get in touch that the paper cannot deliver.
+   */
   .blobs,
   .navbar,
   .skip-link,
   .works-filter,
-  .hero-actions {
+  .hero-actions,
+  #contact {
     display: none !important;
   }
 
