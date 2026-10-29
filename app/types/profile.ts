@@ -93,26 +93,23 @@ export interface WorkEntry {
   readonly topics: readonly WorkTopic[]
 }
 
-/** One headed block in the About section. */
-export interface AboutPoint {
-  /** A few words, shown next to an accent dot. */
+/** One of the Approach section's collapsible blocks. */
+export interface ApproachPoint {
+  /** A subject, not a sentence: `AI駆動開発`, not `AIを使って開発する`. */
   readonly title: string
   readonly body: string
 }
 
 /**
- * The About section.
+ * The Approach section — what he values and what it has led to.
  *
- * Split into a lead, headed points and a closing line rather than held as a
- * run of paragraphs. Five paragraphs of even grey was the one part of the page
- * with no structure at all to catch the eye — every other section has dots,
- * chips or cards — so the points carry headings, in the same vocabulary the
- * Works topics use.
+ * Its own section rather than the tail of About, because the two answer
+ * different questions. About says who this is, in a paragraph; this says how
+ * he works, at length. Folded into one card the second drowned the first, and
+ * the section ran past two phone screens.
  */
-export interface About {
-  /** The greeting, above the points. */
-  readonly lead: string
-  readonly points: readonly AboutPoint[]
+export interface Approach {
+  readonly points: readonly ApproachPoint[]
   /** The line that sends the reader to the contact form. */
   readonly closing: string
 }
@@ -156,7 +153,9 @@ export interface Profile {
    * `about` instead, which is prose written for a reader.
    */
   readonly summary: string
-  readonly about: About
+  /** The About section: a greeting, and nothing else. */
+  readonly about: string
+  readonly approach: Approach
   /** Path under `public/`, e.g. `/images/tatsu.jpg`. Case-sensitive once deployed. */
   readonly avatar: string
   readonly skills: readonly SkillCategory[]

@@ -53,9 +53,9 @@ withDefaults(
       disclosure, which is the intent — a filter result should look the same
       however the card was left.
     -->
-    <details class="work-topics" :open="match === true">
+    <details class="work-topics disclosure" :open="match === true">
       <summary>
-        <Icon class="work-topics-chevron" name="lucide:chevron-down" aria-hidden="true" />
+        <Icon class="disclosure-chevron" name="lucide:chevron-down" aria-hidden="true" />
         技術的に取り組んだこと（{{ entry.topics.length }}件）
       </summary>
       <dl>
@@ -182,99 +182,31 @@ withDefaults(
 
 /* ===== Topics ===== */
 .work-topics {
-  /* Shared by the panel and the chevron so the two cannot drift apart. */
-  --disclosure: 0.28s;
-
   padding-top: 4px;
   border-top: 1px solid var(--glass-border);
 }
 
 /*
- * The old `h4` styling, moved onto the summary. Both markers are suppressed —
- * `list-style` covers Firefox and current Chrome, the pseudo-element covers
- * older WebKit — and replaced with a chevron that turns, so the control reads
- * as a disclosure in both states rather than only when open.
+ * The old `h4` styling, moved onto the summary. The open/close mechanism and
+ * the chevron live in `main.css` under `.disclosure`, shared with the Approach
+ * points — the `calc-size` fallback there is easy to get wrong and is not
+ * worth writing twice.
  */
 .work-topics summary {
-  display: flex;
-  align-items: center;
-  gap: 8px;
   margin: 16px 0 12px;
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-muted);
-  cursor: pointer;
-  list-style: none;
-}
-
-.work-topics summary::-webkit-details-marker {
-  display: none;
 }
 
 .work-topics summary:hover {
   color: var(--text);
 }
 
-.work-topics-chevron {
-  flex-shrink: 0;
+.work-topics .disclosure-chevron {
   font-size: 1rem;
-  transition: transform var(--disclosure) ease;
-}
-
-.work-topics[open] .work-topics-chevron {
-  transform: rotate(180deg);
-}
-
-/*
- * The panel slides rather than snapping, matching the drawer's 0.28s — the
- * only other disclosure on the page.
- *
- * `::details-content` is the box the browser hides, so it is the one that can
- * be animated; styling the `<dl>` inside instead does nothing, because the
- * hiding happens a level above it. `auto` is a keyword and keywords are not
- * interpolable, so `calc-size` is what turns it into an animatable length.
- *
- * The fallback is an `@supports` block and not a second declaration in the
- * same rule. Written the usual way — `auto` then `calc-size` — the minifier
- * collapses the pair and keeps only the last, which is the same trap the
- * `.glass` rule in main.css documents for `backdrop-filter`. Here it is worse
- * than losing an effect: a browser without `calc-size` would drop the only
- * surviving declaration as invalid, fall back to the `0` below, and never
- * show the topics at all. `@supports` cannot be collapsed that way.
- *
- * The global `interpolate-size: allow-keywords` would also work and is the
- * shorter spelling, but it switches keyword interpolation on for every
- * transition on the page, and `.btn` in main.css transitions `all`.
- *
- * `content-visibility` is what the browser actually toggles, and it is a
- * discrete property: without `allow-discrete` it flips at the start of the
- * close and the box would collapse already empty.
- */
-.work-topics::details-content {
-  block-size: 0;
-  overflow: hidden;
-  transition:
-    block-size var(--disclosure) ease,
-    content-visibility var(--disclosure) allow-discrete;
-}
-
-.work-topics[open]::details-content {
-  block-size: auto;
-}
-
-@supports (block-size: calc-size(auto, size)) {
-  .work-topics[open]::details-content {
-    block-size: calc-size(auto, size);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .work-topics-chevron,
-  .work-topics::details-content {
-    transition: none;
-  }
 }
 
 .work-topics dt {

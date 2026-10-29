@@ -34,32 +34,37 @@ export const profile: Profile = {
   avatar: '/images/tatsu.jpg',
 
   /*
-   * Written to be read, where `summary` above is written to be parsed.
+   * Written to be read, where `summary` above is written to be parsed. One
+   * sentence only: everything that used to follow it is now `approach`.
+   */
+  about: 'はじめまして。市野 達也と申します。ポートフォリオをご覧いただきありがとうございます。',
+
+  /*
+   * The headings are subjects, not actions, so a reader can place each one
+   * before reading a word of the body.
    *
-   * The shape is a claim followed by what it actually led to, rather than a
-   * list of intentions: the Works entries below are the evidence, and an About
-   * that only says what he would like to do leaves them unconnected to it.
+   * The order carries an argument. Implementation got cheap, so the judgement
+   * about what to build is worth more; that judgement is 業務設計; and holding
+   * the whole range is what makes it possible to make.
    *
    * The permission and audit-log findings in `works` are deliberately not
-   * drawn on here. They are the strongest material there is, and they are also
-   * the records still waiting on the employer confirmation that the rule at
-   * the foot of AGENTS.md describes — which says not to add to them until it
-   * lands.
+   * drawn on, though they are the strongest material there is: they are the
+   * records still waiting on the employer confirmation that the rule at the
+   * foot of AGENTS.md describes, which says not to add to them until it lands.
    */
-  about: {
-    lead: 'はじめまして。市野 達也と申します。ポートフォリオをご覧いただきありがとうございます。',
+  approach: {
     points: [
       {
         title: 'AI駆動開発',
-        body: 'コードを書くこと自体の難度は、AIによって急速に下がりました。開発の重心は「どう実装するか」から「何を作るべきか」へ移っていると感じています。私もAIツールを日常的に開発に組み込み、実装にかかる時間を圧縮しています。一方で、生成されたものをそのまま取り込むことはしません。権限の扱いや例外時の挙動など、業務の前提に関わる部分は必ず自分で確かめたうえで採用しています。速く作れるようになったぶん、何を作るかの判断の重みが増しているというのが実感です。',
+        body: 'コードを書くこと自体の難度は、AIによって急速に下がりました。開発の重心は「どう実装するか」から「何を作るべきか」へ移っていると感じています。\n私もAIツールを日常的に開発に組み込み、実装にかかる時間を圧縮しています。一方で、生成されたものをそのまま取り込むことはしません。権限の扱いや例外時の挙動など、業務の前提に関わる部分は必ず自分で確かめたうえで採用しています。\n速く作れるようになったぶん、何を作るかの判断の重みが増しているというのが実感です。今後はプロンプトエンジニアリングの深化など、AI活用の専門性をさらに磨いていきたいと考えています。',
       },
       {
         title: '業務設計',
-        body: '仕様どおりに作り始める前に、その前提が業務の実態に合っているかを確かめることを大事にしています。仕様が正しくても、前提がずれていれば、動くものは現場で使われません。人事評価のワークフローを「一次・二次・最終」という段数で実装していたとき、同じ人が複数の役職を兼務すると二度評価することになり、該当する役職者がいない段では止まることに気づきました。段数ではなく役割そのものを表す構造に作り直しています。別の案件では、既存のスプレッドシートをそのまま画面に移す方針から、対象の実体を軸にした設計へ切り替える判断をしました。',
+        body: 'プロジェクトサービス型のシステム開発において、仕様どおりに作り始める前に、その前提が業務の実態に合っているかを確かめることを大事にしています。\n仕様が正しくても、前提がずれていれば、動いたとて現場で使われません。私が当たっていた案件でも幾度か経験しました。\nそのため私は、コードと向き合うだけでなく、人と向き合うことを重視するエンジニアでありたいと思い、日々の業務に臨んでいます。',
       },
       {
         title: 'フルスタック開発',
-        body: 'フロントエンド・バックエンド・インフラ・モバイルを横断して担当してきました。要件の整理から実装、本番展開、リリース後の修正までを一人で持った機能もあります。分担して受け取った仕様を実装するだけでは、前提のずれに気づく機会がありません。一気通貫で持つからこそできる判断があると考えていて、この範囲のすべてに責任を持てるエンジニアでありたいと思っています。',
+        body: 'Web・モバイル・フロントエンド・バックエンド・インフラを横断して担当してきました。要件の整理から実装、本番展開、リリース後の修正までを最終的に一人で持った案件もあります。\nこうした経験から、アプリケーション開発において全てのレイヤーの業務を処理できるようになり、問題発生時には問題点の特定と対応する能力が強化されました。\n最終的には、こうしたレイヤーを超え、要件定義やタスク管理、チームマネジメントまで行える人材になりたいと考えています。',
       },
     ],
     closing: 'ご関心をお持ちいただけましたら、ページ下部のフォームからお気軽にご連絡ください。',
@@ -347,7 +352,15 @@ export const profile: Profile = {
 }
 
 /** Sections tracked for the active-link highlight, in document order. */
-export const SECTION_IDS = ['hero', 'about', 'timeline', 'skills', 'works', 'contact'] as const
+export const SECTION_IDS = [
+  'hero',
+  'about',
+  'approach',
+  'timeline',
+  'skills',
+  'works',
+  'contact',
+] as const
 
 /**
  * Contents of the navigation drawer.
@@ -382,6 +395,7 @@ export const navGroups: readonly NavGroup[] = [
     items: [
       { label: 'Home', href: '#hero' },
       { label: 'About', href: '#about' },
+      { label: 'Approach', href: '#approach' },
       { label: 'Timeline', href: '#timeline' },
       { label: 'Skills', href: '#skills' },
       { label: 'Works', href: '#works' },

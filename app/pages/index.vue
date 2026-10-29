@@ -12,13 +12,14 @@ useScrollReveal()
       wrapper is a plain block and changes no layout — nothing selects these
       sections by depth.
 
-      Personal first, then technical, then the way out: About (who) → Timeline
-      (how I got here) → Skills (what I can do) → Works (the evidence) →
-      Contact (what to do about it). Keep `SECTION_IDS` and `navGroups` in
-      `data/profile.ts` in the same order.
+      Personal first, then technical, then the way out: About (who) → Approach
+      (how he works) → Timeline (how he got here) → Skills (what he can do) →
+      Works (the evidence) → Contact (what to do about it). Keep `SECTION_IDS`
+      and `navGroups` in `data/profile.ts` in the same order.
     -->
     <HeroSection />
     <AboutSection />
+    <ApproachSection />
     <TimelineSection />
     <SkillsSection />
     <WorksSection />

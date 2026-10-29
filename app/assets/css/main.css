@@ -364,6 +364,79 @@ body {
   border-color: var(--text-muted);
 }
 
+/* ===== Disclosure ===== */
+
+/*
+ * The open/close mechanism shared by the Works topics and the Approach points.
+ * Only the mechanism — each caller styles its own summary, because one is a
+ * small uppercase label inside a card and the other is the card's heading.
+ *
+ * `::details-content` is the box the browser hides, so it is the one that can
+ * be animated; the content inside it is a level below where the hiding
+ * happens. `auto` is not interpolable, so `calc-size` supplies the animatable
+ * length, and `content-visibility` carries `allow-discrete` because it is what
+ * the browser actually toggles — without that it flips at the start of the
+ * close and the box collapses already empty.
+ *
+ * The `auto` fallback is an `@supports` block and not a second declaration in
+ * the same rule. Written the usual way the minifier collapses the pair and
+ * keeps only `calc-size`, which is the trap the `.glass` rule above documents
+ * for `backdrop-filter` — and here it costs more than an effect: a browser
+ * without `calc-size` would drop that declaration as invalid, fall back to the
+ * `0`, and never show the content at all.
+ */
+.disclosure {
+  --disclosure: 0.28s;
+}
+
+.disclosure > summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  /* Suppresses the default marker in Firefox and current Chrome; the
+     pseudo-element below covers older WebKit. */
+  list-style: none;
+}
+
+.disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+
+.disclosure-chevron {
+  flex-shrink: 0;
+  transition: transform var(--disclosure) ease;
+}
+
+.disclosure[open] > summary .disclosure-chevron {
+  transform: rotate(180deg);
+}
+
+.disclosure::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition:
+    block-size var(--disclosure) ease,
+    content-visibility var(--disclosure) allow-discrete;
+}
+
+.disclosure[open]::details-content {
+  block-size: auto;
+}
+
+@supports (block-size: calc-size(auto, size)) {
+  .disclosure[open]::details-content {
+    block-size: calc-size(auto, size);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .disclosure-chevron,
+  .disclosure::details-content {
+    transition: none;
+  }
+}
+
 /* ===== Sections ===== */
 .section {
   position: relative;
