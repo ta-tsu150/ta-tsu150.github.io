@@ -90,7 +90,14 @@ const nameChars = Array.from(profile.name)
 .hero {
   position: relative;
   z-index: 1;
+  /*
+   * `svh` is the viewport at its *smallest* — the browser chrome expanded. On
+   * iOS Safari `vh` is the largest instead, so a full-height first screen sat
+   * taller than the window and pushed its own bottom edge under the address
+   * bar. `vh` stays first for anything that does not know the unit.
+   */
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;

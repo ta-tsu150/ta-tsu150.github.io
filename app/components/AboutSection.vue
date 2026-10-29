@@ -65,5 +65,14 @@ const AVATAR_SIZE = 100
     flex-direction: column;
     text-align: center;
   }
+
+  /*
+   * The name stays centred under the avatar, the paragraph does not. Centred
+   * body text gives every line a different starting x, so the eye has to hunt
+   * for the next one; at this width the summary runs to four or five lines.
+   */
+  .about-body p {
+    text-align: left;
+  }
 }
 </style>
