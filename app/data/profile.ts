@@ -43,7 +43,7 @@ export const profile: Profile = {
    * arrangement the Timeline paragraphs and the Approach bodies use.
    */
   about:
-    'はじめまして。市野 達也と申します。ポートフォリオをご覧いただきありがとうございます。\nここでは、これまでに私が身につけたスキルや経歴などについてまとめています。\nあなたに私のことを少しでも知ってもらうために作成しました。\nゆっくりとご覧になっていってください。',
+    'はじめまして。市野 達也と申します。ポートフォリオをご覧いただきありがとうございます。\nここでは、これまでに私が身につけたスキルや経歴などについてまとめています。\n私のことを少しでも知ってもらうために作成しました。\nどうぞゆっくりとご覧ください。',
 
   /*
    * The headings are subjects, not actions, so a reader can place each one
