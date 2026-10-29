@@ -34,10 +34,16 @@ export const profile: Profile = {
   avatar: '/images/tatsu.jpg',
 
   /*
-   * Written to be read, where `summary` above is written to be parsed. One
-   * sentence only: everything that used to follow it is now `approach`.
+   * Written to be read, where `summary` above is written to be parsed. A
+   * greeting and nothing else: the facts it could have carried are the
+   * Timeline's, and how he works is `approach`.
+   *
+   * Line breaks come from the `
+` here rather than markup, the same
+   * arrangement the Timeline paragraphs and the Approach bodies use.
    */
-  about: 'はじめまして。市野 達也と申します。ポートフォリオをご覧いただきありがとうございます。',
+  about:
+    'はじめまして。市野 達也と申します。ポートフォリオをご覧いただきありがとうございます。\nここでは、これまでに私が身につけたスキルや経歴などについてまとめています。\nあなたに私のことを少しでも知ってもらうために作成しました。\nゆっくりとご覧になっていってください。',
 
   /*
    * The headings are subjects, not actions, so a reader can place each one

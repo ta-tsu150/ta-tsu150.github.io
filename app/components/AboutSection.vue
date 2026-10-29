@@ -78,6 +78,9 @@ const AVATAR_SIZE = 130
   margin-top: 16px;
   color: var(--text-muted);
   line-height: 1.9;
+  /* Line breaks come from `
+` in the profile data, not markup. */
+  white-space: pre-line;
 }
 
 @media (max-width: 768px) {
