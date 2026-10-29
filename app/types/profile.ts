@@ -93,6 +93,30 @@ export interface WorkEntry {
   readonly topics: readonly WorkTopic[]
 }
 
+/** One headed block in the About section. */
+export interface AboutPoint {
+  /** A few words, shown next to an accent dot. */
+  readonly title: string
+  readonly body: string
+}
+
+/**
+ * The About section.
+ *
+ * Split into a lead, headed points and a closing line rather than held as a
+ * run of paragraphs. Five paragraphs of even grey was the one part of the page
+ * with no structure at all to catch the eye — every other section has dots,
+ * chips or cards — so the points carry headings, in the same vocabulary the
+ * Works topics use.
+ */
+export interface About {
+  /** The greeting, above the points. */
+  readonly lead: string
+  readonly points: readonly AboutPoint[]
+  /** The line that sends the reader to the contact form. */
+  readonly closing: string
+}
+
 /**
  * The contact form at the foot of the page.
  *
@@ -132,8 +156,7 @@ export interface Profile {
    * `about` instead, which is prose written for a reader.
    */
   readonly summary: string
-  /** The About section's paragraphs, in order. */
-  readonly about: readonly string[]
+  readonly about: About
   /** Path under `public/`, e.g. `/images/tatsu.jpg`. Case-sensitive once deployed. */
   readonly avatar: string
   readonly skills: readonly SkillCategory[]
