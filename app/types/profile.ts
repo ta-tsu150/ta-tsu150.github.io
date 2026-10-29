@@ -126,7 +126,14 @@ export interface Profile {
   readonly role: string
   /** The areas behind the role, e.g. `Web / Mobile / Cloud`. */
   readonly tagline: string
+  /**
+   * One sentence, for machines: the `description` meta tag and the `Person`
+   * structured data. Not rendered on the page — the About section reads
+   * `about` instead, which is prose written for a reader.
+   */
   readonly summary: string
+  /** The About section's paragraphs, in order. */
+  readonly about: readonly string[]
   /** Path under `public/`, e.g. `/images/tatsu.jpg`. Case-sensitive once deployed. */
   readonly avatar: string
   readonly skills: readonly SkillCategory[]

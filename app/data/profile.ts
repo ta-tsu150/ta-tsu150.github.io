@@ -33,6 +33,27 @@ export const profile: Profile = {
     '2025年4月に株式会社FIXERに新卒入社し、フルスタックエンジニアとしてWebアプリケーション・モバイルアプリ・クラウドインフラの設計・開発に従事。',
   avatar: '/images/tatsu.jpg',
 
+  /*
+   * Written to be read, where `summary` above is written to be parsed.
+   *
+   * The shape is a claim followed by what it actually led to, rather than a
+   * list of intentions: the Works entries below are the evidence, and an About
+   * that only says what he would like to do leaves them unconnected to it.
+   *
+   * The permission and audit-log findings in `works` are deliberately not
+   * drawn on here. They are the strongest material there is, and they are also
+   * the records still waiting on the employer confirmation that the rule at
+   * the foot of AGENTS.md describes — which says not to add to them until it
+   * lands.
+   */
+  about: [
+    'はじめまして。市野 達也と申します。ポートフォリオをご覧いただきありがとうございます。',
+    '実装そのものの難度は下がり続けています。だからこそ私は、仕様どおりに作り始める前に、その前提が業務の実態に合っているかを確かめることを大事にしています。仕様が正しくても、前提がずれていれば、動くものは現場で使われません。',
+    '人事評価のワークフローを「一次・二次・最終」という段数で実装していたとき、同じ人が複数の役職を兼務すると二度評価することになり、該当する役職者がいない段では止まることに気づきました。段数ではなく役割そのものを表す構造に作り直し、該当者のいない段は飛ばす形にしています。別の案件では、既存のスプレッドシートをそのまま画面に移す方針から、対象の実体を軸にした設計へ切り替える判断をしました。',
+    '担当した範囲は、フロントエンド・バックエンド・インフラ・モバイルを横断しています。要件の整理から実装、本番展開、リリース後の修正までを一人で持った機能もあります。一人で持てる範囲を広げることと、後から参加した人が同じところで詰まらないよう手順を残すことを、並行して続けています。',
+    'ご関心をお持ちいただけましたら、ページ下部のフォームからお気軽にご連絡ください。',
+  ],
+
   skills: [
     { icon: 'lucide:server', title: 'Backend', detail: 'NestJS / C# .NET / REST API / Clean Architecture' },
     { icon: 'lucide:layout-dashboard', title: 'Frontend', detail: 'Vue.js / Nuxt.js / TypeScript / Composition API' },
