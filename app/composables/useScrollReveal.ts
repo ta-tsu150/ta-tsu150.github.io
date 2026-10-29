@@ -21,7 +21,7 @@ const REVEAL_READY_ATTR = 'data-reveal-ready'
 
 interface ScrollRevealOptions {
   readonly selectors?: readonly string[]
-  /** Visible fraction at which an element reveals. It hides again at zero. */
+  /** Visible fraction at which an element reveals, and hides again. */
   readonly threshold?: number
 }
 
@@ -37,9 +37,10 @@ interface ScrollRevealOptions {
  * because that content is behind the reader and ought to be waiting as they
  * left it, not sliding in from the top on the way back.
  *
- * Reveal and hide use different thresholds on purpose. An element appears once
- * a tenth of it is showing and only resets once none of it is, so the two
- * edges cannot sit on the same scroll position and flicker against each other.
+ * Both edges sit on the same threshold, which is the point: an element fades
+ * out at the position it would fade in at, so the two directions are mirror
+ * images. Resetting only once nothing was left showing put the whole fade-out
+ * below the bottom of the window, where nobody could see it happen.
  *
  * Drops the whole effect — leaving every element visible — when the user
  * prefers reduced motion or `IntersectionObserver` is unavailable, so content
@@ -88,12 +89,12 @@ export function useScrollReveal(options: ScrollRevealOptions = {}): void {
            * makes any of this possible. The observer only reports threshold
            * crossings, so an untouched element costs nothing between them.
            */
-          if (entry.intersectionRatio === 0 && entry.boundingClientRect.top > 0) {
+          if (entry.boundingClientRect.top > 0) {
             hideAgain(entry.target)
           }
         })
       },
-      { threshold: [0, threshold] },
+      { threshold },
     )
 
     targets.forEach((el) => observer?.observe(el))
