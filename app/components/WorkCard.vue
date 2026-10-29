@@ -182,6 +182,9 @@ withDefaults(
 
 /* ===== Topics ===== */
 .work-topics {
+  /* Shared by the panel and the chevron so the two cannot drift apart. */
+  --disclosure: 0.28s;
+
   padding-top: 4px;
   border-top: 1px solid var(--glass-border);
 }
@@ -217,15 +220,59 @@ withDefaults(
 .work-topics-chevron {
   flex-shrink: 0;
   font-size: 1rem;
-  transition: transform 0.25s ease;
+  transition: transform var(--disclosure) ease;
 }
 
 .work-topics[open] .work-topics-chevron {
   transform: rotate(180deg);
 }
 
+/*
+ * The panel slides rather than snapping, matching the drawer's 0.28s — the
+ * only other disclosure on the page.
+ *
+ * `::details-content` is the box the browser hides, so it is the one that can
+ * be animated; styling the `<dl>` inside instead does nothing, because the
+ * hiding happens a level above it. `auto` is a keyword and keywords are not
+ * interpolable, so `calc-size` is what turns it into an animatable length.
+ *
+ * The fallback is an `@supports` block and not a second declaration in the
+ * same rule. Written the usual way — `auto` then `calc-size` — the minifier
+ * collapses the pair and keeps only the last, which is the same trap the
+ * `.glass` rule in main.css documents for `backdrop-filter`. Here it is worse
+ * than losing an effect: a browser without `calc-size` would drop the only
+ * surviving declaration as invalid, fall back to the `0` below, and never
+ * show the topics at all. `@supports` cannot be collapsed that way.
+ *
+ * The global `interpolate-size: allow-keywords` would also work and is the
+ * shorter spelling, but it switches keyword interpolation on for every
+ * transition on the page, and `.btn` in main.css transitions `all`.
+ *
+ * `content-visibility` is what the browser actually toggles, and it is a
+ * discrete property: without `allow-discrete` it flips at the start of the
+ * close and the box would collapse already empty.
+ */
+.work-topics::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition:
+    block-size var(--disclosure) ease,
+    content-visibility var(--disclosure) allow-discrete;
+}
+
+.work-topics[open]::details-content {
+  block-size: auto;
+}
+
+@supports (block-size: calc-size(auto, size)) {
+  .work-topics[open]::details-content {
+    block-size: calc-size(auto, size);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .work-topics-chevron {
+  .work-topics-chevron,
+  .work-topics::details-content {
     transition: none;
   }
 }
