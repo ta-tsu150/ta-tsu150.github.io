@@ -310,6 +310,23 @@ export const SECTION_IDS = ['hero', 'about', 'timeline', 'skills', 'works'] as c
  *
  * The anchor group is page-specific, so at that point it should be passed in
  * per page rather than read from here.
+ *
+ * Where each group renders, decided 2026-10-29 with more pages planned:
+ *
+ *   routes   -> inline in the navbar, above the mobile breakpoint
+ *   anchors  -> the drawer, at every width
+ *
+ * Routes are the site's map and belong where they are seen without asking;
+ * putting them behind the toggle would hide the one thing a visitor most needs
+ * to find. The anchors are the inside of whichever page you are already on, so
+ * the drawer is the right depth for them. That split is also why the navbar
+ * stays a `<header>` rather than a `<nav>` for now — it holds no destinations
+ * yet, and a second unlabelled navigation landmark is what A-3 removed.
+ *
+ * The review's C-10(2), putting these anchors inline in the navbar on desktop,
+ * is deliberately not done. It is right for a single-page site and wrong the
+ * moment the navbar has routes to carry, which would mean building the bar
+ * twice.
  */
 export const navGroups: readonly NavGroup[] = [
   {
