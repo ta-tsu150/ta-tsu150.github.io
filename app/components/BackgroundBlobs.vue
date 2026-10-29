@@ -1,9 +1,12 @@
 <script setup lang="ts">
 /** Purely decorative animated gradient blobs behind the page content. */
+const blobs = ref<HTMLElement | null>(null)
+
+usePointerParallax(blobs)
 </script>
 
 <template>
-  <div class="blobs" aria-hidden="true">
+  <div ref="blobs" class="blobs" aria-hidden="true">
     <div class="bg-blob blob-1" />
     <div class="bg-blob blob-2" />
     <div class="bg-blob blob-3" />
@@ -11,6 +14,28 @@
 </template>
 
 <style scoped>
+/*
+ * `--pointer-x` / `--pointer-y` are written by `usePointerParallax`, and are
+ * zero until it runs — on a touch screen, with reduced motion asked for, or
+ * with no JavaScript at all, nothing below changes anything.
+ *
+ * The offset goes on `translate` rather than into `transform`, because the
+ * keyframes below own `transform` outright. The two are separate properties
+ * and compose: `translate` is applied first, then `transform`, so the drift
+ * keeps running underneath while this leans the whole thing towards the
+ * pointer. Folding both into one property would mean rewriting every keyframe
+ * to carry a variable, and the pointer offset would then be scaled by whatever
+ * the keyframe's `scale()` happened to be at that moment.
+ *
+ * `--depth` makes the three move by different amounts, which is what reads as
+ * depth rather than as the background sliding in one piece. The largest blob
+ * moves most.
+ *
+ * The easing back is a CSS transition, so there is no frame loop here: the
+ * composable writes a target and the compositor interpolates. 600ms is long
+ * enough that the blobs lag well behind the cursor, which is the difference
+ * between a background that leans and one that follows.
+ */
 .bg-blob {
   position: fixed;
   border-radius: 50%;
@@ -18,6 +43,18 @@
   opacity: var(--blob-opacity);
   z-index: 0;
   pointer-events: none;
+
+  --depth: 1;
+  translate:
+    calc(var(--pointer-x, 0px) * var(--depth))
+    calc(var(--pointer-y, 0px) * var(--depth));
+  transition: translate 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-blob {
+    transition: none;
+  }
 }
 
 /*
@@ -48,6 +85,7 @@
  * promise about any particular GPU.
  */
 .blob-1 {
+  --depth: 1;
   width: 500px;
   height: 500px;
   background: var(--accent);
@@ -57,6 +95,7 @@
 }
 
 .blob-2 {
+  --depth: 0.66;
   width: 400px;
   height: 400px;
   background: var(--accent-3);
@@ -66,6 +105,7 @@
 }
 
 .blob-3 {
+  --depth: 0.42;
   width: 350px;
   height: 350px;
   background: var(--accent-2);
