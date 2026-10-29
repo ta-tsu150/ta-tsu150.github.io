@@ -1,5 +1,32 @@
 <script setup lang="ts">
 import { profile } from '~/data/profile'
+
+/** Matches the `max-width: 768px` breakpoint the rest of the styles use. */
+const WIDE = '(min-width: 769px)'
+
+/*
+ * Closed in the prerendered HTML, opened on a wide screen once the page is
+ * running.
+ *
+ * It cannot be decided at build time — a static page has no viewport — and it
+ * cannot be done in CSS either, because `open` is a DOM attribute and forcing
+ * the content visible without it leaves a control whose chevron and state
+ * disagree with what is on screen.
+ *
+ * Closed is the right thing to ship in the HTML rather than the other way
+ * round. If the bundle never arrives, every reader gets three headings that
+ * still open on a press, and the phone — the case the rest of this page is
+ * tuned for — does no work at all on load. Opening instead would have the
+ * narrow screen collapse two thousand pixels just after first paint.
+ *
+ * Only the initial state. A later resize leaves the disclosures as the reader
+ * left them, because re-running this would throw away their own presses.
+ */
+const openByDefault = ref(false)
+
+onMounted(() => {
+  openByDefault.value = window.matchMedia(WIDE).matches
+})
 </script>
 
 <template>
@@ -7,10 +34,11 @@ import { profile } from '~/data/profile'
     <SectionHeading id="approach-title" title="Approach" />
 
     <!--
-      Closed by default. Each point runs to several hundred words, and three of
-      them open at once ran the section past two phone screens before Timeline
-      began. Collapsed, the three subjects read as a list of what he works on,
-      and the argument behind each is one press away.
+      Collapsed on a phone, open on a wide screen. Each point runs to several
+      hundred words, and three of them open at once ran the section past two
+      phone screens before Timeline began — while on a desktop the same three
+      cost a scroll nobody notices, and leaving the strongest material behind a
+      press there would be hiding it for no gain.
     -->
     <GlassCard
       v-for="point in profile.approach.points"
@@ -18,7 +46,7 @@ import { profile } from '~/data/profile'
       as="article"
       class="approach-card"
     >
-      <details class="approach-item disclosure">
+      <details class="approach-item disclosure" :open="openByDefault">
         <summary>
           <Icon class="disclosure-chevron" name="lucide:chevron-down" aria-hidden="true" />
           <h3>{{ point.title }}</h3>
