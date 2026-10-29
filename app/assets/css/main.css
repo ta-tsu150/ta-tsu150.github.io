@@ -419,17 +419,21 @@ body {
  * with every disclosure closed, which is how the section first renders.
  *
  * That pass ran in the in-app browser at dpr 2 rather than the dpr 3 of the
- * original, so it was calibrated against the two sections that did not change:
- * `#timeline` came back within 1px at both widths. `#skills` came back 61px
- * (2%) shorter, which is the emulation difference the paragraph above warns
- * about and not a content change, so its recorded value is left alone.
+ * original, so it was calibrated against the sections that did not change:
+ * `#timeline` came back within 1px at both widths.
+ *
+ * `#skills` came back 61px shorter on mobile and was first left alone as an
+ * emulation difference. It is not one. `#timeline` reproduces to the pixel
+ * under the same conditions, and the shortfall showed up end to end: on a
+ * fresh load the placeholder put the top of Works 62px below where it really
+ * lands. Measured twice more at 2906 and corrected, 2967 -> 2906.
  */
 #timeline {
   contain-intrinsic-size: auto 1176px;
 }
 
 #skills {
-  contain-intrinsic-size: auto 2967px;
+  contain-intrinsic-size: auto 2906px;
 }
 
 #works {
