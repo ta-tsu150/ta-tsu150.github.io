@@ -42,15 +42,29 @@ withDefaults(
       <li v-for="item in entry.stack" :key="item">{{ item }}</li>
     </ul>
 
-    <section class="work-topics">
-      <h4>技術的に取り組んだこと</h4>
+    <!--
+      Collapsed by default. Five entries carry 23 topics between them, which ran
+      the Works section to about 8,200px on a phone — long enough that the list
+      of entries stopped being scannable.
+
+      `open` follows the skill filter: pick a chip and the entries that
+      demonstrate it open themselves, since the topics are the evidence being
+      asked for. Binding it also means a later change to `match` resets the
+      disclosure, which is the intent — a filter result should look the same
+      however the card was left.
+    -->
+    <details class="work-topics" :open="match === true">
+      <summary>
+        <Icon class="work-topics-chevron" name="lucide:chevron-down" aria-hidden="true" />
+        技術的に取り組んだこと（{{ entry.topics.length }}件）
+      </summary>
       <dl>
         <template v-for="topic in entry.topics" :key="topic.title">
           <dt>{{ topic.title }}</dt>
           <dd>{{ topic.body }}</dd>
         </template>
       </dl>
-    </section>
+    </details>
   </GlassCard>
 </template>
 
@@ -172,13 +186,48 @@ withDefaults(
   border-top: 1px solid var(--glass-border);
 }
 
-.work-topics h4 {
+/*
+ * The old `h4` styling, moved onto the summary. Both markers are suppressed —
+ * `list-style` covers Firefox and current Chrome, the pseudo-element covers
+ * older WebKit — and replaced with a chevron that turns, so the control reads
+ * as a disclosure in both states rather than only when open.
+ */
+.work-topics summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin: 16px 0 12px;
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-muted);
+  cursor: pointer;
+  list-style: none;
+}
+
+.work-topics summary::-webkit-details-marker {
+  display: none;
+}
+
+.work-topics summary:hover {
+  color: var(--text);
+}
+
+.work-topics-chevron {
+  flex-shrink: 0;
+  font-size: 1rem;
+  transition: transform 0.25s ease;
+}
+
+.work-topics[open] .work-topics-chevron {
+  transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-topics-chevron {
+    transition: none;
+  }
 }
 
 .work-topics dt {

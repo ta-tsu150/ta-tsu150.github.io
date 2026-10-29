@@ -413,6 +413,16 @@ body {
  * gained nine tags, and nobody re-measured — leaving the placeholder 2816px
  * short on mobile, so the in-page link to Works landed 412px above its target
  * and showed the tail of Skills instead. Re-measure whenever content changes.
+ *
+ * `#works` re-measured 2026-10-29, after the topics moved into a collapsed
+ * `<details>`: 7854 -> 3245 on mobile and 4284 -> 1955 above the breakpoint,
+ * with every disclosure closed, which is how the section first renders.
+ *
+ * That pass ran in the in-app browser at dpr 2 rather than the dpr 3 of the
+ * original, so it was calibrated against the two sections that did not change:
+ * `#timeline` came back within 1px at both widths. `#skills` came back 61px
+ * (2%) shorter, which is the emulation difference the paragraph above warns
+ * about and not a content change, so its recorded value is left alone.
  */
 #timeline {
   contain-intrinsic-size: auto 1176px;
@@ -423,7 +433,7 @@ body {
 }
 
 #works {
-  contain-intrinsic-size: auto 7854px;
+  contain-intrinsic-size: auto 3245px;
 }
 
 /* Above the 768px breakpoint the text wraps far less, so the sections are
@@ -438,7 +448,7 @@ body {
   }
 
   #works {
-    contain-intrinsic-size: auto 4284px;
+    contain-intrinsic-size: auto 1955px;
   }
 }
 
@@ -543,6 +553,36 @@ body {
   .reveal-enabled .timeline-item:not([data-revealed]) {
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  /*
+   * Every disclosure opens on paper. The Works topics are collapsed by default
+   * now, and a closed `<details>` prints closed — which would have taken the
+   * substance of all five entries out of the printout, the same failure B-1
+   * fixed for the footer.
+   *
+   * Two rules because browsers hide the content two different ways: older
+   * engines hide the children, current Chrome hides the `::details-content`
+   * pseudo-element. A browser that does not know the pseudo-element drops that
+   * rule alone, which is why it is not merged with the first.
+   */
+  details > *:not(summary) {
+    display: block !important;
+    content-visibility: visible !important;
+  }
+
+  details::details-content {
+    content-visibility: visible !important;
+    /* Chrome also animates the height to zero while closed. */
+    block-size: auto !important;
+  }
+
+  .work-topics summary {
+    cursor: auto;
+  }
+
+  .work-topics-chevron {
+    display: none !important;
   }
 
   /*
