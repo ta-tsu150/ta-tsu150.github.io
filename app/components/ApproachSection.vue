@@ -48,11 +48,16 @@ import { profile } from '~/data/profile'
  */
 .approach-item > summary {
   gap: 14px;
-  padding: 18px 0;
+  padding: 20px 0;
 }
 
+/*
+ * Closer to `.about-name`'s 1.3rem than to the 1.1rem a Works card's title
+ * carries. Three of these are the whole section while it is collapsed, so
+ * they are the section's content and not a label on top of it.
+ */
 .approach-item h3 {
-  font-size: 1.05rem;
+  font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: 0.02em;
 }
@@ -62,12 +67,12 @@ import { profile } from '~/data/profile'
 }
 
 .approach-item .disclosure-chevron {
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   color: var(--accent);
 }
 
 .approach-item p {
-  padding: 4px 0 22px 34px;
+  padding: 4px 0 22px 38px;
   color: var(--text-muted);
   /*
    * Looser than the 1.75 the cards elsewhere use. This is the one block of
