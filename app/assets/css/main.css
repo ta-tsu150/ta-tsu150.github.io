@@ -389,15 +389,43 @@ h3,
 }
 
 /* ===== Buttons ===== */
+/*
+ * Works on a `<button>` as well as an `<a>`.
+ *
+ * It did not. Everything wearing this class was a link until the contact form
+ * needed a submit, and a link inherits the page's font, carries no border and
+ * gets no platform chrome — so none of that was ever written down. On a button
+ * all three come back: the UA border draws a frame the links do not have, the
+ * label drops to the system UI font instead of `--font`, and iOS Safari adds
+ * its own rounding and gradient on top.
+ *
+ * `appearance` is unprefixed only. Written as a prefixed/standard pair the
+ * minifier folds the two and keeps the last, exactly as the `.glass` rule
+ * describes — checked in the built CSS, and only `appearance:none` survives.
+ * Here that is the one worth keeping, and the explicit border, background and
+ * radius below are what actually take the native chrome off anyway; the
+ * declaration is belt and braces.
+ */
 .btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   padding: 12px 28px;
+  appearance: none;
+  border: 0;
   border-radius: 12px;
+  background: transparent;
+  font-family: inherit;
   font-size: 0.95rem;
   font-weight: 600;
+  /*
+   * Also inherited rather than left alone. The UA sets a `font` shorthand on
+   * buttons, which resets `line-height` to `normal` along with everything
+   * else, and a button came out 4px shorter than the identical link beside it.
+   */
+  line-height: inherit;
   text-decoration: none;
+  cursor: pointer;
   transition: all 0.25s ease;
 }
 
@@ -407,7 +435,7 @@ h3,
   box-shadow: 0 4px 20px var(--accent-glow);
 }
 
-.btn-primary:hover {
+.btn-primary:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 8px 30px var(--accent-glow);
 }
@@ -418,7 +446,7 @@ h3,
   border: 1px solid var(--glass-border);
 }
 
-.btn-outline:hover {
+.btn-outline:hover:not(:disabled) {
   background: var(--surface-hover);
   border-color: var(--text-muted);
 }
