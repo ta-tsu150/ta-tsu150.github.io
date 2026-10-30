@@ -73,6 +73,11 @@ CI（`.github/workflows/deploy.yml`）は型チェックと Lint をビルドの
 - `public/` の元画像は配信されるので、表示に必要な寸法より大きく置かない。アバターは短辺600。
   ただし元画像を縮めると2段階リサンプルになり、配信される画像が平均2/255ほど動く
 - ファビコン一式は `app/assets/favicon-source.png` から生成する。手順は隣の `favicon-source.md`
+- `public/fonts/space-grotesk-latin.woff2` は `@fontsource-variable/space-grotesk` v22 の
+  latin サブセット（可変・300〜700・21.8KB・SIL OFL 1.1）をそのままコピーしたもの。
+  CDN から読まずに同梱しているのは、CSS をインライン化して避けた「DNS→TLS→CSS→フォント」の
+  連鎖を third-party で作り直さないため。見出しと欧文ラベルにだけ当てる（`--font-display`）。
+  日本語フォントは追加しない——このサイトの初回描画はそれと引き換えにできるものではない
 - SNS 共有用の `public/og.jpg` は `app/assets/og-source.png` から生成する。手順と計測値は
   隣の `og-source.md`。載せる肩書きは `profile.role`・`profile.tagline` と揃える
 

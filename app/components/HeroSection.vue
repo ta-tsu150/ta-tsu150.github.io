@@ -162,7 +162,12 @@ const nameChars = Array.from(profile.name)
 
 .hero-name {
   font-size: clamp(2.5rem, 7vw, 5rem);
-  font-weight: 800;
+  /*
+   * 700, not 800: Space Grotesk's weight axis stops there. Asking for 800
+   * would be silently clamped in the display face and honoured in the
+   * fallback, so the name would change weight when the font landed.
+   */
+  font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.1;
 }

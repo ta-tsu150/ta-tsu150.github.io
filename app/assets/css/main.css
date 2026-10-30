@@ -8,12 +8,49 @@
 }
 
 /* ===== Theme-independent tokens ===== */
+/*
+ * Self-hosted rather than linked from Google's CDN: a third-party stylesheet
+ * is a DNS lookup, a TLS handshake and a request that has to finish before the
+ * font request can even start, on a page whose whole CSS was inlined to avoid
+ * exactly that chain.
+ *
+ * The variable file, latin subset only, from `@fontsource-variable/space-
+ * grotesk` v22 (SIL OFL 1.1). 21.8KB, and it carries every weight from 300 to
+ * 700 — which is also the ceiling, so nothing here asks for 800.
+ *
+ * `swap` and not `optional`: the fallback renders immediately and the real
+ * face replaces it when it lands. `optional` would mean most first visits
+ * never saw the font at all.
+ */
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('/fonts/space-grotesk-latin.woff2') format('woff2');
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191,
+    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   --radius: 16px;
   /* 12px padding + 38px control + 12px padding + 1px border. */
   --navbar-height: 63px;
-  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans',
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans',
     'Noto Sans JP', sans-serif;
+
+  /*
+   * Headings and the small Latin labels. Body text stays on `--font`, because
+   * a Japanese face is megabytes and this page's first paint was fought for.
+   *
+   * Space Grotesk has no Japanese glyphs, which is the point: a heading like
+   * 社内向け業務システム falls through to the stack behind it character by
+   * character, so this applies to the Latin in a mixed heading and nothing
+   * else.
+   */
+  --font-display: 'Space Grotesk', var(--font);
 
   /*
    * The theme toggle paints both states regardless of which theme is active, so
@@ -190,6 +227,28 @@ body {
   line-height: 1.7;
   overflow-x: hidden;
   min-height: 100vh;
+}
+
+/*
+ * Every heading, plus the small letterspaced labels and the nav, which are
+ * Latin by nature and read as display type rather than as prose: the brand,
+ * the hero's WELCOME and PORTFOLIO, the role line, the Works dates and the
+ * drawer's list of destinations.
+ *
+ * Running text is deliberately absent. It is mostly Japanese, which this face
+ * does not cover, and mixing the two inside a paragraph would set the Latin
+ * words in it apart from the sentence they belong to.
+ */
+h1,
+h2,
+h3,
+.nav-brand,
+.hero-greeting,
+.hero-kind,
+.about-role,
+.work-period,
+.drawer-link {
+  font-family: var(--font-display);
 }
 
 /*
