@@ -1,5 +1,13 @@
 <script setup lang="ts">
-import { navGroups } from '~/data/profile'
+import { awayNavGroups, navGroups } from '~/data/profile'
+
+/*
+ * The index's list is in-page anchors. On any other route those point at
+ * sections that are not there, so the drawer would open onto six links that
+ * do nothing; `awayNavGroups` offers a route back instead.
+ */
+const route = useRoute()
+const groups = computed(() => (route.path === '/' ? navGroups : awayNavGroups))
 
 const props = defineProps<{
   /** Id of the section currently in view, for the active highlight. */
@@ -79,7 +87,7 @@ onBeforeUnmount(() => setBackgroundLocked(false))
           aria-label="ナビゲーション"
         >
           <nav class="drawer-nav">
-            <template v-for="(group, index) in navGroups" :key="index">
+            <template v-for="(group, index) in groups" :key="index">
               <p v-if="group.label" class="drawer-group-label">{{ group.label }}</p>
               <ul class="drawer-list" role="list">
                 <li v-for="item in group.items" :key="item.href">
@@ -102,7 +110,7 @@ onBeforeUnmount(() => setBackgroundLocked(false))
                   </a>
                 </li>
               </ul>
-              <hr v-if="index < navGroups.length - 1" class="drawer-divider">
+              <hr v-if="index < groups.length - 1" class="drawer-divider">
             </template>
           </nav>
         </div>

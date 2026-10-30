@@ -4,6 +4,13 @@ import { profile, SECTION_IDS } from '~/data/profile'
 const activeId = useActiveSection(SECTION_IDS)
 const isDrawerOpen = ref(false)
 
+/*
+ * `#hero` only exists on the index. Everywhere else the brand is the way
+ * back to it, which is what a reader expects of it anyway.
+ */
+const route = useRoute()
+const brandHref = computed(() => (route.path === '/' ? '#hero' : '/'))
+
 /**
  * Handed to the drawer so its focus trap can treat this button as part of the
  * dialog loop — it doubles as the close control and lives outside the panel.
@@ -31,7 +38,7 @@ const toggle = ref<HTMLButtonElement | null>(null)
       <NavToggleIcon :open="isDrawerOpen" />
     </button>
 
-    <a href="#hero" class="nav-brand">{{ profile.handle }}</a>
+    <a :href="brandHref" class="nav-brand">{{ profile.handle }}</a>
 
     <ThemeToggle class="nav-theme" />
   </header>

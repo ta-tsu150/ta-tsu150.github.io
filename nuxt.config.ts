@@ -52,7 +52,13 @@ export default defineNuxtConfig({
     preset: 'github_pages',
     prerender: {
       crawlLinks: true,
-      routes: ['/'],
+      /*
+       * `crawlLinks` finds pages by following links, so a page nothing links
+       * to is never generated and the deployed site answers it with the SPA
+       * 404. `/private` is deliberately unlinked, so it has to be named here.
+       * Any future page in the same position needs the same line.
+       */
+      routes: ['/', '/private'],
     },
   },
 

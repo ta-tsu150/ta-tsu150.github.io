@@ -395,6 +395,10 @@ export const SECTION_IDS = [
  * moment the navbar has routes to carry, which would mean building the bar
  * twice.
  */
+const EXTERNAL_GROUP: NavGroup = {
+  items: [{ label: 'GitHub', href: GITHUB_URL, external: true }],
+}
+
 export const navGroups: readonly NavGroup[] = [
   {
     items: [
@@ -409,7 +413,18 @@ export const navGroups: readonly NavGroup[] = [
       ...(CONTACT_FORM_ID ? [{ label: 'Contact', href: '#contact' }] : []),
     ],
   },
-  {
-    items: [{ label: 'GitHub', href: GITHUB_URL, external: true }],
-  },
+  EXTERNAL_GROUP,
+]
+
+/**
+ * The drawer on any page that is not the index.
+ *
+ * The anchors above belong to the index and point at sections no other page
+ * has, so away from it they are replaced by a route back rather than left to
+ * do nothing when pressed. This is the split the comment on `navGroups`
+ * describes, arriving one page earlier than the navbar version of it.
+ */
+export const awayNavGroups: readonly NavGroup[] = [
+  { items: [{ label: 'Home', href: '/' }] },
+  EXTERNAL_GROUP,
 ]

@@ -27,6 +27,11 @@ CI（`.github/workflows/deploy.yml`）は型チェックと Lint をビルドの
 - Works を追加したら、`app/types/profile.ts` の `WorkId` union にも id を足す。これを忘れると型チェックで落ちる
 - `skillTags[].works` には、本文を読んで根拠が分かる Works だけを入れる。根拠がなければ空配列にすると、チップがボタンではなくただの文字として表示される
 - セクションの順番は `app/pages/index.vue`・`SECTION_IDS`・`navGroups` の3か所で揃える
+- ページを増やしたら `nitro.prerender.routes` に足す。`crawlLinks` はリンクを辿って見つける
+  仕組みなので、どこからもリンクしないページ（`/private` がそれ）は生成されず 404 になる
+- ドロワーの中身はルートで変わる。インデックスは `navGroups`（ページ内アンカー）、それ以外は
+  `awayNavGroups`（トップへ戻るルート）。アンカーはインデックス専用なので、別ページで出すと
+  押しても何も起きないリンクが並ぶ
 - `<title>`・`description`・`og:*`・構造化データは `nuxt.config.ts` が `profile` を import して
   組み立てる。肩書きの出どころは `profile.role`・`profile.tagline` の1か所だけ（以前は3通りに
   食い違っていた）。`app.vue` の `useSeoMeta` に移さないこと——`error.vue` は `app.vue` を
