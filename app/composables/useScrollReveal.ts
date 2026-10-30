@@ -39,7 +39,8 @@ interface ScrollRevealOptions {
  *
  * Both edges sit on the same threshold, which is the point: an element fades
  * out at the position it would fade in at, so the two directions are mirror
- * images. Resetting only once nothing was left showing put the whole fade-out
+ * images. A fifth of it has to be showing, far enough off the bottom edge for
+ * the change to be watchable. Resetting only once nothing was left showing put the whole fade-out
  * below the bottom of the window, where nobody could see it happen.
  *
  * Drops the whole effect — leaving every element visible — when the user
@@ -47,7 +48,13 @@ interface ScrollRevealOptions {
  * can never get stuck at `opacity: 0`.
  */
 export function useScrollReveal(options: ScrollRevealOptions = {}): void {
-  const { selectors = DEFAULT_SELECTORS, threshold = 0.1 } = options
+  /*
+   * A fifth of the element, not a tenth. At a tenth the fade happened in the
+   * last sliver of the window — correct, and too small a strip to watch
+   * anything happen in. Note it is a fraction of the *element*, so a short
+   * timeline item turns over with ~50px showing and a Works card with ~160px.
+   */
+  const { selectors = DEFAULT_SELECTORS, threshold = 0.2 } = options
 
   let observer: IntersectionObserver | null = null
 
