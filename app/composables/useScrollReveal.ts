@@ -21,8 +21,12 @@ const REVEAL_READY_ATTR = 'data-reveal-ready'
 
 interface ScrollRevealOptions {
   readonly selectors?: readonly string[]
-  /** Visible fraction at which an element reveals, and hides again. */
-  readonly threshold?: number
+  /**
+   * How far above the bottom of the window the turn happens, in CSS pixels.
+   * An element reveals once more than this much of it is showing, and hides
+   * again once less is.
+   */
+  readonly bottomMargin?: number
 }
 
 /**
@@ -37,10 +41,9 @@ interface ScrollRevealOptions {
  * because that content is behind the reader and ought to be waiting as they
  * left it, not sliding in from the top on the way back.
  *
- * Both edges sit on the same threshold, which is the point: an element fades
- * out at the position it would fade in at, so the two directions are mirror
- * images. A fifth of it has to be showing, far enough off the bottom edge for
- * the change to be watchable. Resetting only once nothing was left showing put the whole fade-out
+ * Both edges sit on the same line, which is the point: an element fades out at
+ * the position it would fade in at, so the two directions are mirror images,
+ * far enough off the bottom edge for the change to be watchable. Resetting only once nothing was left showing put the whole fade-out
  * below the bottom of the window, where nobody could see it happen.
  *
  * Drops the whole effect — leaving every element visible — when the user
@@ -49,12 +52,20 @@ interface ScrollRevealOptions {
  */
 export function useScrollReveal(options: ScrollRevealOptions = {}): void {
   /*
-   * A fifth of the element, not a tenth. At a tenth the fade happened in the
-   * last sliver of the window — correct, and too small a strip to watch
-   * anything happen in. Note it is a fraction of the *element*, so a short
-   * timeline item turns over with ~50px showing and a Works card with ~160px.
+   * A distance from the bottom edge, not a fraction of the element.
+   *
+   * It began as a fraction, and that is a trap. The ratio an element can reach
+   * is capped at the window's height over its own, so anything taller than
+   * `1 / threshold` windows can never satisfy it and stays hidden for good. At
+   * three tenths that was not hypothetical: on a 375x667 phone the longest
+   * opened Works card is 2371px and peaks at 0.281, so it would never have
+   * appeared at all.
+   *
+   * A margin has no such ceiling, and it also puts the turn in the same place
+   * for every element rather than 51px into a timeline item and 160px into a
+   * Works card.
    */
-  const { selectors = DEFAULT_SELECTORS, threshold = 0.2 } = options
+  const { selectors = DEFAULT_SELECTORS, bottomMargin = 120 } = options
 
   let observer: IntersectionObserver | null = null
 
@@ -82,7 +93,7 @@ export function useScrollReveal(options: ScrollRevealOptions = {}): void {
     observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.intersectionRatio >= threshold) {
+          if (entry.isIntersecting) {
             revealNow(entry.target)
             return
           }
@@ -101,7 +112,12 @@ export function useScrollReveal(options: ScrollRevealOptions = {}): void {
           }
         })
       },
-      { threshold },
+      /*
+       * The root is the window with its bottom edge pulled up, so "entering"
+       * means crossing that line rather than the edge itself. `threshold: 0`
+       * because any overlap with that shortened box is the whole test.
+       */
+      { rootMargin: `0px 0px -${bottomMargin}px 0px`, threshold: 0 },
     )
 
     targets.forEach((el) => observer?.observe(el))
