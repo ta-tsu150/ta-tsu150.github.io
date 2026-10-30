@@ -43,7 +43,7 @@ export const profile: Profile = {
    * arrangement the Timeline paragraphs and the Approach bodies use.
    */
   about:
-    'はじめまして。市野 達也と申します。Web・モバイル・クラウドを横断して開発しているフルスタックエンジニアです。\nここでは、これまでに私が身につけたスキルや経歴などについてまとめています。\n私のことを少しでも知ってもらうために作成しました。\nどうぞゆっくりとご覧ください。',
+    'はじめまして。市野 達也と申します。\nWeb・モバイル・クラウドを横断して開発しているフルスタックエンジニアです。\nここでは、これまでに私が身につけたスキルや経歴などについてまとめています。\n私のことを少しでも知ってもらうために作成しました。\nどうぞゆっくりとご覧ください。',
 
   /*
    * The headings are subjects, not actions, so a reader can place each one
