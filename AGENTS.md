@@ -77,10 +77,10 @@ CI（`.github/workflows/deploy.yml`）は型チェックと Lint をビルドの
   PSNR 41dB で、描画サイズでは見えない（実寸と4倍拡大で確認済み）。変えるなら同様に測る
 - `public/` の元画像は配信されるので、表示に必要な寸法より大きく置かない。アバターは短辺600。
   ただし元画像を縮めると2段階リサンプルになり、配信される画像が平均2/255ほど動く
-- ファビコン一式は `app/assets/favicon-source.png` から生成する。手順は隣の `favicon-source.md`
-- ファビコン4枚だけは `public/` 直下に置く（`images/` に入れない）。`/favicon.ico` は
-  HTML を読まないクライアントがその場所だけを見に来るので、動かすと link タグでは
-  拾えない経路が落ちる。4枚は1枚の元画像から作る一組なので、ばらさず揃えてある
+- ファビコン一式は `app/assets/favicon-source.png` から生成する。手順は隣の `favicon-source.md`。
+  4枚とも `public/images/` に置き、`nuxt.config.ts` の `link` で場所を教えている。root に
+  `/favicon.ico` を置かない以上、そこを直接見に来るだけで HTML を読まないクライアントには
+  アイコンが出ない。承知のうえで、`public/` 直下にファイルを置かないほうを採った
 - `public/fonts/space-grotesk-latin.woff2` は `@fontsource-variable/space-grotesk` v22 の
   latin サブセット（可変・300〜700・21.8KB・SIL OFL 1.1）をそのままコピーしたもの。
   CDN から読まずに同梱しているのは、CSS をインライン化して避けた「DNS→TLS→CSS→フォント」の

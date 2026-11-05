@@ -1,6 +1,6 @@
 # favicon-source.png
 
-ファビコン一式の生成元。`public/` の favicon.ico / favicon-32.png /
+ファビコン一式の生成元。`public/images/` の favicon.ico / favicon-32.png /
 favicon-192.png / apple-touch-icon.png はすべてこの1枚から作っている。
 
 このディレクトリのファイルは import しない限りビルドに含まれないので、
