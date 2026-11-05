@@ -86,6 +86,8 @@ CI（`.github/workflows/deploy.yml`）は型チェックと Lint をビルドの
   CDN から読まずに同梱しているのは、CSS をインライン化して避けた「DNS→TLS→CSS→フォント」の
   連鎖を third-party で作り直さないため。見出しと欧文ラベルにだけ当てる（`--font-display`）。
   日本語フォントは追加しない——このサイトの初回描画はそれと引き換えにできるものではない
+- `/private` のスライドショーの写真は `public/images/private/` に 1920x1080・16:9 で置く。
+  作り方と、元写真をリポジトリに入れない理由は `app/assets/private-gallery.md`
 - SNS 共有用の `public/images/og.jpg` は `app/assets/og-source.png` から生成する。手順と
   計測値は隣の `og-source.md`。載せる肩書きは `profile.role`・`profile.tagline` と揃える
 

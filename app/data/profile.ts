@@ -4,7 +4,7 @@
  * the config is checked against the Node tsconfig, where the `~` alias is
  * not mapped — through that path the aliased form does not resolve.
  */
-import type { NavGroup, Profile } from '../types/profile'
+import type { GallerySlide, NavGroup, Profile } from '../types/profile'
 
 /*
  * Exported because `nuxt.config.ts` needs it too, for the `sameAs` field of
@@ -398,6 +398,47 @@ export const SECTION_IDS = [
 const EXTERNAL_GROUP: NavGroup = {
   items: [{ label: 'GitHub', href: GITHUB_URL, external: true }],
 }
+
+/**
+ * The slideshow at the top of `/private`.
+ *
+ * The files are generated from the originals by `tools/prep-gallery.mjs`,
+ * which crops each one to 16:9 and writes 1920x1080 — the smallest size that
+ * still covers the 912px content column on a 2x screen. The originals are far
+ * larger and stay out of the repository, because what lands in `public/` is
+ * served at full size to anyone who asks for the URL, and because a blob in
+ * git history cannot be taken back out of it.
+ *
+ * Order is the display order. Captions are read by the caption strip only;
+ * `alt` is what a screen reader gets, so it describes the picture instead of
+ * repeating the title.
+ */
+export const privateGallery: readonly GallerySlide[] = [
+  {
+    src: '/images/private/sniper.jpg',
+    title: 'Airsoft',
+    note: 'サバイバルゲーム',
+    alt: '柱の陰から長物のエアソフトガンを構えている様子',
+  },
+  {
+    src: '/images/private/bike.jpg',
+    title: 'Motorcycles',
+    note: 'バイクのショーにて',
+    alt: 'モーターサイクルショーの会場で、展示されたバイクに跨っている様子',
+  },
+  {
+    src: '/images/private/handgun.jpg',
+    title: 'Airsoft',
+    note: 'ハンドガン戦',
+    alt: 'キャップとサングラスを着けて、ハンドガンを両手で構えている様子',
+  },
+  {
+    src: '/images/private/hunter.jpg',
+    title: 'Armour',
+    note: '甲冑',
+    alt: '海を背にした甲冑姿の武者を、手前の人物越しに捉えた一枚',
+  },
+]
 
 export const navGroups: readonly NavGroup[] = [
   {

@@ -25,9 +25,11 @@ useHead({
     <section id="private" class="section" aria-labelledby="private-title">
       <SectionHeading id="private-title" title="Private" />
 
+      <PrivateGallery />
+
       <GlassCard class="private-card">
         <p>
-          仕事とは関係のないものを置く部屋です。まだ何も置いていません。
+          仕事とは関係のないものを置く部屋です。
         </p>
       </GlassCard>
     </section>
@@ -44,6 +46,14 @@ useHead({
   padding-top: calc(var(--navbar-height) + 60px);
   min-height: 100vh;
   min-height: 100svh;
+}
+
+/*
+ * The gallery is the first thing under the heading, so the gap above it comes
+ * from the heading's own margin rather than from here.
+ */
+.private-card {
+  margin-top: 40px;
 }
 
 .private-card p {

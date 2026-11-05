@@ -132,6 +132,28 @@ export interface Contact {
   readonly lead: string
 }
 
+/**
+ * One slide in the Private page's gallery.
+ *
+ * Every image is 16:9 and 1920x1080, prepared by `tools/prep-gallery.mjs`.
+ * The slideshow assumes that ratio: it gives the stage a fixed `aspect-ratio`
+ * so the page does not resize as the slides change, and anything taller or
+ * wider is cropped to fit rather than changing the frame.
+ */
+export interface GallerySlide {
+  /** Path under `public/`, e.g. `/images/private/bike.jpg`. */
+  readonly src: string
+  /** Shown over the image, in the display face. */
+  readonly title: string
+  /** One line under the title. */
+  readonly note: string
+  /**
+   * What the picture shows, for anyone who cannot see it. Not the same text
+   * as `title` — that one is decoration the caption already spells out.
+   */
+  readonly alt: string
+}
+
 /** Everything the page renders, in one place. */
 export interface Profile {
   readonly handle: string
