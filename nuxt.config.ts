@@ -30,7 +30,7 @@ const SITE_DESCRIPTION
  * root-relative path gives them nothing to resolve against and the card comes
  * back without an image.
  */
-const OG_IMAGE = `${SITE_URL}og.jpg`
+const OG_IMAGE = `${SITE_URL}images/og.jpg`
 const OG_IMAGE_ALT = `${profile.role} — ${profile.tagline}`
 
 export default defineNuxtConfig({

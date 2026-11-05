@@ -1,6 +1,6 @@
 # og-source.png
 
-SNS 共有用画像 `public/og.jpg` の生成元。デザインツールからの書き出し
+SNS 共有用画像 `public/images/og.jpg` の生成元。デザインツールからの書き出し
 （1733×907）をそのまま可逆圧縮したもの。
 
 このディレクトリのファイルは import しない限りビルドに含まれないので、
@@ -13,7 +13,7 @@ favicon-source.png と同じ扱い。
 sharp('app/assets/og-source.png')
   .resize(1200, 630, { fit: 'fill' })
   .jpeg({ quality: 82, mozjpeg: true })
-  .toFile('public/og.jpg')
+  .toFile('public/images/og.jpg')
 ```
 
 - 1200×630 は Open Graph の標準寸法。元は 1733×907（比 1.9107）で、目標の
