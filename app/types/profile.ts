@@ -143,14 +143,13 @@ export interface Contact {
 export interface GallerySlide {
   /** Path under `public/`, e.g. `/images/private/bike.jpg`. */
   readonly src: string
-  /** Shown over the image, in the display face. */
-  readonly title: string
-  /** One line under the title. */
-  readonly note: string
   /**
-   * What the picture shows, for anyone who cannot see it. Not the same text
-   * as `title` — that one is decoration the caption already spells out.
+   * Names this slide on its button in the row under the stage. Nothing draws
+   * it — the pictures carry themselves, and a caption over them was only in
+   * the way — so this is read aloud and nowhere else.
    */
+  readonly label: string
+  /** What the picture shows, for anyone who cannot see it. */
   readonly alt: string
 }
 

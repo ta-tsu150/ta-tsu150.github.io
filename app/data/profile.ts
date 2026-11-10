@@ -409,33 +409,29 @@ const EXTERNAL_GROUP: NavGroup = {
  * served at full size to anyone who asks for the URL, and because a blob in
  * git history cannot be taken back out of it.
  *
- * Order is the display order. Captions are read by the caption strip only;
- * `alt` is what a screen reader gets, so it describes the picture instead of
- * repeating the title.
+ * Order is the display order. Nothing on the stage is labelled in writing:
+ * `label` names the slide's button for a screen reader, and `alt` describes
+ * the picture itself, so the two say different things on purpose.
  */
 export const privateGallery: readonly GallerySlide[] = [
   {
     src: '/images/private/sniper.jpg',
-    title: 'Airsoft',
-    note: 'サバイバルゲーム',
+    label: 'サバイバルゲーム',
     alt: '柱の陰から長物のエアソフトガンを構えている様子',
   },
   {
     src: '/images/private/bike.jpg',
-    title: 'Motorcycles',
-    note: 'バイクのショーにて',
+    label: 'バイクのショー',
     alt: 'モーターサイクルショーの会場で、展示されたバイクに跨っている様子',
   },
   {
     src: '/images/private/handgun.jpg',
-    title: 'Airsoft',
-    note: 'ハンドガン戦',
+    label: 'ハンドガン戦',
     alt: 'キャップとサングラスを着けて、ハンドガンを両手で構えている様子',
   },
   {
     src: '/images/private/hunter.jpg',
-    title: 'Armour',
-    note: '甲冑',
+    label: '甲冑',
     alt: '海を背にした甲冑姿の武者を、手前の人物越しに捉えた一枚',
   },
 ]

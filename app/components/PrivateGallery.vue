@@ -28,6 +28,19 @@ const swipe = useSwipe({
   left: () => go(index.value + 1),
   right: () => go(index.value - 1),
 })
+
+// Only a keyboard focus holds the slideshow; see `isKeyboardFocus`.
+function onFocusIn(event: FocusEvent): void {
+  if (isKeyboardFocus(event.target)) hold('focus')
+}
+
+function onPointerLeave(): void {
+  release('pointer')
+  // Tab to an arrow and then click it, and the hold taken for the keyboard is
+  // still there with no `focusin` coming to correct it. Reaching for the mouse
+  // is the moment it stopped meaning anything.
+  if (!isKeyboardFocus(document.activeElement)) release('focus')
+}
 </script>
 
 <template>
@@ -42,13 +55,13 @@ const swipe = useSwipe({
     @keydown.left.prevent="go(index - 1)"
     @keydown.right.prevent="go(index + 1)"
     @pointerenter="hold('pointer')"
-    @pointerleave="release('pointer')"
-    @focusin="hold('focus')"
+    @pointerleave="onPointerLeave"
+    @focusin="onFocusIn"
     @focusout="release('focus')"
     v-on="swipe"
   >
     <div class="stage">
-      <figure
+      <div
         v-for="(slide, i) in slides"
         :key="slide.src"
         class="slide"
@@ -66,12 +79,7 @@ const swipe = useSwipe({
           :fetchpriority="i === 0 ? 'high' : 'auto'"
           draggable="false"
         />
-        <figcaption class="caption">
-          <span class="num">{{ String(i + 1).padStart(2, '0') }}</span>
-          <span class="title">{{ slide.title }}</span>
-          <span class="note">{{ slide.note }}</span>
-        </figcaption>
-      </figure>
+      </div>
 
       <button class="arrow prev" type="button" aria-label="前の写真" @click="go(index - 1)">
         <Icon name="lucide:chevron-left" />
@@ -87,7 +95,7 @@ const swipe = useSwipe({
         :key="slide.src"
         class="step"
         type="button"
-        :aria-label="`${slide.title}（${i + 1}枚目）`"
+        :aria-label="`${slide.label}（${i + 1}枚目）`"
         :aria-current="i === index"
         @click="go(i)"
       >
@@ -180,64 +188,6 @@ const swipe = useSwipe({
   }
 }
 
-/* Dark wash under the caption, so the text holds over any photograph. */
-.caption {
-  position: absolute;
-  inset: auto 0 0 0;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  grid-template-areas:
-    'num title'
-    'num note';
-  align-items: center;
-  gap: 0 16px;
-  padding: 64px 24px 20px;
-  background: linear-gradient(transparent, rgba(6, 6, 16, 0.82));
-  /* Fixed white: this sits on a photograph in either theme. */
-  color: #fff;
-}
-
-.slide.active .caption {
-  animation: rise 800ms 120ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-play-state: var(--play, running);
-}
-
-@keyframes rise {
-  from {
-    opacity: 0;
-    translate: 0 14px;
-  }
-  to {
-    opacity: 1;
-    translate: 0 0;
-  }
-}
-
-.num {
-  grid-area: num;
-  font-family: var(--font-display);
-  font-size: 2.4rem;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  /* Reads as a mark rather than a number competing with the title. */
-  opacity: 0.45;
-}
-
-.title {
-  grid-area: title;
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-}
-
-.note {
-  grid-area: note;
-  font-size: 0.82rem;
-  opacity: 0.78;
-}
-
 .arrow {
   position: absolute;
   top: 50%;
@@ -328,18 +278,6 @@ const swipe = useSwipe({
 }
 
 @media (max-width: 768px) {
-  .caption {
-    padding: 48px 16px 16px;
-  }
-
-  .num {
-    font-size: 1.8rem;
-  }
-
-  .title {
-    font-size: 1rem;
-  }
-
   .arrow {
     width: 38px;
     height: 38px;
@@ -358,7 +296,6 @@ const swipe = useSwipe({
   }
 
   .slide.active :deep(img),
-  .slide.active .caption,
   .fill {
     animation: none;
   }
