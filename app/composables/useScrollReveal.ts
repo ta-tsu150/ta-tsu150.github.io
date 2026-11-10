@@ -1,5 +1,10 @@
 /** Elements that fade/slide in once they enter the viewport. */
-const DEFAULT_SELECTORS = ['.glass-card', '.timeline-item', '.section-title'] as const
+const DEFAULT_SELECTORS = [
+  '.glass-card',
+  '.timeline-item',
+  '.section-title',
+  '.gallery',
+] as const
 
 /**
  * Set on <html> by an inline script in `nuxt.config.ts` before first paint.

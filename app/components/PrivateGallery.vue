@@ -109,6 +109,20 @@ function onPointerLeave(): void {
 <style scoped>
 .gallery {
   position: relative;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/*
+ * Scroll reveal — see composables/useScrollReveal.ts, which has `.gallery` in
+ * its selector list. Without this the slideshow was the one thing on the page
+ * already in place while the heading and the card below it were still arriving.
+ *
+ * Same 30px and the same 0.6s as `.glass-card`, because it sits between two of
+ * them and anything else would read as a second, unrelated effect.
+ */
+.reveal-enabled .gallery:not([data-revealed]) {
+  opacity: 0;
+  transform: translateY(30px);
 }
 
 .gallery:focus-visible {
@@ -291,6 +305,7 @@ function onPointerLeave(): void {
  * that never moved.
  */
 @media (prefers-reduced-motion: reduce) {
+  .gallery,
   .slide {
     transition: none;
   }
@@ -307,6 +322,12 @@ function onPointerLeave(): void {
 
 /* A stack of absolutely positioned slides would print as one blank frame. */
 @media print {
+  /* Paper has no scrolling, so nothing would ever reveal it. */
+  .reveal-enabled .gallery:not([data-revealed]) {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
   .gallery::before,
   .arrow,
   .steps {
