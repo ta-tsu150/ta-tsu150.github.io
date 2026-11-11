@@ -29,17 +29,22 @@ const swipe = useSwipe({
   right: () => go(index.value - 1),
 })
 
-// Only a keyboard focus holds the slideshow; see `isKeyboardFocus`.
+/*
+ * The pointer does not stop the slideshow, deliberately. Pausing under the
+ * cursor is the usual carousel behaviour and it was here first, but it meant
+ * resting the mouse anywhere over the picture stopped it for as long as it
+ * stayed there, which is most of the time a visitor is looking at it.
+ *
+ * A keyboard focus still holds, and that one is not a preference. Tabbing in
+ * is how the arrow keys reach the slideshow, and content that moves while it
+ * is being operated moves out from under whoever is operating it — including
+ * a screen reader part way through reading the slide out.
+ *
+ * `isKeyboardFocus` is what separates the two: clicking an arrow focuses it
+ * without that counting, so a click does not leave the slideshow stopped.
+ */
 function onFocusIn(event: FocusEvent): void {
   if (isKeyboardFocus(event.target)) hold('focus')
-}
-
-function onPointerLeave(): void {
-  release('pointer')
-  // Tab to an arrow and then click it, and the hold taken for the keyboard is
-  // still there with no `focusin` coming to correct it. Reaching for the mouse
-  // is the moment it stopped meaning anything.
-  if (!isKeyboardFocus(document.activeElement)) release('focus')
 }
 </script>
 
@@ -54,8 +59,6 @@ function onPointerLeave(): void {
     tabindex="0"
     @keydown.left.prevent="go(index - 1)"
     @keydown.right.prevent="go(index + 1)"
-    @pointerenter="hold('pointer')"
-    @pointerleave="onPointerLeave"
     @focusin="onFocusIn"
     @focusout="release('focus')"
     v-on="swipe"

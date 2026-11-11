@@ -16,9 +16,9 @@
  */
 export function useAutoAdvance(step: () => void, durationMs: number) {
   /*
-   * Reasons, not a boolean. The pointer leaving should not start the timer
-   * again while the tab is still hidden, and a counter would have to be
-   * balanced perfectly to avoid drifting out of zero.
+   * Reasons, not a boolean. Focus leaving should not start the timer again
+   * while the tab is still hidden, and a counter would have to be balanced
+   * perfectly to avoid drifting out of zero.
    */
   const holds = ref(new Set<string>())
   const paused = computed(() => holds.value.size > 0)
