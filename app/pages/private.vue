@@ -26,38 +26,35 @@ useHead({
       <SectionHeading id="private-title" title="Private" />
 
       <PrivateGallery />
+    </section>
 
-      <GlassCard class="private-card">
-        <p>
-          仕事とは関係のないものを置く部屋です。
-        </p>
-      </GlassCard>
+    <section id="intro" class="section" aria-labelledby="intro-title">
+      <SectionHeading id="intro-title" title="Introduction" />
+      <PrivateIntro />
     </section>
   </div>
 </template>
 
 <style scoped>
 /*
- * The section starts below the fold on the index, where the hero has already
- * cleared the navbar. Here it is the first thing on the page, so it has to
- * clear the navbar itself.
+ * On the index every section starts below the fold, where the hero has
+ * already cleared the navbar. Here the first one is the top of the page and
+ * has to clear it itself.
+ *
+ * The `min-height: 100svh` that used to be here is gone with it: it was
+ * holding the window open while this page was a heading and one short card,
+ * and the slideshow and the introduction now fill it on their own.
  */
-.section {
+#private {
   padding-top: calc(var(--navbar-height) + 60px);
-  min-height: 100vh;
-  min-height: 100svh;
 }
 
 /*
- * The gallery is the first thing under the heading, so the gap above it comes
- * from the heading's own margin rather than from here.
+ * The introduction is the same subject as the slideshow above it, so it keeps
+ * the heading's own spacing instead of a second full section gap, which would
+ * read as a change of subject.
  */
-.private-card {
-  margin-top: 40px;
-}
-
-.private-card p {
-  color: var(--text-muted);
-  line-height: 2;
+#intro {
+  padding-top: 0;
 }
 </style>

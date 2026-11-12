@@ -4,7 +4,7 @@
  * the config is checked against the Node tsconfig, where the `~` alias is
  * not mapped — through that path the aliased form does not resolve.
  */
-import type { GallerySlide, NavGroup, Profile } from '../types/profile'
+import type { GallerySlide, NavGroup, PrivateIntro, Profile } from '../types/profile'
 
 /*
  * Exported because `nuxt.config.ts` needs it too, for the `sameAs` field of
@@ -435,6 +435,23 @@ export const privateGallery: readonly GallerySlide[] = [
     alt: '海を背にした甲冑姿の武者を、手前の人物越しに捉えた一枚',
   },
 ]
+
+/*
+ * The introduction under the slideshow on `/private`.
+ *
+ * 仮の文章。差し替え前提で、長さだけ本番に近づけてある。
+ */
+export const privateIntro: PrivateIntro = {
+  eyebrow: 'はじめまして',
+  lead: 'ポートフォリオの方は仕事の話だけにしたので、こちらは完全に個人的な話を置く部屋です。',
+  paragraphs: [
+    'ここに本文が入ります。普段していることや、好きなものについて書く予定です。'
+      + '段落はこの配列に足していけば、そのまま下に積まれていきます。'
+      + '長くなっても折り返しと行間はそのままなので、文量は気にしなくて大丈夫です。',
+    '2段落目です。1段落目と長さを変えてあるのは、どちらでも収まることを'
+      + '確かめるため。要らなければこの要素ごと消してください。',
+  ],
+}
 
 export const navGroups: readonly NavGroup[] = [
   {

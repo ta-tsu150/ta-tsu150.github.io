@@ -153,6 +153,23 @@ export interface GallerySlide {
   readonly alt: string
 }
 
+/**
+ * The introduction under the slideshow on `/private`.
+ *
+ * Separate from `Profile.about`, and not a second copy of it. That one
+ * introduces an engineer to someone deciding whether to work with him; this
+ * one has no such job, so nothing here needs to agree with the role, the
+ * tagline or the structured data.
+ */
+export interface PrivateIntro {
+  /** The short line above the opening. */
+  readonly eyebrow: string
+  /** The opening, set larger and standing apart from the body. */
+  readonly lead: string
+  /** The body. One `<p>` each, in order; add to the array to add a paragraph. */
+  readonly paragraphs: readonly string[]
+}
+
 /** Everything the page renders, in one place. */
 export interface Profile {
   readonly handle: string
